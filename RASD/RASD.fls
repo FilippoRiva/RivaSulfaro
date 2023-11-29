@@ -1,7 +1,7 @@
-PWD /home/phil/Dropbox/poli/vault/2-risorse/software_engineering_2/RivaSulfaro
+PWD /home/phil/Dropbox/poli/vault/2-risorse/software_engineering_2/RivaSulfaro/RASD
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/phil/Dropbox/poli/vault/2-risorse/software_engineering_2/RivaSulfaro/RASD.tex
+INPUT /home/phil/Dropbox/poli/vault/2-risorse/software_engineering_2/RivaSulfaro/RASD/RASD.tex
 OUTPUT RASD.log
 INPUT /usr/share/texmf-dist/tex/latex/base/report.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/report.cls
