@@ -3,11 +3,15 @@
 
 \usepackage{graphicx}
 \usepackage{geometry}
+
 \usepackage{enumitem}
+
 \usepackage{hyperref}
 \usepackage{colortbl}
+
 \usepackage{array}
 \usepackage{float}
+
 \usepackage{tabularx}
 \usepackage{longtable}
 
@@ -211,15 +215,16 @@ Educators are considered organizer when they create a tournament or are
 granted the permission to create KB by a tournament creator (close
 Tournament)
 \subsection{Student}
-The student is any kind of individual who wants to participate to a KT. 
+The student is a subscribed user to the CKB platform who wants to participate to a KT.
 
 
 \section{Domain Assumptions}
     \begin{enumerate}[label=(D\arabic*), font=\itshape]
-        \item Educators and students have an internet connection
-        \item Students know how to use GitHub and fork other repositories
-        \item Students know how to program GitHub Actions to notify the CKB platform
+        \item Educators and students have an internet connection.
+        \item Students know how to use GitHub and fork other repositories.
+        \item Students know how to program GitHub Actions to notify the CKB platform.
         \item Educators create KT and KB properly.
+        \item Educators evaluate students during a consolidation stage in a reasonable time.
     \end{enumerate}
 
 
@@ -243,49 +248,106 @@ The submission API to be used from GitHub Actions to automate the pull mechanism
 
 \section{Functional Requirements}
 Requirements : 
-\begin{table}[]
-\begin{tabular}{|l|p{130mm}|}
+\begin{longtable}[h] {|p{10mm}|p{130mm}|}
 \hline
-R1 & The system must allow educators and students to sign up. \\ \hline
-R2 & The system must allow educators and students to identify themselves via asign in procedure. \\ \hline
-R3 & The system must allow educators to create a new KT. \\ \hline
-R4 & The system must allow educators who are creating a KT to choose a KTname and description. \\ \hline
-R5 & The system must allow educators who are creating a KT to insert a KTsubscription deadline. \\ \hline
-R6 & The system must allow educators who created a KT to grant the permissionto other educators to become organizers of that KT. \\ \hline
-R7 & The system must notify all students about the creation of a new KT. \\ \hline
-R8 & The system must allow students to subscribe to a KT before its subscriptiondeadline. \\ \hline
-R9 & The system must allow students and educators to read the descriptions ofevery KT. \\ \hline
-R10 & The system must allow students and educators to read the description ofall the KB of every KT. \\ \hline
-R11 & The system must allow students, before the start of a KB, to invite otherstudents to join their team if the team size doesn’t exceed the maximumone defined by the organizer. \\ \hline
-R12 & The system, when the registration deadline of a KB expires, must create anew GitHub repository containing description, test cases and buildautomations scripts of the corresponding KB. \\ \hline
-R13 & The system must notify all the students about the start of a KB that theyhave previously joined. \\ \hline
-R14 & The system must provide a submission API to be notified about a change ofthe source code of a specific team. \\ \hline
-R15 & The system must obtain the new source code of a certain team every timeit is notified via its submission API. \\ \hline
-R16 & The system must automatically run static analysis tools over a team’s codeeach time it receives a new update and update the corresponding team’sscore. \\ \hline
-R17 & The system must automatically run tests over a team’s code each time itreceives a new update and update the corresponding team’s score. \\ \hline
-R18 & The system must update the KB rankings each time a team’s score change. \\ \hline
-R19 & The system must allow students and educators to see the tournamentrankings of every KT. \\ \hline
-R20 & The system must allow organizers of a specific KT to create KBs. \\ \hline
-R21 & The system must allow organizers who are creating a KB to specify itsdescription. \\ \hline
-R22 & The system must allow organizers who are creating a KB to specify its testcases. \\ \hline
-R23 & The system must allow organizers who are creating a KB to specify itsautomation scripts. \\ \hline
-R24 & The system must allow organizers who are creating a KB to set theminimum and maximum number of students per team for that KB. \\ \hline
-% split table ---- 
-\end{tabular}
-\end{table}
+% sign up -- %
+R & The system must allow educators and students to sign up. 
+\\ \hline
+R & The system must allow educators and students to identify themselves via a sign in procedure.
+\\ \hline 
+% creation of KT %
+R & The system must allow educators to create a new KT.
+\\ \hline
+R & The system must allow educators who are creating a KT to choose a KT name and description.
+\\ \hline
+R & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT.
+\\ \hline
+R & The system must notify all students about the creation of a new KT.
+\\ \hline
+R & The system must allow students to subscribe to a KT before its subscription deadline.
+\\ \hline
+R & The system must allow students and educators to read the descriptions of every KT.
+\\ \hline
 
-\begin{table}[]
-\begin{tabular}{|l|p{130mm}|}
-\hline
-% split table ---- 
-R25 & The system must allow organizers who are creating a KB to set itsregistration deadline. \\ \hline
-R26 & The system must allow organizers who are creating a KB to set itssubmission deadline. \\ \hline
-R27 & The system must allow organizers who are creating a KB to set if a manualevaluation of the KB results is needed. \\ \hline
-R28 & The system must allow organizers who are creating a KB to set whichquality level aspects are to be automatically evaluated by the system. \\ \hline
-R29 & The system must notify all students subscribed to a specific KT about thecreation of a new KB in that tournament. \\ \hline
-R30 & The system must allow educators and students to sign up \\ \hline
-\end{tabular}
-\end{table}
+% creation of a KB 
+R & The system must allow organizers of a specific KT to create KBs for that KT.
+\\ \hline
+
+R & The system must allow organizers who are creating a KB to specify its description.
+\\ \hline
+R & The system must allow organizers who are creating a KB to upload its software project.
+\\ \hline
+R & The system must allow organizers who are creating a KB to upload its test cases.
+\\ \hline
+R & The system must allow organizers who are creating a KB to upload its automation scripts.
+\\ \hline
+R & The system must allow organizers who are creating a KB to set the minimum and maximum number of students per team for that KB.
+\\ \hline
+R & The system must allow organizers who are creating a KB to set its registration deadline.
+\\ \hline
+R & The system must allow organizers who are creating a KB to set its submission deadline.
+\\ \hline
+R & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required.
+\\ \hline
+R & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system.
+\\ \hline
+
+R & The system must notify all students subscribed to a specific KT about the creation of a new KB in that tournament.
+\\ \hline
+R & The system must allow students and educators to read the description of all the KB of every KT. 
+\\ \hline
+R & The system must allow students subscribed to a specific KT to join the KT's KBs.
+\\ \hline
+R & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn’t exceed the maximum one defined by the organizer.
+\\ \hline
+
+% start of a KB
+R & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB.
+\\ \hline
+R & The system must notify all the students about the start of a KB that they have previously joined, sending the link to the GitHub repository corresponing to that KB.
+\\ \hline
+
+% testing and scoring during the battle
+R & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository. 
+\\ \hline
+R & The system must pull the new source code from the main branch of a certain team's GitHub repository every time it is notified via its submission API.
+\\ \hline
+R & The system must automatically run static analysis tools over a team’s code each time it receives a new update.
+\\ \hline
+R & The system must automatically update a team’s score each time a static analysis tool is executed over the team's code. 
+\\ \hline
+R & The system must automatically run test cases over a team’s executables each time it receives a new update.
+\\ \hline
+R & The system must automatically update a team’s score each time dynamic tests are run over the team's executables. 
+\\ \hline
+R & The system must automatically assign an additional score to each team based on the timeliness of the team's commits.
+\\ \hline
+R & The system must update the KB reach team based on the timeliness of the team's commitsch time a team’s score change. 
+\\ \hline
+
+R & The system must allow students and organizers involved in a specific KB to see the battle ranks of each team. 
+\\ \hline
+
+% consolidation stage and KB end
+R & The system must allow the organizer who created a specific KB to assign additional points to each team's score during the consolidation stage. 
+\\ \hline
+R & The system must notify all students participating in a KB about the end of the consolidation stage. 
+\\ \hline
+R & The system must allow students participating in a KB to see the final teams' scores as soon as the consolidation stage ends. 
+\\ \hline 
+
+% personal tournament score update  etc
+R & The system must add, at the end of each KB, the final team's score to the tournament rank of each student of that specific team.
+\\ \hline
+R & The system must allow students and educators to see the tournament rankings of every KT. 
+\\ \hline
+
+% KT end
+R & The system must allow educators who created a tournament to end that specific KT.
+\\ \hline
+R & The system must notify every student that was involved in a specific KT about the end of that KT.
+\\ \hline
+\end{longtable}
 
 \subsection{Use case diagrams} 
 
