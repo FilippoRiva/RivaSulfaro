@@ -21,12 +21,11 @@
     filecolor=magenta,      
     urlcolor=cyan,
     pdftitle={Requirement Analysis and Specification Document},}
-
-\graphicspath{ {Images/} }
+\graphicspath{ {./images/} }
 \geometry{a4paper, margin=100px}
 
 \title{CodeKataBattle - Requirement Analysis and Specification Document}
-% https://github.com/FilippoRiva/RivaSulfaro
+% https://github.com/AndreaPrati98/MaccarronePellizzerPrati
 \author{Filippo Riva, Antonio Sulfaro}
 \date{\today}
 
@@ -171,6 +170,9 @@
 
 \subsection{Class diagram}
 
+\includegraphics*[width=\textwidth]{Domain Level Class Diagram.jpg}
+
+
 \subsection{Scenarios}
 \subsubsection{S1 - Educator signs up}
 \subsubsection{S2 - Educator creates a KT}
@@ -255,7 +257,8 @@ Requirements :
 R & The system must allow educators and students to sign up.
 \\ \hline
 R & The system must allow educators and students to identify themselves via a sign in procedure.
-\\ \hline
+\\ \hline 
+
 % creation of KT %
 R & The system must allow educators to create a new KT.
 \\ \hline
@@ -273,7 +276,6 @@ R & The system must allow students and educators to read the descriptions of eve
 % creation of a KB
 R & The system must allow organizers of a specific KT to create KBs for that KT.
 \\ \hline
-
 R & The system must allow organizers who are creating a KB to specify its description.
 \\ \hline
 R & The system must allow organizers who are creating a KB to upload its software project.
@@ -319,23 +321,27 @@ R & The system must automatically update a team’s score each time a static ana
 \\ \hline
 R & The system must automatically run test cases over a team’s executables each time it receives a new update.
 \\ \hline
-R & The system must automatically update a team’s score each time dynamic tests are run over the team's executables.
+R & The system must automatically update a team’s score each time test cases are run over the team's executables. 
 \\ \hline
 R & The system must automatically assign an additional score to each team based on the timeliness of the team's commits.
 \\ \hline
-R & The system must update the KB reach team based on the timeliness of the team's commitsch time a team’s score change.
-\\ \hline
 
-R & The system must allow students and organizers involved in a specific KB to see the battle ranks of each team.
+R & The system must allow organizers and students involved in a specific KB to see the battle ranks of each team. 
 \\ \hline
 
 % consolidation stage and KB end
-R & The system must allow the organizer who created a specific KB to assign additional points to each team's score during the consolidation stage.
+R & The system must allow the organizer who created a specific KB to see the Github repositories of each team participating to that KB.
 \\ \hline
-R & The system must notify all students participating in a KB about the end of the consolidation stage.
+R & The system must allow the organizer who created a specific KB to assign additional points to each team's score during the consolidation stage. 
 \\ \hline
-R & The system must allow students participating in a KB to see the final teams' scores as soon as the consolidation stage ends.
+R & The system must allow the organizer who created a specific KB to end its the consolidation stage.
 \\ \hline
+R & The system must automatically end the consolidation stage of a KB if no manual evaluation is needed.
+\\ \hline
+R & The system must notify all students participating in a KB about the end of the KB.
+\\ \hline
+R & The system must allow the organizer and students participating in a KB to see the final teams' scores as soon as the consolidation stage ends. 
+\\ \hline 
 
 % personal tournament score update  etc
 R & The system must add, at the end of each KB, the final team's score to the tournament rank of each student of that specific team.
@@ -393,8 +399,8 @@ R & The system must notify every student that was involved in a specific KT abou
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Student}       & \textbf{Effort} \\ \hline
-Filippo Riva           & 8h             \\ \hline
-Antonio Sulfaro        & 8h             \\ \hline
+Filippo Riva           & 12h             \\ \hline
+Antonio Sulfaro        & 10h             \\ \hline
 \end{tabular}
 \end{table}
 
