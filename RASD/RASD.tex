@@ -25,7 +25,7 @@
 \geometry{a4paper, margin=100px}
 
 \title{CodeKataBattle - Requirement Analysis and Specification Document}
-% https://github.com/AndreaPrati98/MaccarronePellizzerPrati
+% https://github.com/FilippoRiva/RivaSulfaro
 \author{Filippo Riva, Antonio Sulfaro}
 \date{\today}
 
@@ -50,7 +50,7 @@
     understand and study some topics, to compare themselves with others and to enjoy more
     what they study.
 
-    In IT this statement is true more then ever since programming is a complex challenge,
+    In IT this statement is true more than ever since programming is a complex challenge,
     especially in working environments.
     CKB makes the challenge real, giving to educators the possibility to teach 
     and test their students through real projects, while giving to students the possibility to have fun 
@@ -234,17 +234,18 @@
 \subsection{Educator}
 The educator is an individual from a university, school, company
 or organization that subscribes to the CKB platform in order to organize
-competitions between students. This type of user can create KT about any
+competitions between students.
+This type of user can create KT about any
 kind of topic they want and can create KB related to the KT topics.
 The educators want to constantly see the tournament rankings and the current
-scores assigned to each team participating to a KB of that tournament.
+scores assigned to each team participating in a KB of that tournament.
 During the KT the educator might evaluate students’ solutions to the KB
 problems if they think a manual evaluation is needed.
 Educators are considered organizer when they create a tournament or are
 granted the permission to create KB by a tournament creator (close
 Tournament)
 \subsection{Student}
-The student is a subscribed user to the CKB platform who wants to participate to a KT\@.
+The student is a subscribed user to the CKB platform who wants to participate in a KT\@.
 
 
 \section{Domain Assumptions}
@@ -269,7 +270,7 @@ The website interface, clean easy to use
 A computer with an installed browser since all functionalities are being offered through a website
 
 \subsection{Software Interfaces}
-The submission API to be used from GitHub Actions to automate the pull mechanism.
+The website
 
 \subsection{Communication Interfaces}
 The submission API to be used from GitHub Actions to automate the pull mechanism.
@@ -283,7 +284,7 @@ Requirements :
 R & The system must allow educators and students to sign up.
 \\ \hline
 R & The system must allow educators and students to identify themselves via a sign in procedure.
-\\ \hline 
+\\ \hline
 
 % creation of KT %
 R & The system must allow educators to create a new KT.
@@ -347,18 +348,18 @@ R & The system must automatically update a team’s score each time a static ana
 \\ \hline
 R & The system must automatically run test cases over a team’s executables each time it receives a new update.
 \\ \hline
-R & The system must automatically update a team’s score each time test cases are run over the team's executables. 
+R & The system must automatically update a team’s score each time test cases are run over the team's executables.
 \\ \hline
 R & The system must automatically assign an additional score to each team based on the timeliness of the team's commits.
 \\ \hline
 
-R & The system must allow organizers and students involved in a specific KB to see the battle ranks of each team. 
+R & The system must allow organizers and students involved in a specific KB to see the battle ranks of each team.
 \\ \hline
 
 % consolidation stage and KB end
 R & The system must allow the organizer who created a specific KB to see the Github repositories of each team participating to that KB.
 \\ \hline
-R & The system must allow the organizer who created a specific KB to assign additional points to each team's score during the consolidation stage. 
+R & The system must allow the organizer who created a specific KB to assign additional points to each team's score during the consolidation stage.
 \\ \hline
 R & The system must allow the organizer who created a specific KB to end its the consolidation stage.
 \\ \hline
@@ -366,8 +367,8 @@ R & The system must automatically end the consolidation stage of a KB if no manu
 \\ \hline
 R & The system must notify all students participating in a KB about the end of the KB.
 \\ \hline
-R & The system must allow the organizer and students participating in a KB to see the final teams' scores as soon as the consolidation stage ends. 
-\\ \hline 
+R & The system must allow the organizer and students participating in a KB to see the final teams' scores as soon as the consolidation stage ends.
+\\ \hline
 
 % personal tournament score update  etc
 R & The system must add, at the end of each KB, the final team's score to the tournament rank of each student of that specific team.
@@ -415,8 +416,8 @@ R & The system must notify every student that was involved in a specific KT abou
 \section{Alloy Code}
 
 \section{Alloy Worlds}
-\subsection{First World}
-\section{..}
+\subsection{First World…}
+\section{...}
 
 %  5  --------------------------------------------------------------------------------------------%
 \chapter{Effort spent}
