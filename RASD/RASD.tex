@@ -101,34 +101,59 @@
         and overall experience
 
     \section{Scope}
-        \subsection{Phenomena}
-            \subsubsection{World Phenomena}
-                \begin{itemize}
-                    \item [$W01$] Educators create/prepare new katas.
-                    \item [$W02$] Students programs the solutions to katas.
-                    \item [$W03$] Students fork CKB's official GitHub repositories.
-                    \item [$W04$] Students upload their solutions to forks of CKB's official GitHub repositories.
-                \end{itemize}
-            \subsubsection{World Controlled Shared Phenomena}
-                \begin{itemize}
-                    \item [$S01$] Students sign up to the system.
-                    \item [$S02$] Educators sign up to the system.
-                    \item [$S03$] Educators create Kata Tournaments.
-                    \item [$S04$] Educators create Kata Battles.
-                    \item [$S05$] Educators evaluate students' solutions.
-                    \item [$S06$] Educators who created a Kata Tournament grant to other educators the permission to create battles within that tournament.
-                    \item [$S07$] Students subscribe to a Kata Tournament.
-                    \item [$S08$] Students join a Kata Battle.
-                    \item [$S09$] Students invite other students to participate to Kata Battles as a group.
-                \end{itemize}
-            \subsubsection{Machine Controlled Shared Phenomena}
-                \begin{itemize}
-                    \item [$M01$] The system notifies users about the beginning of a new tournament
-                    \item [$M02$] The system notifies users about the start of a kata battle. 
-                    \item [$M03$] The system notifies users about the final ranks of a kata battle.
-                    \item [$M04$] The system notifies users about their subscription to a kata battle.
-                    \item [$M05$] The system pulls new code from GitHub forks and updates the scores accordingly
-                \end{itemize}
+    The application domain of CodeKataBattle revolves around providing a dedicated space for students 
+    to engage in programming challenges hosted on the platform. Educators will play a pivotal role by curating
+    and uploading diverse kata problems aligned with educational objectives.
+
+    For each kata the platform will publish a GitHub repository with the testing environment provided by the educator. 
+    Those repositories will be used by the students partecipating to that competition to locally test their solutions.
+    The students will upload their kata solutions to GitHub and it will be the system's responsibility to
+    get the updated code and evaluate their solutions. 
+
+    In order to provide a detailed explanation of how the system, users and GitHub should interact with each other we describe in the following sections
+    the most important phenomena accordingly to the World and the Machine paradigm.
+        \subsubsection{World Phenomena}
+            The concept of World Phenomena refers to aspects or factors that exist outside the immediate scope or visibility of the CodeKataBattle system itself,
+            yet exert a significant influence on how the system operates or behaves. 
+
+            The most significant World Phenomena that we want to identify are: 
+            \begin{itemize}
+                \item [$W01$] Educators create and prepare new katas.
+                \item [$W02$] Students programs the solutions to katas.
+                \item [$W03$] Students fork CKB's official GitHub repositories.
+                \item [$W04$] Students upload their solutions to forks of CKB's official GitHub repositories.
+            \end{itemize}
+        \subsubsection{World Controlled Shared Phenomena}
+            World-Controlled Shared Phenomena are observable phenomena that are within the system's visibility and are influenced or controlled by external elements
+            or entities in the environment. These phenomena directly impact the system and typically cause specific and predefined reactions and responses
+            from the system itself.
+
+            The most important World Controlled Shared Phenomena that we are addressing are: 
+            \begin{itemize}
+                \item [$S01$] Students sign up to the system.
+                \item [$S02$] Educators sign up to the system.
+                \item [$S03$] Educators create Kata Tournaments.
+                \item [$S04$] Educators create Kata Battles.
+                \item [$S05$] Educators evaluate students' solutions.
+                \item [$S06$] Educators who created a Kata Tournament grant to other educators the permission to create battles within that tournament.
+                \item [$S07$] Students subscribe to a Kata Tournament.
+                \item [$S08$] Students join a Kata Battle.
+                \item [$S09$] Students invite other students to participate to Kata Battles as a group.
+                \item [$S10$] GitHub Actions notifies the system that a student or a group of students uploaded an updated solution.
+            \end{itemize}
+        \subsubsection{Machine Controlled Shared Phenomena}
+            Machine-Controlled Shared Phenomena are phenomena that are under the direct control of the system itself and generate observable
+            effects or impacts in both the system's operational environment and the stakeholders interacting with the system.
+
+            The Machine Controlled Shared Phenomena we are clarifying are: 
+            \begin{itemize}
+                \item [$M01$] The system notifies users about the beginning of a new tournament
+                \item [$M02$] The system notifies users about the start of a kata battle. 
+                \item [$M03$] The system notifies users about the final ranks of a kata battle.
+                \item [$M04$] The system notifies users about their subscription to a kata battle.
+                \item [$M05$] The system pulls new code from GitHub forks and updates the scores accordingly
+            \end{itemize}
+
     \section{Definitions, Acronyms, Abbreviations}
     \subsection{Definitions}
     \emph{Team} $\rightarrow$ A group of one or more students taking part to a Kata Battle
