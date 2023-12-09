@@ -119,10 +119,10 @@
 
             The most significant World Phenomena that we want to identify are: 
             \begin{itemize}
-                \item [$W01$] Educators create and prepare new katas.
-                \item [$W02$] Students programs the solutions to katas.
-                \item [$W03$] Students fork CKB's official GitHub repositories.
-                \item [$W04$] Students upload their solutions to forks of CKB's official GitHub repositories.
+                \item [W01 -] Educators create and prepare new katas.
+                \item [W02 -] Students programs the solutions to katas.
+                \item [W03 -] Students fork CKB's official GitHub repositories.
+                \item [W04 -] Students upload their solutions to forks of CKB's official GitHub repositories.
             \end{itemize}
         \subsubsection{World Controlled Shared Phenomena}
             World-Controlled Shared Phenomena are observable phenomena that are within the system's visibility and are influenced or controlled by external elements
@@ -131,16 +131,16 @@
 
             The most important World Controlled Shared Phenomena that we are addressing are: 
             \begin{itemize}
-                \item [$S01$] Students sign up to the system.
-                \item [$S02$] Educators sign up to the system.
-                \item [$S03$] Educators create Kata Tournaments.
-                \item [$S04$] Educators create Kata Battles.
-                \item [$S05$] Educators evaluate students' solutions.
-                \item [$S06$] Educators who created a Kata Tournament grant to other educators the permission to create battles within that tournament.
-                \item [$S07$] Students subscribe to a Kata Tournament.
-                \item [$S08$] Students join a Kata Battle.
-                \item [$S09$] Students invite other students to participate to Kata Battles as a group.
-                \item [$S10$] GitHub Actions notifies the system that a student or a group of students uploaded an updated solution.
+                \item [S01 -] Students sign up to the system.
+                \item [S02 -] Educators sign up to the system.
+                \item [S03 -] Educators create Kata Tournaments.
+                \item [S04 -] Educators create Kata Battles.
+                \item [S05 -] Educators evaluate students' solutions.
+                \item [S06 -] Educators who created a Kata Tournament grant to other educators the permission to create battles within that tournament.
+                \item [S07 -] Students subscribe to a Kata Tournament.
+                \item [S08 -] Students join a Kata Battle.
+                \item [S09 -] Students invite other students to participate to Kata Battles as a group.
+                \item [S10 -] GitHub Actions notifies the system that a student or a group of students uploaded an updated solution.
             \end{itemize}
         \subsubsection{Machine Controlled Shared Phenomena}
             Machine-Controlled Shared Phenomena are phenomena that are under the direct control of the system itself and generate observable
@@ -148,11 +148,11 @@
 
             The Machine Controlled Shared Phenomena we are clarifying are: 
             \begin{itemize}
-                \item [$M01$] The system notifies users about the beginning of a new tournament
-                \item [$M02$] The system notifies users about the start of a kata battle. 
-                \item [$M03$] The system notifies users about the final ranks of a kata battle.
-                \item [$M04$] The system notifies users about their subscription to a kata battle.
-                \item [$M05$] The system pulls new code from GitHub forks and updates the scores accordingly
+                \item [M01 -] The system notifies users about the beginning of a new tournament
+                \item [M02 -] The system notifies users about the start of a kata battle. 
+                \item [M03 -] The system notifies users about the final ranks of a kata battle.
+                \item [M04 -] The system notifies users about their subscription to a kata battle.
+                \item [M05 -] The system pulls new code from GitHub forks and updates the scores accordingly
             \end{itemize}
 
     \section{Definitions, Acronyms, Abbreviations}
@@ -379,31 +379,47 @@ In this section we'll discuss all the product functionalities that must be met b
 \end{itemize}
 
 \section{User Characteristics}
+In this section we'll outline the main users of the system and articulates their requirements and needs.
+
 \subsection{Educator}
-The educator is an individual from a university, school, company
-or organization that subscribes to the CKB platform in order to organize
-competitions between students.
-This type of user can create KT about any
-kind of topic they want and can create KB related to the KT topics.
+
+The educator is an individual that subscribes to the CKB platform in order to 
+organize competitions between students.
+This type of user can create KT about any kind of topic they want
+and can create KB related to the KT topics.
 The educators want to constantly see the tournament rankings and the current
 scores assigned to each team participating in a KB of that tournament.
+
 During the KT the educator might evaluate students’ solutions to the KB
 problems if they think a manual evaluation is needed.
-Educators are considered organizer when they create a tournament or are
-granted the permission to create KB by a tournament creator (close
-Tournament)
+Educators are considered Owners when they create a tournament.
+Educators are consideres Organizers if they are Owners or they are
+granted the Organizers permissions by a KT Owner. 
+
+The only Educator that will be able to end a KT is the KT Owner.
+
+
 \subsection{Student}
-The student is a subscribed user to the CKB platform who wants to participate in a KT\@.
+The student is a subscribed user to the CKB platform who wants to participate in a KT.
+Each student is able to subscribe to available KTs,
+create or join Teams and subscribe their Teams to KBs.
+The students partecipating to a KB, upload their kata solutions to GitHub and are
+be able to see their rankings during the progress of a KB.
+Their solutions are automatically evaluated and they only need to program a GitHub
+Actions workflow that notifies the CKB platform.
 
 
 \section{Domain Assumptions}
-    \begin{enumerate}[label=(D\arabic*), font=\itshape]
-        \item Educators and students have an internet connection.
-        \item Students know how to use GitHub and fork other repositories.
-        \item Students know how to program GitHub Actions to notify the CKB platform.
-        \item Educators create KT and KB properly.
-        \item Educators evaluate students during a consolidation stage in a reasonable time.
-    \end{enumerate}
+In this section, we'll list a set of assumed truths, operating on the premise that these assumptions are valid.
+Therefore, the software development will not address issues that arise from inconsistencies if these assumptions turn out to be false.
+
+\begin{enumerate}[label=D\arabic* - , font=\itshape]
+    \item Educators and students have an internet connection.
+    \item Students know how to use GitHub and fork other repositories.
+    \item Students know how to program GitHub Actions to notify the CKB platform.
+    \item Educators create KT and KB properly.
+    \item Educators evaluate students during a consolidation stage in a reasonable time.
+\end{enumerate}
 
 
 %  3  --------------------------------------------------------------------------------------------%
