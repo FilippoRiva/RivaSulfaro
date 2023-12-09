@@ -156,6 +156,11 @@
 
     \section{Definitions, Acronyms, Abbreviations}
     \subsection{Definitions}
+    \emph{Kata Tournament} $\rightarrow$ A competition organized by educators on the CKB platform, where students
+        can participate in various Kata Battles.
+    \\ \\
+    \emph{Kata Battle} $\rightarrow$ %TODO
+    \\ \\
     \emph{Team} $\rightarrow$ A group of one or more students taking part to a Kata Battle
     \\ \\
     \emph{Consolidation Stage} $\rightarrow$ The phase that commences upon the conclusion of a KB and extends until the
@@ -168,18 +173,18 @@
     \emph{Battle Rank} $\rightarrow$ The position of a team in a battle in comparison to others based on their score.
     \\ \\
     \emph{Score} $\rightarrow$ The numerical representation, between 0 and 100, of the students' performance in a battle,
-        calculated summing up all the evaluation factor in a proper way
+        calculated summing up all the evaluation factor in a proper way %TODO
     \\ \\
     \emph{Organizer} $\rightarrow$ An educator who possesses the permission to upload KB for a specific tournament.
         This authorization is granted when the educator has been invited by the creator of the tournament.
     \\ \\
 
     \subsection{Acronyms}
-    \emph{CKB}  $\rightarrow$ the CodeKataBattle platform
+    \emph{CKB}  $\rightarrow$ CodeKataBattle platform.
     \\ \\
-    \emph{KB}   $\rightarrow$ a Kata Battle.
+    \emph{KB}   $\rightarrow$ Kata Battle.
     \\ \\
-    \emph{KT}   $\rightarrow$ a Kata Tournament.
+    \emph{KT}   $\rightarrow$ Kata Tournament.
     \\ \\
     \emph{WPx}  $\rightarrow$ x-th World Phenomena.
     \\ \\
@@ -226,15 +231,69 @@
 
 \subsection{Scenarios}
 \subsubsection{S1 - Educator signs up}
+    John, a professor at Politecnico di Milano, is enthusiastic about teaching Go, a new programming language,
+    to his students. To embark on this journey, he discovers the CodeKataBattle (CKB) platform and decides to sign up
+    as an educator. Navigating to the CKB sign-up page, John fills in the required details, so his name, email, and a secure password.
+    After submitting the form, he promptly receives a confirmation email.
+    Clicking the link within the email verifies John's account, successfully completing the sign-up process.
 \subsubsection{S2 - Educator creates a KT}
+    After joining the CKB platform, Emma, a computer science lecturer, decides to organize a KT for her students.
+    Logging into the platform, she navigates to the tournament creation section.
+    Emma creates a KT, specifying details such as the name, description, and other relevant information.
+    Once satisfied, she finalizes the creation, making the tournament available for student subscriptions.
 \subsubsection{S3 - Educator creates a KB}
+    Michael, an IT instructor and an organizer associated with a specific KT, is eager to create a KB within the tournament.
+    Accessing the CKB platform, Michael selects the KT he is affiliated with as the organizer.
+    He uploads a challenging programming exercise, ensuring that the minimum and maximum number of students per group
+    align with his expectations. After configuring battle settings, such as deadlines and scoring criteria, Michael
+    successfully completes the KB creation. The KB is now available for student participation.
 \subsubsection{S4 - Educator manually evaluates the students' solutions to a KB}
+    Sarah, an educator, is the creator of a KB within a tournament. As the expiration deadline approaches, the system
+    automatically finalizes the battle. This battle has a manual evaluation required so, as the expiration deadline approaches, the consolidation stage start.
+    During the consolidation stage, Sarah diligently reviews students' solutions manually, assessing criteria such as
+    code quality, security, and reliability. She thoughtfully assigns personal scores based on her evaluation,
+    contributing to the determination of the final results.
+    Once Sarah completes the manual evaluations and is satisfied with the scores, she stops the consolidation stage, concluding the KB.
+    The system updates the scores for the KB, and correspondingly, the scores for the entire KT are also updated.
+    Students and educators involved in the tournament are notified, and the finalized results become available on the platform.
 \subsubsection{S5 - Student signs up}
+    Sophie, an aspiring programmer, hears about the CKB platform and is keen on improving her coding skills.
+    Visiting the sign-up page, Sophie enters her name, email, and a secure password.
+    Upon submission, she promptly receives a confirmation email.
+    Clicking the link within the email verifies Sophie's account, successfully completing her sign-up process.
 \subsubsection{S6 - Student subscribes to a KT}
+    Sophie, now a registered user, explores the platform and discovers a tournament organized by Emma.
+    Intrigued, she subscribes to Emma's KT. Sophie receives notifications about upcoming battles within the tournament,
+    fostering her anticipation and readiness for active participation.
 \subsubsection{S7 - Student joins a KB}
+    Jake, another student, decides to join a specific Kata Battle within a tournament he is subscribed to.
+    Navigating to the CKB platform, Jake selects the battle, possibly forming a team with other students, and confidently
+    confirms his participation
 \subsubsection{S8 - A KB starts}
+    As the designated start time for a KB arrives, Jake and other participants initialize their engagement.
+    Jake, for instance, forks the GitHub repository, clones it to his local machine, and sets up a GitHub Action
+    workflow for automated testing. Participants collaborate, write code, and commit changes to their GitHub repositories.
+    The CKB platform automatically starts evaluating their solutions based on predefined criteria, providing real-time
+    updates on their scores.
 \subsubsection{S9 - Student pushes a new solution to his GitHub repo and the system tests it}
+Sophie, who is actively participating in Emma's tournament, makes progress on her solution.
+She pushes a new commit to her GitHub repository. The CKB platform detects the commit through GitHub Actions,
+retrieves the latest source code, and initiates automated testing.
+The system assesses the functionality, timeliness, and quality of the solution, updating Sophie's score in real-time.
 \subsubsection{S10 - A KB ends}
+David, a programming enthusiast, actively participates in a Kata Battle (KB) on the CodeKataBattle (CKB) platform.
+As the designated end time for the KB approaches, participants, including David, finalize their solutions and commit
+the last changes to their GitHub repositories. The CKB platform automatically concludes the KB, triggering the automated
+evaluation process. Since the manual evaluation is not required, David can instantly sees how his team performed in the coding challenge.
+The competition phase is now complete, and David reflects on the experience,
+considering future participation in upcoming battles or tournaments.
+\subsubsection{S11 - Educator Closes a KT}
+Emily, an educator on the CKB platform, decides to conclude a Kata Tournament (KT) she created.
+After all the battles within the tournament have ended and the consolidation stages are complete, Emily reviews
+the overall results. Satisfied with the outcomes, she navigates to the tournament settings and closes the KT.
+The system then finalizes the tournament rankings and notifies all participating students about the closure.
+Students can now view their updated personal tournament scores, and the KT is marked as closed on the platform.
+Emily reflects on the success of the tournament and considers organizing future coding challenges for her students.
 
 \section{Product Functions}
 \begin{itemize}
