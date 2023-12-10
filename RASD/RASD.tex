@@ -15,15 +15,52 @@
 \usepackage{tabularx}
 \usepackage{longtable}
 
+
+% including pictures in the title -- %
+\usepackage{titlepic}
+
+% fancy headers -- %
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\fancyhead[L]{\nouppercase{\rightmark}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\setlength{\headheight}{13.6pt}
+\addtolength{\topmargin}{-0.1pt}
+
+%table coloring -- %
+\usepackage[table]{xcolor} % Add the xcolor package for background color
+
+%table padding -- %
+\def\arraystretch{1.5}
+
+% hyperlinks -- %
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
     filecolor=magenta,      
-    urlcolor=cyan,
+    urlcolor=black,
     pdftitle={Requirement Analysis and Specification Document},}
+
+% paths to the graphic folder relative to the tex file -- %
 \graphicspath{ {./images/} }
+
 \geometry{a4paper, margin=100px}
 
+% custom counter for requirements-- %
+\newcounter{rcounter}
+\setcounter{rcounter}{0}
+\newcommand{\rc}{
+    \addtocounter{rcounter}{1}
+    R\arabic{rcounter}
+}
+
+% --------------------------------------------------------------------------------------------- %
+
+\pagenumbering{Roman}
+
+\titlepic{\includegraphics[width=0.5\textwidth]{logo_polimi.png}}
 \title{CodeKataBattle - Requirement Analysis and Specification Document}
 % https://github.com/FilippoRiva/RivaSulfaro
 \author{Filippo Riva, Antonio Sulfaro}
@@ -41,9 +78,23 @@
     \end{centering}
 \end{titlepage}
 
+
 \tableofcontents
 
+\cleardoublepage
+
+
+
+
+
+
+
+
+
+
 %  1  --------------------------------------------------------------------------------------------%
+
+\pagenumbering{arabic}
 
 \chapter{Introduction}
     Challenges may be a good way to give students the opportunity and the willpower to learn,
@@ -59,8 +110,6 @@
     The entire platform can be used on one hand by anyone who wants to improve their programming skills and wants to compete
     with his friends or co-workers or, on the other hand, by educators from the CKB owner company or public users who are 
     really passionate about teaching informatics.
-    \\
-
 
     \section{Purpose}
     The CodeKataBattle project, as it's name might suggest, is taking inspiration from the concept 
@@ -70,199 +119,257 @@
     The main idea is to apply this concept to competitive programming, giving students many
     problems to solve and making them learn by trial and error.
 
+    \subsection*{Goals}
     Let's now introduce the main goals of the CKB project;
-    these goals collectively outline the essential functionalities and interactions that the CKB platform should support,catering to both educators and students.
+    these goals collectively outline the essential functionalities and interactions that the CKB platform should support.
     Achieving these goals will result in a comprehensive and effective platform
-    for organizing and participating in programming exercises and competitions.
-    \subsubsection{G1 - Allow educators to create Kata Tournaments}
-        This goal focuses on providing educators with the capability to create tournaments on the CKB platform.
-        Educators should be able to define the details of the tournament, such as its name, description, and other relevant settings.
-    \subsubsection{G2 - Allow educators to create Kata Battles for a specific Kata Tournament}
-        This goal extends the capabilities of educators to create specific battles within a tournament.
-        Educators should be able to upload code katas, set the minimum and maximum number of students per group,
-        define registration and submission deadlines, and configure scoring aspects for each battle.
-    \subsubsection{G3 - Allow educators to evaluate students automatically via the system and optionally via a manual scoring}
-        This goal involves providing educators with the tools to assess students' performance automatically through the system.
-        It includes functionalities such as automated evaluation of functional aspects, timeliness, and source code quality.
-        Additionally, there should be an option for educators to perform manual evaluations and assign personal scores based
-        on their assessment.
-    \subsubsection{G4 - Allow students to subscribe to Kata Tournaments available on the CKB platform}
-        This goal is about enabling students to subscribe to the tournaments created by educators on the CKB platform.
-        Students should be notified of available tournaments and have the ability to subscribe.
-    \subsubsection{G5 - Allow students to join Kata Battles of a certain Kata Tournament alone or as a team}
-        This goal focuses on the participation of students in specific battles within a tournament.
-        Students should be able to form teams or join battles individually, respecting the minimum and maximum number
-        of students per group set by educators.
-    \subsubsection{G6 - Allow students to compete in specific Kata Tournament}
-        This goal emphasizes enabling students to actively participate and compete in the overall Kata Tournament.
-        It encompasses the entire process, from subscribing to the tournament to joining battles, submitting solutions,
-        and ultimately competing for scores and rankings.
-    \subsubsection{G7 - Provide notifications about critical event}
-        This goal ensures that users stay informed about key activities and developments, enhancing their engagement
-        and overall experience
+    for organizing and participating in programming competitions.
+    \begin{description}
+        \item[G1] \textbf{Allow educators to create Kata Tournaments}
+            \\ 
+            This goal focuses on providing educators with the capability to create tournaments on the CKB platform.
+            Educators should be able to define the details of the tournament, such as its name, description, and other relevant settings.
+    
+    \newpage
+        \item[G2] \textbf{Allow educators to create Kata Battles for a specific Kata Tournament}
+            \\
+            This goal extends the capabilities of educators to create specific battles within a tournament.
+            Educators should be able to upload code katas, set the minimum and maximum number of students per group,
+            define registration and submission deadlines, and configure scoring aspects for each battle.
+        \item[G3] \textbf{Allow educators to evaluate students automatically via the system and optionally via a manual scoring}
+            \\
+            This goal involves providing educators with the tools to assess students' performance automatically through the system.  It includes functionalities such as automated evaluation of functional aspects, timeliness, and source code quality.
+            Additionally, there should be an option for educators to perform manual evaluations and assign personal scores based
+            on their assessment.
+        \item[G4] \textbf{Allow students to subscribe to Kata Tournaments available on the CKB platform}
+            \\
+            This goal is about enabling students to subscribe to the tournaments created by educators on the CKB platform.
+            Students should be notified of available tournaments and have the ability to subscribe.
+        \item[G5] \textbf{Allow students to join Kata Battles of a certain Kata Tournament alone or as a team}
+            \\
+            This goal focuses on the participation of students in specific battles within a tournament.
+            Students should be able to form teams or join battles individually, respecting the minimum and maximum number
+            of students per group set by educators.
+        \item[G6] \textbf{Allow students to compete in specific Kata Tournament}
+            \\
+            This goal emphasizes enabling students to actively participate and compete in the overall Kata Tournament.
+            It encompasses the entire process, from subscribing to the tournament to joining battles, submitting solutions,
+            and ultimately competing for scores and rankings.
+        \item[G7] \textbf{Provide notifications about critical event}
+            \\
+            This goal ensures that users stay informed about key activities and developments, enhancing their engagement
+            and overall experience
+    \end{description}
 
+    \newpage
     \section{Scope}
-    The application domain of CodeKataBattle revolves around providing a dedicated space for students to engage in programming challenges hosted on the platform.
-    Educators will play a pivotal role by curating and uploading diverse kata problems aligned with educational objectives.
+    The application domain of CodeKataBattle revolves around providing a dedicated space for students to engage in programming challenges hosted on the platform
+    while giving Educators the ability to curate and upload diverse kata problems aligned with their educational objectives.
+    \\
 
-    For each kata the platform will publish a GitHub repository with the testing environment provided by the educator. 
-    Those repositories will be used by the students participating in that competition to locally test their solutions.
-    The students will upload their kata solutions to GitHub, and it will be the system's responsibility to
+    An important clarification to address before proceeding is the utilization of the GitHub platform as an external support platform.
+    In fact for each kata the CKB platform will publish a GitHub repository with the testing environment provided by the educator
+    which will be used by the students participating in that competition to locally test their solutions.
+    Furthermore the students will upload their kata solutions to GitHub, and it will be the system's responsibility to
     get the updated code and evaluate their solutions. 
 
+    \subsection*{Phenomena}
     In order to provide a detailed explanation of how the system, users and GitHub should interact with each other we describe in the following sections
     the most important phenomena accordingly to the World and the Machine paradigm.
-        \subsubsection{World Phenomena}
-            The concept of World Phenomena refers to aspects or factors that exist outside the immediate scope or visibility of the CodeKataBattle system itself,
-            yet exert a significant influence on how the system operates or behaves. 
 
-            The most significant World Phenomena that we want to identify are: 
-            \begin{itemize}
-                \item [W01 -] Educators create and prepare new katas.
-                \item [W02 -] Students programs the solutions to katas.
-                \item [W03 -] Students fork CKB's official GitHub repositories.
-                \item [W04 -] Students upload their solutions to forks of CKB's official GitHub repositories.
-            \end{itemize}
-        \subsubsection{World Controlled Shared Phenomena}
-            World-Controlled Shared Phenomena are observable phenomena that are within the system's visibility and are influenced or controlled by external elements
-            or entities in the environment.
-            These phenomena directly impact the system and typically cause specific and predefined reactions and responses from the system itself.
+    \subsubsection*{- World Phenomena}
+    The concept of World Phenomena refers to aspects that exist outside the immediate scope and visibility of the CodeKataBattle system itself,
+    yet exert a significant influence on how the system operates.
+    \begin{center}
+    \begin{tabular}{|c|p{12cm}|}
+    \hline
+    \rowcolor{gray!20} % Background color for the header row
+    \textbf{ID} & \textbf{Description} \\ \hline
+    \textbf{W01} & Educators create and prepare new katas. \\
+    \hline
+    \textbf{W02} & Students program the solutions to katas. \\
+    \hline
+    \textbf{W03} & Students fork CKB's official GitHub repositories. \\
+    \hline
+    \textbf{W04} & Students upload their solutions to forks of CKB's official GitHub repositories. \\
+    \hline
+    \end{tabular}
+    \end{center}
 
-            The most important World Controlled Shared Phenomena that we are addressing are: 
-            \begin{itemize}
-                \item [S01 -] Students sign up to the system.
-                \item [S02 -] Educators sign up to the system.
-                \item [S03 -] Educators create Kata Tournaments.
-                \item [S04 -] Educators create Kata Battles.
-                \item [S05 -] Educators evaluate students' solutions.
-                \item [S06 -] Educators who created a Kata Tournament grant to other educators the permission to create battles within that tournament.
-                \item [S07 -] Students subscribe to a Kata Tournament.
-                \item [S08 -] Students join a Kata Battle.
-                \item [S09 -] Students invite other students to participate to Kata Battles as a group.
-                \item [S10 -] GitHub Actions notifies the system that a student or a group of students uploaded an updated solution.
-            \end{itemize}
-        \subsubsection{Machine Controlled Shared Phenomena}
-            Machine-Controlled Shared Phenomena are phenomena that are under the direct control of the system itself and generate observable
-            effects or impacts in both the system's operational environment and the stakeholders interacting with the system.
 
-            The Machine Controlled Shared Phenomena we are clarifying are: 
-            \begin{itemize}
-                \item [M01 -] The system notifies users about the beginning of a new tournament
-                \item [M02 -] The system notifies users about the start of a kata battle. 
-                \item [M03 -] The system notifies users about the final ranks of a kata battle.
-                \item [M04 -] The system notifies users about their subscription to a kata battle.
-                \item [M05 -] The system pulls new code from GitHub forks and updates the scores accordingly
-            \end{itemize}
+    \subsubsection*{- World-Controlled Shared Phenomena}
+    World-Controlled Shared Phenomena are observable phenomena that are within the system's visibility and are controlled by external entities.
+    These phenomena directly impact the system and cause specific and predefined reactions from the system itself.
 
+    \begin{center}
+    \begin{tabular}{|c|p{12cm}|}
+    \hline
+    \rowcolor{gray!20} % Background color for the header row
+    \textbf{ID} & \textbf{Description} \\ \hline
+    \textbf{S01} & Students sign up to the system. \\
+    \hline
+    \textbf{S02} & Educators sign up to the system. \\
+    \hline
+    \textbf{S03} & Educators create Kata Tournaments. \\
+    \hline
+    \textbf{S04} & Educators create Kata Battles. \\
+    \hline
+    \textbf{S05} & Educators evaluate students' solutions. \\
+    \hline
+    \textbf{S06} & Educators who created a Kata Tournament grant to other educators the permission to create battles within that tournament. \\
+    \hline
+    \textbf{S07} & Students subscribe to a Kata Tournament. \\
+    \hline
+    \textbf{S08} & Students join a Kata Battle. \\
+    \hline
+    \textbf{S09} & Students invite other students to participate in Kata Battles as a group. \\
+    \hline
+    \textbf{S10} & GitHub Actions notifies the system that a student or a group of students uploaded an updated solution. \\
+    \hline
+    \end{tabular}
+    \end{center}
+
+    \subsubsection*{- Machine-Controleld Shared Phenomena}
+    Machine-Controlled Shared Phenomena are phenomena that are under the direct control of the system itself and generate observable
+    effects in both the system's operational environment and the stakeholders interacting with the system.
+
+    \begin{center}
+    \begin{tabular}{|c|p{12cm}|}
+    \hline
+    \rowcolor{gray!20} % Background color for the header row
+    \textbf{ID} & \textbf{Description} \\ \hline
+    \textbf{M01} & The system notifies users about the beginning of a new tournament. \\
+    \hline
+    \textbf{M02} & The system notifies users about the start of a kata battle. \\
+    \hline
+    \textbf{M03} & The system notifies users about the final ranks of a kata battle. \\
+    \hline
+    \textbf{M04} & The system notifies users about their subscription to a kata battle. \\
+    \hline
+    \textbf{M05} & The system pulls new code from GitHub forks and updates the scores accordingly. \\
+    \hline
+    \end{tabular}
+    \end{center}
+
+    \newpage
     \section{Definitions, Acronyms, Abbreviations}
+    Here's a list of useful definitions necessary to a comprehensive understanding of the CodeKataBattle RASD document
     \subsection{Definitions}
-    \emph{Kata Tournament} $\rightarrow$ A competition organized by educators on the CKB platform, where students
-        can participate in various Kata Battles.
-    \\ \\
-    \emph{Kata Battle} $\rightarrow$ %TODO
-    \\ \\
-    \emph{Team} $\rightarrow$ A group of one or more students taking part to a Kata Battle
-    \\ \\
-    \emph{Consolidation Stage} $\rightarrow$ The phase that commences upon the conclusion of a KB and extends until the
-        educator decides to finalize it.
-        This stage is characterized by the manual evaluation of students' submissions, so if it is not required,
-        it does not exist.
-    \\ \\
-    \emph{Tournament Rank} $\rightarrow$ The position of a student in a tournament in comparison to others based on his score.
-    \\ \\
-    \emph{Battle Rank} $\rightarrow$ The position of a team in a battle in comparison to others based on their score.
-    \\ \\
-    \emph{Score} $\rightarrow$ The numerical representation, between 0 and 100, of the students' performance in a battle,
-        calculated summing up all the evaluation factor in a proper way %TODO
-    \\ \\
-    \emph{Organizer} $\rightarrow$ An educator who possesses the permission to upload KB for a specific tournament.
-        This authorization is granted when the educator has been invited by the creator of the tournament.
-    \\ \\
+    \begin{description}
+        \item[Kata Tournament :] A competition organized by educators on the CKB platform, where students
+            can participate in various Kata Battles.
+        \item[Kata Battle :] %TODO
+        \item[Team :] A group of one or more students taking part to a Kata Battle
+        \item[Consolidation Stage :] The phase that commences upon the conclusion of a KB and extends until the
+            educator decides to finalize it.
+            This stage is characterized by the manual evaluation of students' submissions, so if it is not required,
+            it does not exist.
+        \item[Tournament Rank :] The position of a student in a tournament in comparison to others based on his score.
+        \item[Battle Rank :] The position of a team in a battle in comparison to others based on their score.
+        \item[Score :] The numerical representation, between 0 and 100, of the students' performance in a battle,
+            calculated summing up all the evaluation factor in a proper way %TODO
+        \item[Organizer :] An educator who possesses the permission to upload KB for a specific tournament.
+            This authorization is granted when the educator has been invited by the creator of the tournament.
+    \end{description}
 
     \subsection{Acronyms}
-    \emph{CKB}  $\rightarrow$ CodeKataBattle platform.
-    \\ \\
-    \emph{KB}   $\rightarrow$ Kata Battle.
-    \\ \\
-    \emph{KT}   $\rightarrow$ Kata Tournament.
-    \\ \\
-    \emph{WPx}  $\rightarrow$ x-th World Phenomena.
-    \\ \\
-    \emph{SPx}  $\rightarrow$ x-th Shared Phenomena.
-    \\ \\
-    \emph{Rx}   $\rightarrow$ x-th Requirement.
-    \\ \\
-    \emph{Dx}   $\rightarrow$ x-th Domain Assumption.
-    \\ \\
-    \emph{Sx}   $\rightarrow$ x-th Scenario.
-
+    \begin{description}
+        \item[CKB :] CodeKataBattle platform.
+        \item[KB :] Kata Battle.
+        \item[KT :] Kata Tournament.
+        \item[WPx :] x-th World Phenomena.
+        \item[SPx :] x-th Shared Phenomena.
+        \item[Rx :] x-th Requirement.
+        \item[Dx :] x-th Domain Assumption.
+        \item[Sx :] x-th Scenario.
+    \end{description}
 
     \subsection{Abbreviations}
-    \emph{repo}  $\rightarrow$ GitHub repository.
-    \\ \\
+    \begin{description}
+        \item[repo :] GitHub repository.
+    \end{description}
 
+    \newpage
     \section{Revision History}
     \begin{itemize}
-        \item November 26, 2023: version 0.1 (goals, phenomena, requirements and scenarios definitions)
-        \item November 29, 2023: version 0.2 (document structure)
-        \item December 9, 2023: version 0.3 (completed Introduction and Overall Description)
+        \item[0.1 -] November 26, 2023: Goals, phenomena, requirements and scenarios definitions.
+        \item[0.2 -] November 29, 2023: Document structure.
+        \item[0.3 -] December 9, 2023: Completed Introduction and Overall Description.
     \end{itemize}
 
     \section{Reference Documents}
-    \emph{Reference book} $\rightarrow$ Hans Van Vilet - Software Engineering: Principles and Practice
-    \\ \\
-    \emph{Alloy official documentation} $\rightarrow$ https://alloytools.org/documentation.html
-    \\ \\
+
+    Reference Books : 
+    
+    Hans Van Vilet - Software Engineering: Principles and Practice
+    \\
+
+    \noindent Alloy documentation :     
+
+    \url{https://alloytools.org/documentation.html}
+
+    \url{https://alloy.readthedocs.io}
+
     \section{Document Structure}
     We offer a concise overview of the document structure: 
     \begin{itemize}
-        \item \textbf{Section 1: Introduction}\\
+        \item \textbf{Chapter 1: Introduction}\\
         Provides an overview of the document, introducing the project, its purpose, and its intended audience, defining useful 
         background information and the application domain of the software being developed. 
         It outlines the scope and objectives thanks to the definition of a series of goals and phenomena.
         
-        \item \textbf{Section 2: Overall Description}\\
+        \item \textbf{Chapter 2: Overall Description}\\
         It defines a domain level class diagrams of the entities that constitute the software.
         Provides a description of possible scenarios describing the general behavior of the system.
         It includes information on the general functionalities, user characteristics and assumptions.
         Additionally, it discusses the context in which the software operates defining its dependencies.
         
-        \item \textbf{Section 3: Specific Requirements}\\
+        \item \textbf{Chapter 3: Specific Requirements}\\
         Defines the necessary external system interfaces that allow the system to work and communicate with all the defined actors.
         Details specific functional and non-functional requirements of the system. 
         Provides a description of use cases and sequence diagrams to further explain its behaviour.
         
-        \item \textbf{Section 4: Formal Analysis through Alloy}\\
+        \item \textbf{Chapter 4: Formal Analysis through Alloy}\\
         Focuses on a formal analysis of a system's model using Alloy, a formal specification language.
         This section includes the alloy code, written to verify and validate system properties and behaviours, and the reasoning behind it.
         
-        \item \textbf{Section 5: Effort Spent}\\
+        \item \textbf{Chapter 5: Effort Spent}\\
         Provides a summary or breakdown of the effort expended during the project in terms of time spent.
     \end{itemize}
 
+
+
+
+
 %  2  --------------------------------------------------------------------------------------------%
 \chapter{Overall Description}
+
 \section{Product Perspective}
 In this section we'll define a UML class diagram for the application along with a compilation of significant scenarios illustrating the practical uses of our system.
-\subsection{Class diagram}
 
-The system model revolves around two user types: Students and Educators.
+\subsection{Domain Level Class diagram}
+In order to enhance the understading and to enable a more effective communcation of the system requirements among stakeholders, we include a class diagram representing
+a domain level model of it's entities.
 
-\textbf{Students} are individuals interested in participating in Kata Tournaments.
-Students have the possibility to form Teams.
-Those Teams comprise one or more students and have the ability to compete in precisely one KataBattle.
+\begin{figure}[H]
+\includegraphics*[width=0.82\textwidth]{Domain Level Class Diagram}
+\caption{Domain Level Class Diagram of the CKB platform model.}
+\end{figure}
 
-\textbf{Educators} are individuals interested in creating Kata Tournaments.
-We define 2 subtypes of the Educator user, which are:
+The system model revolves around two user types: 
 
-\begin{itemize}
-    \item \emph{Organizers} : Educators involved in the organization of a KT by creating its KBs and overseeing their management.
-    \item \emph{Owners} : Organizers who originally establish a KT. These users exclusively hold the authority to grant Organizer permissions within a KT and are the only individual capable of concluding a KT\@.
-\end{itemize}
+\begin{description}
+    \item[Students] : Individuals interested in participating in Kata Tournaments.\\
+    Students have the possibility to form Teams.
+    Those Teams comprise one or more students and have the ability to compete in precisely one KataBattle.
+    \item[Educators] : Individuals interested in creating Kata Tournaments. \\
+    We define 2 subtypes of the Educator user, which are:
+    \begin{description}
+        \item[\emph{Organizers}] : Educators involved in the organization of a KT by creating its KBs and overseeing their management.
+        \item[\emph{Owners}] : Organizers who originally create a KT. These users exclusively hold the authority to grant Organizer permissions within a KT and are the only individual capable of concluding a KT\@.
+    \end{description}
+\end{description}
 
-\begin{center}
-\includegraphics*[width=\textwidth]{Domain Level Class Diagram}
-\end{center}
 
 Another important aspect that can be clearly seen in the class diagram is the KT-KB relationship.
 Each KT is composed by 0 or more KBs and each KB has exactly one CodeKata, which represent the problem to solve.
@@ -474,14 +581,23 @@ Actions workflow that notifies the CKB platform.
 \section{Domain Assumptions}
 In this section, we'll list a set of assumed truths, operating on the premise that these assumptions are valid.
 Therefore, the software development will not address issues that arise from inconsistencies if these assumptions turn out to be false.
-
-\begin{enumerate}[label=D\arabic* - , font=\itshape]
-    \item Educators and students have an internet connection.
-    \item Students know how to use GitHub and fork other repositories.
-    \item Students know how to program GitHub Actions to notify the CKB platform.
-    \item Educators create KT and KB properly.
-    \item Educators evaluate students during a consolidation stage in a reasonable time.
-\end{enumerate}
+\begin{center}
+\begin{tabular}{|c|p{12cm}|}
+\hline
+\rowcolor{gray!20} % Background color for the header row
+\textbf{ID} & \textbf{Description} \\ \hline
+\textbf{D01} & Educators and students have an internet connection. \\
+\hline
+\textbf{D02} & Students know how to use GitHub and fork other repositories. \\
+\hline
+\textbf{D03} & Students know how to program GitHub Actions to notify the CKB platform. \\
+\hline
+\textbf{D04} & Educators create KT and KB properly. \\
+\hline
+\textbf{D05} & Educators evaluate students during a consolidation stage in a reasonable time. \\
+\hline
+\end{tabular}
+\end{center}
 
 
 %  3  --------------------------------------------------------------------------------------------%
@@ -503,109 +619,153 @@ The submission API to be used from GitHub Actions to automate the pull mechanism
 
 
 \section{Functional Requirements}
+
+\subsubsection*{Registration and Identification}
+
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
 \hline
-% sign up -- %
-R & The system must allow educators and students to sign up.
-\\ \hline
-R & The system must allow educators and students to identify themselves via a sign-in procedure.
-\\ \hline
+\rowcolor{gray!20}
+\textbf{ID} & \textbf{Description} \\ \hline
+    \rc & The system must allow educators and students to sign up.
+    \\ \hline
+    \rc & The system must allow educators and students to identify themselves via a sign-in procedure.
+    \\ \hline
+\end{longtable}
 
-% creation of KT %
-R & The system must allow educators to create a new KT\@.
-\\ \hline
-R & The system must allow educators who are creating a KT to choose a KT name and description.
-\\ \hline
-R & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT\@.
-\\ \hline
-R & The system must notify all students about the creation of a new KT\@.
-\\ \hline
-R & The system must allow students to subscribe to a KT before its subscription deadline.
-\\ \hline
-R & The system must allow students and educators to read the descriptions of every KT\@.
-\\ \hline
+\subsubsection*{Creation of Kata Tournaments}
 
-% creation of a KB
-R & The system must allow organizers of a specific KT to create KBs for that KT\@.
-\\ \hline
-R & The system must allow organizers who are creating a KB to specify its description.
-\\ \hline
-R & The system must allow organizers who are creating a KB to upload its software project.
-\\ \hline
-R & The system must allow organizers who are creating a KB to upload its test cases.
-\\ \hline
-R & The system must allow organizers who are creating a KB to upload its automation scripts.
-\\ \hline
-R & The system must allow organizers who are creating a KB to set the minimum and maximum number of students per team for that KB\@.
-\\ \hline
-R & The system must allow organizers who are creating a KB to set its registration deadline.
-\\ \hline
-R & The system must allow organizers who are creating a KB to set its submission deadline.
-\\ \hline
-R & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required.
-\\ \hline
-R & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system.
-\\ \hline
+\begin{longtable}[h] {|p{10mm}|p{130mm}|}
+\hline
+\rowcolor{gray!20}
+\textbf{ID} & \textbf{Description} \\ \hline
+    \rc & The system must allow educators to create a new KT.
+    \\ \hline
+    \rc & The system must allow educators who are creating a KT to choose a KT name and description.
+    \\ \hline
+    \rc & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT\@.
+    \\ \hline
+    \rc & The system must notify all students about the creation of a new KT.
+    \\ \hline
+    \rc & The system must allow students to subscribe to a KT before its subscription deadline.
+    \\ \hline
+    \rc & The system must allow students and educators to read the descriptions of every KT.
+    \\ \hline
+\end{longtable}
 
-R & The system must notify all students subscribed to a specific KT about the creation of a new KB in that tournament.
-\\ \hline
-R & The system must allow students and educators to read the description of all the KB of every KT\@.
-\\ \hline
-R & The system must allow students subscribed to a specific KT to join the KT's KBs.
-\\ \hline
-R & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer.
-\\ \hline
+\subsubsection*{Creation of Kata Battles}
 
-% start of a KB
-R & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB\@.
-\\ \hline
-R & The system must notify all the students about the start of a KB that they have previously joined, sending the link to the GitHub repository corresponding to that KB\@.
-\\ \hline
+\begin{longtable}[h] {|p{10mm}|p{130mm}|}
+\hline
+\rowcolor{gray!20} 
+\textbf{ID} & \textbf{Description} \\ \hline
+    \rc & The system must allow organizers of a specific KT to create KBs for that KT\@.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to specify its description.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to upload its software project.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to upload its test cases.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to upload its automation scripts.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to set the minimum and maximum number of students per team for that KB\@.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to set its registration deadline.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to set its submission deadline.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required.
+    \\ \hline
+    \rc & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system.
+    \\ \hline
+    \rc & The system must notify all students subscribed to a specific KT about the creation of a new KB in that tournament.
+    \\ \hline
+    \rc & The system must allow students and educators to read the description of all the KB of every KT\@.
+    \\ \hline
+    \rc & The system must allow students subscribed to a specific KT to join the KT's KBs.
+    \\ \hline
+    \rc & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer.
+    \\ \hline
+\end{longtable}
 
-% testing and scoring during the battle
-R & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository.
-\\ \hline
-R & The system must pull the new source code from the main branch of a certain team's GitHub repository every time it is notified via its submission API\@.
-\\ \hline
-R & The system must automatically run static analysis tools over a team’s code each time it receives a new update.
-\\ \hline
-R & The system must automatically update a team’s score each time a static analysis tool is executed over the team's code.
-\\ \hline
-R & The system must automatically run test cases over a team’s executables each time it receives a new update.
-\\ \hline
-R & The system must automatically update a team’s score each time test cases are run over the team's executables.
-\\ \hline
-R & The system must automatically assign an additional score to each team based on the timeliness of the team's commits.
-\\ \hline
+\subsubsection*{Beginning of Kata Battles}
 
-R & The system must allow organizers and students involved in a specific KB to see the battle ranks of each team.
-\\ \hline
+\begin{longtable}[h] {|p{10mm}|p{130mm}|}
+\hline
+\rowcolor{gray!20}
+\textbf{ID} & \textbf{Description} \\ \hline
+    \rc & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB\@.
+    \\ \hline
+    \rc & The system must notify all the students about the start of a KB that they have previously joined, sending the link to the GitHub repository corresponding to that KB\@.
+    \\ \hline
+\end{longtable}
 
-% consolidation stage and KB end
-R & The system must allow the organizer who created a specific KB to see the GitHub repositories of each team participating in that KB\@.
-\\ \hline
-R & The system must allow the organizer who created a specific KB to assign additional points to each team's score during the consolidation stage.
-\\ \hline
-R & The system must allow the organizer who created a specific KB to end it's the consolidation stage.
-\\ \hline
-R & The system must automatically end the consolidation stage of a KB if no manual evaluation is needed.
-\\ \hline
-R & The system must notify all students participating in a KB about the end of the KB\@.
-\\ \hline
-R & The system must allow the organizer and students participating in a KB to see the final teams' scores as soon as the consolidation stage ends.
-\\ \hline
+\subsubsection*{Scoring and Automatic Testing}
 
-% personal tournament score update  etc
-R & The system must add, at the end of each KB, the final team's score to the tournament rank of each student of that specific team.
-\\ \hline
-R & The system must allow students and educators to see the tournament rankings of every KT\@.
-\\ \hline
+\begin{longtable}[h] {|p{10mm}|p{130mm}|}
+\hline
+\rowcolor{gray!20}
+\textbf{ID} & \textbf{Description} \\ \hline
+    \rc & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository.
+    \\ \hline
+    \rc & The system must pull the new source code from the main branch of a certain team's GitHub repository every time it is notified via its submission API\@.
+    \\ \hline
+    \rc & The system must automatically run static analysis tools over a team’s code each time it receives a new update.
+    \\ \hline
+    \rc & The system must automatically update a team’s score each time a static analysis tool is executed over the team's code.
+    \\ \hline
+    \rc & The system must automatically run test cases over a team’s executables each time it receives a new update.
+    \\ \hline
+    \rc & The system must automatically update a team’s score each time test cases are run over the team's executables.
+    \\ \hline
+    \rc & The system must automatically assign an additional score to each team based on the timeliness of the team's commits.
+    \\ \hline
+    \rc & The system must allow organizers and students involved in a specific KB to see the battle ranks of each team.
+    \\ \hline
+\end{longtable}
 
-% KT end
-R & The system must allow educators who created a tournament to end that specific KT\@.
-\\ \hline
-R & The system must notify every student that was involved in a specific KT about the end of that KT\@.
-\\ \hline
+\subsubsection*{Conclusion of a Kata Battle and Consolidation Stage}
+
+\begin{longtable}[h] {|p{10mm}|p{130mm}|}
+\hline
+\rowcolor{gray!20}
+\textbf{ID} & \textbf{Description} \\ \hline
+    \rc & The system must allow the organizer who created a specific KB to see the GitHub repositories of each team participating in that KB\@.
+    \\ \hline
+    \rc & The system must allow the organizer who created a specific KB to assign additional points to each team's score during the consolidation stage.
+    \\ \hline
+    \rc & The system must allow the organizer who created a specific KB to end it's the consolidation stage.
+    \\ \hline
+    \rc & The system must automatically end the consolidation stage of a KB if no manual evaluation is needed.
+    \\ \hline
+    \rc & The system must notify all students participating in a KB about the end of the KB\@.
+    \\ \hline
+    \rc & The system must allow the organizer and students participating in a KB to see the final teams' scores as soon as the consolidation stage ends.
+    \\ \hline
+\end{longtable}
+
+\subsubsection*{Personal Tournament Scores}
+
+\begin{longtable}[h] {|p{10mm}|p{130mm}|}
+\hline
+\rowcolor{gray!20}
+\textbf{ID} & \textbf{Description} \\ \hline
+    \rc & The system must add, at the end of each KB, the final team's score to the tournament rank of each student of that specific team.
+    \\ \hline
+    \rc & The system must allow students and educators to see the tournament rankings of every KT.
+    \\ \hline
+\end{longtable}
+
+\subsubsection*{Conclusion of a Kata Tournament}
+
+\begin{longtable}[h] {|p{10mm}|p{130mm}|}
+\hline
+\rowcolor{gray!20}
+\textbf{ID} & \textbf{Description} \\ \hline
+    \rc & The system must allow educators who created a tournament to end that specific KT\@.
+    \\ \hline
+    \rc & The system must notify every student that was involved in a specific KT about the end of that KT\@.
+    \\ \hline
 \end{longtable}
 
 \subsection{Use case diagrams} 
