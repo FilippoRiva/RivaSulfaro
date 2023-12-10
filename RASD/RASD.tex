@@ -68,15 +68,7 @@
 
 \begin{document}
 
-\begin{titlepage}
-    \begin{figure}[t]
-        \centering
-        %\includegraphics[width=250px]{/PolimiLogo}
-    \end{figure}
-    \begin{centering}
-       \maketitle
-    \end{centering}
-\end{titlepage}
+\maketitle
 
 
 \tableofcontents
@@ -111,7 +103,7 @@
     with his friends or co-workers or, on the other hand, by educators from the CKB owner company or public users who are 
     really passionate about teaching informatics.
 
-    \section{Purpose}
+    \section{Purpose} \label{purpose}
     The CodeKataBattle project, as it's name might suggest, is taking inspiration from the concept 
     of a kata.
     A kata is an exercise in karate where you repeat a form many, many times, making
@@ -119,7 +111,7 @@
     The main idea is to apply this concept to competitive programming, giving students many
     problems to solve and making them learn by trial and error.
 
-    \subsection*{Goals}
+    \subsection*{Goals} 
     Let's now introduce the main goals of the CKB project;
     these goals collectively outline the essential functionalities and interactions that the CKB platform should support.
     Achieving these goals will result in a comprehensive and effective platform
@@ -352,8 +344,10 @@ In order to enhance the understading and to enable a more effective communcation
 a domain level model of it's entities.
 
 \begin{figure}[H]
-\includegraphics*[width=0.82\textwidth]{Domain Level Class Diagram}
+\centering
+\includegraphics*[width=0.82\textwidth]{Domain-Level-Class-Diagram.jpg}
 \caption{Domain Level Class Diagram of the CKB platform model.}
+\centering
 \end{figure}
 
 The system model revolves around two user types: 
@@ -578,7 +572,7 @@ Their solutions are automatically evaluated, and they only need to program a Git
 Actions workflow that notifies the CKB platform.
 
 
-\section{Domain Assumptions}
+\section{Domain Assumptions} \label{domain_assumption}
 In this section, we'll list a set of assumed truths, operating on the premise that these assumptions are valid.
 Therefore, the software development will not address issues that arise from inconsistencies if these assumptions turn out to be false.
 \begin{center}
@@ -588,37 +582,99 @@ Therefore, the software development will not address issues that arise from inco
 \textbf{ID} & \textbf{Description} \\ \hline
 \textbf{D01} & Educators and students have an internet connection. \\
 \hline
-\textbf{D02} & Students know how to use GitHub and fork other repositories. \\
+\textbf{D02} & Educators and students have an browser application installed on their device. \\
 \hline
-\textbf{D03} & Students know how to program GitHub Actions to notify the CKB platform. \\
+\textbf{D03} & Students know how to use GitHub and fork other repositories. \\
 \hline
-\textbf{D04} & Educators create KT and KB properly. \\
+\textbf{D04} & Students know how to program GitHub Actions to notify the CKB platform. \\
 \hline
-\textbf{D05} & Educators evaluate students during a consolidation stage in a reasonable time. \\
+\textbf{D05} & Educators create KT and KB properly. \\
+\hline
+\textbf{D06} & Educators evaluate students during a consolidation stage in a reasonable time. \\
 \hline
 \end{tabular}
 \end{center}
+
+\section{Dependencies and Constraints}
+
+In order to provide an easy way for students to integrate a source control system into their
+interaction with the CKB platform, the system will provide a way to automatize the submission 
+to the platform via GitHub Actions (described in section (\ref{communication_interfaces})). 
+The students will in fact use GitHub to publish their solutions. The platform will handle everything else.
+
+For this reason our system will depend on the \textbf{GitHub API}.
+In fact, The CKB platform will need to use it in order to pull the new commits from the public repos of 
+each Team that notifies the platform (via the submisison API, explained in section (\ref{communication_interfaces})).
+This feature will allow the CKB system to automatically get new material and to assign new 
+scores to each team during the ongoing KB.
 
 
 %  3  --------------------------------------------------------------------------------------------%
 \chapter{Specific Requirements}
 
 \section{External Interface Requirements}
+In this section we'll provide short descriptions of all the external interfaces that our system will require in order to properly communicate to it's end users and to other systems.
+
+Additionally, we will outline the required external interfaces essential for the proper operation of our system, beyond those provided by our system itself.
 
 \subsection{User Interfaces}
-The website interface, clean easy to use
+The users, that is Students and Educators, will interface to the CKB platform via a \textbf{Website}.
+
+The website interface will have a series of pages that will allow it's users to interact with the platform.
+
+\subsubsection{Web Pages}
+We'll now define a set of website pages that will certainly need a representation in the final product, 
+to allow a better understanding of what the end users will see:
+\begin{description} 
+    \item[- Registration page] : where unregistered users will register themselves to the CKB platform, choosing
+        whether if they are Students or Educators.
+    \item[- Login page] : where registered users will identify themselves to the system.
+    \item[- Home page] : users will see a series of informations depending on their role.
+
+        Both users will see a tournament list with a search bar that will allow them to search for specific tournaments.
+
+        Educators will see informations about the Kata Tournaments they own or organize.
+
+        Students will see informations about the Kata Tournaments they are subscribed to and about the Kata Battles they have joined.
+    \item[- Kata Tournament page] : users will see a series of informations depending on their role.
+
+        Both users will see the tournament description, the current tournament rankings as a list of users associated with their scores
+        and the list of all the KBs of that tournament.
+
+        The Owner will have the possibility to end the Tournament and to grant other Educators the Organizer permits.
+
+        The Owner and Organizers will have the possibility to create new KBs
+    \item[- Kata Battle page] : users will see a series of informations depending on their role.
+
+        Both users will see the informations about that kata battle, that is : the kata problem description, the link to the KB's Official GitHub repo, the minimum and maximum size of the Teams, the registration/submission deadlines and the scoring criteria.
+        
+        Organizers, as soon as the KB ends, will have the possibilty to evaluate Team's solutions if they selected that a manual evaluation is needed during the creation of the KB.
+
+        Students partecipating to the KB will have the possibility to see the competition live, begin able to see Team rankings and scores while the submission deadline is approaching.
+\end{description}
 
 \subsection{Hardware Interface}
-A computer with an installed browser since all functionalities are being offered through a website
+Since our platform will be offered as a Website, users will need to have at least a desktop computer or a mobile phone.
+Apart from specific design considerations that will be determined during further development, the system will not explicitly demand any other hardware interfaces.
 
 \subsection{Software Interfaces}
-The website
+The end users, in order to get the CKB platform website onto their devices, will need a browser application installed onto their devices of choice, while having an internet connection available, as already stated in the domain assumptions.
+
 
 \subsection{Communication Interfaces} \label{communication_interfaces}
-The submission API to be used from GitHub Actions to automate the pull mechanism.
+
+The CKB platform will offer the \textbf{CKB submission API}. This API is meant to be used via GitHub Actions, allowing teams to notify 
+the CKB system that they have pushed a new commit onto their GitHub repo associated to a specific KB. Only pushes to the main branch will be considered by the CKB platform.
+Furthermore, the CKB submission API will provide a system to allow Teams to identify themselves.
+This feature aims to prevent security issues such as fake commits from unauthorized sources.
+The API will need to be as easy as possible to setup, since every team will need to write a GitHub Action workflow at the beginning of every KB.
+
+
 
 
 \section{Functional Requirements}
+In this section we'll list a series of requirements which are essential for our platform in order to reach the goal defined in section (\ref{purpose}) given the domain assumptions defined in section (\ref{domain_assumption}).
+ 
 
 \subsubsection*{Registration and Identification}
 
@@ -700,6 +756,7 @@ The submission API to be used from GitHub Actions to automate the pull mechanism
     \\ \hline
 \end{longtable}
 
+\newpage
 \subsubsection*{Scoring and Automatic Testing}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
@@ -744,6 +801,7 @@ The submission API to be used from GitHub Actions to automate the pull mechanism
     \\ \hline
 \end{longtable}
 
+\newpage
 \subsubsection*{Personal Tournament Scores}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
@@ -768,7 +826,22 @@ The submission API to be used from GitHub Actions to automate the pull mechanism
     \\ \hline
 \end{longtable}
 
+\newpage
 \subsection{Use case diagrams} 
+In this subsection we define, by leveraging the use of Use Case UML diagrams, every type of interaction that Educators (figure \ref{educator_usecase}) and Students (figure \ref{student_usecase}) must have with the system.
+\begin{figure}[H]\label{educator_usecase}
+    \centering
+    \includegraphics*[width=0.8\textwidth]{Educator-Use-Case-Diagram.jpg}
+    \centering
+    \caption{Educator Use Case Diagram}
+\end{figure}
+
+\begin{figure}[H]\label{student_usecase}
+    \centering
+    \includegraphics*[width=0.7\textwidth]{Student-Use-Case-Diagram.jpg}
+    \centering
+    \caption{Student Use Case Diagram}
+\end{figure}
 
 \subsection{Sequence diagrams} 
 
