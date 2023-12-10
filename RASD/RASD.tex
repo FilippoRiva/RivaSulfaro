@@ -56,8 +56,9 @@
     and test their students through real projects, while giving to students the possibility to have fun 
     and improve their knowledge of the programming languages as if it was a game.
 
-    The entire platform can be used by students to improve their programming skills, by schools 
-    to make internal tournaments, by companies to test their employees and by many other stakeholders. 
+    The entire platform can be used on one hand by anyone who wants to improve their programming skills and wants to compete
+    with his friends or co-workers or, on the other hand, by educators from the CKB owner company or public users who are 
+    really passionate about teaching informatics.
     \\
 
 
@@ -118,10 +119,10 @@
 
             The most significant World Phenomena that we want to identify are: 
             \begin{itemize}
-                \item [$W01$] Educators create and prepare new katas.
-                \item [$W02$] Students programs the solutions to katas.
-                \item [$W03$] Students fork CKB's official GitHub repositories.
-                \item [$W04$] Students upload their solutions to forks of CKB's official GitHub repositories.
+                \item [W01 -] Educators create and prepare new katas.
+                \item [W02 -] Students programs the solutions to katas.
+                \item [W03 -] Students fork CKB's official GitHub repositories.
+                \item [W04 -] Students upload their solutions to forks of CKB's official GitHub repositories.
             \end{itemize}
         \subsubsection{World Controlled Shared Phenomena}
             World-Controlled Shared Phenomena are observable phenomena that are within the system's visibility and are influenced or controlled by external elements
@@ -130,16 +131,16 @@
 
             The most important World Controlled Shared Phenomena that we are addressing are: 
             \begin{itemize}
-                \item [$S01$] Students sign up to the system.
-                \item [$S02$] Educators sign up to the system.
-                \item [$S03$] Educators create Kata Tournaments.
-                \item [$S04$] Educators create Kata Battles.
-                \item [$S05$] Educators evaluate students' solutions.
-                \item [$S06$] Educators who created a Kata Tournament grant to other educators the permission to create battles within that tournament.
-                \item [$S07$] Students subscribe to a Kata Tournament.
-                \item [$S08$] Students join a Kata Battle.
-                \item [$S09$] Students invite other students to participate to Kata Battles as a group.
-                \item [$S10$] GitHub Actions notifies the system that a student or a group of students uploaded an updated solution.
+                \item [S01 -] Students sign up to the system.
+                \item [S02 -] Educators sign up to the system.
+                \item [S03 -] Educators create Kata Tournaments.
+                \item [S04 -] Educators create Kata Battles.
+                \item [S05 -] Educators evaluate students' solutions.
+                \item [S06 -] Educators who created a Kata Tournament grant to other educators the permission to create battles within that tournament.
+                \item [S07 -] Students subscribe to a Kata Tournament.
+                \item [S08 -] Students join a Kata Battle.
+                \item [S09 -] Students invite other students to participate to Kata Battles as a group.
+                \item [S10 -] GitHub Actions notifies the system that a student or a group of students uploaded an updated solution.
             \end{itemize}
         \subsubsection{Machine Controlled Shared Phenomena}
             Machine-Controlled Shared Phenomena are phenomena that are under the direct control of the system itself and generate observable
@@ -147,11 +148,11 @@
 
             The Machine Controlled Shared Phenomena we are clarifying are: 
             \begin{itemize}
-                \item [$M01$] The system notifies users about the beginning of a new tournament
-                \item [$M02$] The system notifies users about the start of a kata battle. 
-                \item [$M03$] The system notifies users about the final ranks of a kata battle.
-                \item [$M04$] The system notifies users about their subscription to a kata battle.
-                \item [$M05$] The system pulls new code from GitHub forks and updates the scores accordingly
+                \item [M01 -] The system notifies users about the beginning of a new tournament
+                \item [M02 -] The system notifies users about the start of a kata battle. 
+                \item [M03 -] The system notifies users about the final ranks of a kata battle.
+                \item [M04 -] The system notifies users about their subscription to a kata battle.
+                \item [M05 -] The system pulls new code from GitHub forks and updates the scores accordingly
             \end{itemize}
 
     \section{Definitions, Acronyms, Abbreviations}
@@ -203,7 +204,9 @@
 
     \section{Revision History}
     \begin{itemize}
-        \item November 29 , 2023: version 1.0 (document structure)
+        \item November 26, 2023 version 0.1 (goals, phenomena, requirements and scenarios definitions)
+        \item November 29, 2023: version 0.2 (document structure)
+        \item December 9, 2023: version 0.3 (completed Introduction and Overall Description)
     \end{itemize}
 
     \section{Reference Documents}
@@ -212,22 +215,55 @@
     \emph{Alloy official documentation} $\rightarrow$ https://alloytools.org/documentation.html
     \\ \\
     \section{Document Structure}
+    We offer a concise overview of the document structure: 
     \begin{itemize}
         \item \textbf{Section 1: Introduction}\\
+        Provides an overview of the document, introducing the project, its purpose, and its intended audience, defining useful 
+        background information and the application domain of the software being developed. 
+        It outlines the scope and objectives thanks to the definition of a series of goals and phenomena.
+        
         \item \textbf{Section 2: Overall Description}\\
+        It defines a domain level class diagrams of the entities that constitute the software.
+        Provides a description of possible scenarios describing the general behavior of the system.
+        It includes information on the general functionalities, user characteristics and assumptions.
+        Additionally, it discusses the context in which the software operates defining its dependencies.
+        
         \item \textbf{Section 3: Specific Requirements}\\
-        \item \textbf{Section 4: Formal Analysis through Alloy} \\
-        \item \textbf{Section 5: Effort spent} \\
+        Defines the necessary external system interfaces that allow the system to work and communicate with all the defined actors.
+        Details specific functional and non-functional requirements of the system. 
+        Provides a description of use cases and sequence diagrams to further explain its behaviour.
+        
+        \item \textbf{Section 4: Formal Analysis through Alloy}\\
+        Focuses on a formal analysis of a system's model using Alloy, a formal specification language. This section includes the alloy code, written to verify and validate system properties and behaviours,
+        and the reasoning behind it.
+        
+        \item \textbf{Section 5: Effort Spent}\\
+        Provides a summary or breakdown of the effort expended during the project in terms of time spent.
     \end{itemize}
 
 %  2  --------------------------------------------------------------------------------------------%
 \chapter{Overall Description}
 \section{Product Perspective}
-
+In this section we'll define a UML class diagram for the application along with a compilation of significant scenarios illustrating the practical uses of our system.
 \subsection{Class diagram}
 
-\includegraphics*[width=\textwidth]{Domain Level Class Diagram.jpg}
+The system model revolves around two user types: Students and Educators.
 
+\textbf{Students} are individuals interested in participating in Kata Tournaments. Students have the possibility to form Teams. Those Teams comprises
+one or more students and have the ability to compete in precisely one KataBattle.
+
+\textbf{Educators} are individuals interested in creating Kata Tournaments. We define 2 sub-types of the Educator user, which are: 
+
+\begin{itemize}
+    \item \emph{Organizers} : Educators involved in the organization of a KT by creating its KBs and overseeing their management.
+    \item \emph{Owners} : Organizers who originally establish a KT. These users exclusively hold the authority to grant Organizer permissions within a KT and are the only individual capable of concluding a KT.
+\end{itemize}
+
+\begin{center}
+\includegraphics*[width=\textwidth]{Domain Level Class Diagram.jpg}
+\end{center}
+
+Another important aspect that can be clearly seen in the class diagram is the KT-KB relationship. Each KT is composed by 0 or more KBs and each KB has exactly one CodeKata, which represent the problem to solve.
 
 \subsection{Scenarios}
 \subsubsection{S1 - Educator signs up}
@@ -296,50 +332,153 @@ Students can now view their updated personal tournament scores, and the KT is ma
 Emily reflects on the success of the tournament and considers organizing future coding challenges for her students.
 
 \section{Product Functions}
+In this section we'll discuss all the product functionalities that must be met by the final software product.
+
 \begin{itemize}
+
     \item \textbf{Users registration and login}
     
-    These functions will be available to both students and educators.
+    Since the system needs a way to identify users in order to provide them the right functionalities,
+    the software will give to both students and educators the possibility to register and identify 
+    themselves via private credentials, that is username/email and password, that will be stored 
+    by the system making sure that security requirements are met.
 
-    \item \textbf{Create KTs and KBs}
+    The generic user will chose the right type of user during the registration process. In both cases no
+    further certification is needed, meaning that anyone can become both a student or an educator.
 
+    It won't be possible to have a registered user which will be both a student and an educator, since 
+    this solution goes beyond the software's main goals.
+
+    \item \textbf{Create KTs}
+
+    This functionality will be offered to Educators. 
+
+    Each registered Educator will have the possibilty to create a KT giving the necessary 
+    informations such as a brief description of the tournament.
+
+    After the creation of a KT the Educator, which will now be an Owner of a KT, will 
+    have the possibility to create KBs and the possibility to invite other Educators to become 
+    Organizers of that KT.
+
+    \item \textbf{Create KBs within a KT}
+    
+    This functionality will be offered to both the Owner and all the Organizers of a KT. 
+
+    Those users will have the possibility to upload a code kata to the platform (composed of it's description,
+    a software project, test cases and build automation scripts) and the ability to specify the description,
+    a minimum and a maximum team size, the registration deadline and the submission deadline of a KB. 
+
+    After all of those aspect of a KB are declared by the Organizer, the creation of the KB terminates.
+    When the KB is created the students which are subscribed to the corresponding KT will have the
+    possibility to join that KB as a team.
 
     \item \textbf{Subscribe to a KT}
-    \item \textbf{Join and compete ina KB alone or as a team}
+
+    This functionality will be offered to all Students registered to the CKB platform.
+
+    After the creation of a KT, every student will be able to see the new tournament and will have the 
+    possibility to subscribe. 
+
+    Subscribing to a KT means that the user will be part of the rankings of that KT. His rank will depend
+    on the sum of the scores obtained in each KB that he joined for that KT.
+
+    \item \textbf{Join and compete in a KB alone or as a team}
+
+    This functionality will be offered to all Students that have subscribed to a KT.
+
+    The Student will be able to create a Team of one or more Students. After the creation of a Team he'll have
+    the possibility to join a KB with that Team only if the size of the team is compliant to the KB 
+    rules specified by its Organizer.
+
+    After the start of the KB the Teams will compete against each other and their solutions
+    will be automatically evaluated by the CKB platform. No team will be able to see the other 
+    team's solutions until the end of the KB.
+
     \item \textbf{Automatic Evaluation and GitHub integration}
 
-    via submission API, GitHub Actions, quality level aspects\ldots description of what is evaluated
+    When the KB starts, the platform will automatically create a GitHub repo containing all the 
+    informations uploaded by the KB Organizer and all the subscribed Teams will receive a link 
+    to that Official GitHub repo. The Teams will have to fork that repo, setup an automated 
+    GitHub Actions workflow that automatically notifies the CKB platform after each push, and start 
+    to program their solutions. 
+
+    The CKB platform will automatically pull and evaluate their solutions from that GitHub fork after
+    each notification received via its submission API (explained in detail in section (\ref{communication_interfaces})), dinamically updating the Team's scores of that KB.
+
+    The automatic evaluation will follow a series of criteria, that is: 
+    \begin{itemize}
+        \item \emph{functional aspects} : measured in terms of number of test cases that pass out of all test cases.
+        \item \emph{timeliness} : measured in terms of time passed between the registration deadline and the last commit.
+        \item \emph{quality level of the sources} : extracted through static analysis tools that consider aspects such as
+        security, reliability and maintainability.
+    \end{itemize}
 
     \item \textbf{Notifications}
+
+    The CKB platform will notify users inside the website itself and via email for certain types of 
+    notifications.
+
+    \textbf{Email and Website notifications} will be the most important one and will be notified both via Email and through website notifications.
+    Some examples are as the registration confirmation, the end of a KT in which you were subscribed
+    or the start and end of a KB that you joined as a Team.
+
+    \textbf{Website only notificatios} will be less prominent but still significant. Some examples are 
+    the creation of a new KT, the creation of a new KB within a KT you are subscribed to and other site specific notifications such as 
+    new website updates.
+
+    The users will be provided options to control the types of notifications that will be sent by the 
+    CKB platform, both via Email and through the website
+
     \item \textbf{Public Rankings}
+
+    Each KT will have public rankings of all the students subscribed to that KT. This means that every
+    subscribed user, that is a Student or an Educator, will be able to see the scores of each Student
+    partecipating to a KT.
+
 \end{itemize}
 
 \section{User Characteristics}
+In this section we'll outline the main users of the system and articulates their requirements and needs.
+
 \subsection{Educator}
-The educator is an individual from a university, school, company
-or organization that subscribes to the CKB platform in order to organize
-competitions between students.
-This type of user can create KT about any
-kind of topic they want and can create KB related to the KT topics.
+
+The educator is an individual that subscribes to the CKB platform in order to 
+organize competitions between students.
+This type of user can create KT about any kind of topic they want
+and can create KB related to the KT topics.
 The educators want to constantly see the tournament rankings and the current
 scores assigned to each team participating in a KB of that tournament.
+
 During the KT the educator might evaluate students’ solutions to the KB
 problems if they think a manual evaluation is needed.
-Educators are considered organizer when they create a tournament or are
-granted the permission to create KB by a tournament creator (close
-Tournament)
+Educators are considered Owners when they create a tournament.
+Educators are consideres Organizers if they are Owners or they are
+granted the Organizers permissions by a KT Owner. 
+
+The only Educator that will be able to end a KT is the KT Owner.
+
+
 \subsection{Student}
-The student is a subscribed user to the CKB platform who wants to participate in a KT\@.
+The student is a subscribed user to the CKB platform who wants to participate in a KT.
+Each student is able to subscribe to available KTs,
+create or join Teams and subscribe their Teams to KBs.
+The students partecipating to a KB, upload their kata solutions to GitHub and are
+be able to see their rankings during the progress of a KB.
+Their solutions are automatically evaluated and they only need to program a GitHub
+Actions workflow that notifies the CKB platform.
 
 
 \section{Domain Assumptions}
-    \begin{enumerate}[label=(D\arabic*), font=\itshape]
-        \item Educators and students have an internet connection.
-        \item Students know how to use GitHub and fork other repositories.
-        \item Students know how to program GitHub Actions to notify the CKB platform.
-        \item Educators create KT and KB properly.
-        \item Educators evaluate students during a consolidation stage in a reasonable time.
-    \end{enumerate}
+In this section, we'll list a set of assumed truths, operating on the premise that these assumptions are valid.
+Therefore, the software development will not address issues that arise from inconsistencies if these assumptions turn out to be false.
+
+\begin{enumerate}[label=D\arabic* - , font=\itshape]
+    \item Educators and students have an internet connection.
+    \item Students know how to use GitHub and fork other repositories.
+    \item Students know how to program GitHub Actions to notify the CKB platform.
+    \item Educators create KT and KB properly.
+    \item Educators evaluate students during a consolidation stage in a reasonable time.
+\end{enumerate}
 
 
 %  3  --------------------------------------------------------------------------------------------%
@@ -356,7 +495,7 @@ A computer with an installed browser since all functionalities are being offered
 \subsection{Software Interfaces}
 The website
 
-\subsection{Communication Interfaces}
+\subsection{Communication Interfaces} \label{communication_interfaces}
 The submission API to be used from GitHub Actions to automate the pull mechanism.
 
 
@@ -510,8 +649,8 @@ R & The system must notify every student that was involved in a specific KT abou
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Student}       & \textbf{Effort} \\ \hline
-Filippo Riva           & 12h             \\ \hline
-Antonio Sulfaro        & 10h             \\ \hline
+Filippo Riva           & 15h             \\ \hline
+Antonio Sulfaro        & 13h             \\ \hline
 \end{tabular}
 \end{table}
 
