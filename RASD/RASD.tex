@@ -283,11 +283,24 @@
 
     \newpage
     \section{Revision History}
-    \begin{itemize}
-        \item[0.1 -] November 26, 2023: Goals, phenomena, requirements and scenarios definitions.
-        \item[0.2 -] November 29, 2023: Document structure.
-        \item[0.3 -] December 9, 2023: Completed Introduction and Overall Description.
-    \end{itemize}
+    \begin{center}
+    \begin{tabular}{|c|c|p{9cm}|}
+        \hline
+        \rowcolor{gray!20}
+        \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+        \hline
+        0.1 & 11/26/2023 & Goals, phenomena, requirements and scenarios initial drafts. \\
+        \hline
+        0.2 & 11/29/2023 & Document structure. \\
+        \hline
+        0.3 & 12/9/2023 & Completed Introduction and Overall Description. \\
+        \hline
+        0.4 & 12/10/2023 & Completed External Interfaces and Functional Requirements.  \\
+        \hline
+        0.5 & 12/11/2023 & Completed Performance Requirements, Design Constraints and Software System Attributes. \\
+        \hline
+    \end{tabular}
+    \end{center}
 
     \section{Reference Documents}
 
@@ -348,6 +361,7 @@ a domain level model of it's entities.
 \includegraphics*[width=0.82\textwidth]{Domain-Level-Class-Diagram.jpg}
 \caption{Domain Level Class Diagram of the CKB platform model.}
 \centering
+\label{fig:domain_level_class_diagram}
 \end{figure}
 
 The system model revolves around two user types: 
@@ -828,19 +842,21 @@ In this section we'll list a series of requirements which are essential for our 
 
 \newpage
 \subsection{Use case diagrams} 
-In this subsection we define, by leveraging the use of Use Case UML diagrams, every type of interaction that Educators (figure \ref{educator_usecase}) and Students (figure \ref{student_usecase}) must have with the system.
-\begin{figure}[H]\label{educator_usecase}
+In this subsection we define, by leveraging the use of Use Case UML diagrams, every type of interaction that Educators (figure \ref{fig:educator_usecase}) and Students (figure \ref{fig:student_usecase}) must have with the system.
+\begin{figure}[H]
     \centering
     \includegraphics*[width=0.8\textwidth]{Educator-Use-Case-Diagram.jpg}
     \centering
     \caption{Educator Use Case Diagram}
+    \label{fig:educator_usecase}
 \end{figure}
 
-\begin{figure}[H]\label{student_usecase}
+\begin{figure}[H]
     \centering
     \includegraphics*[width=0.7\textwidth]{Student-Use-Case-Diagram.jpg}
     \centering
     \caption{Student Use Case Diagram}
+    \label{fig:student_usecase}
 \end{figure}
 
 \subsection{Sequence diagrams} 
@@ -908,8 +924,8 @@ It will be developed using platform-independent technologies to ensure compatibi
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Student}       & \textbf{Effort} \\ \hline
-Filippo Riva           & 15h             \\ \hline
-Antonio Sulfaro        & 13h             \\ \hline
+Filippo Riva           & 20h             \\ \hline
+Antonio Sulfaro        & 15h             \\ \hline
 \end{tabular}
 \end{table}
 
