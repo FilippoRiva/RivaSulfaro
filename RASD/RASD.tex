@@ -33,7 +33,7 @@
 \usepackage[table]{xcolor} % Add the xcolor package for background color
 
 %table padding -- %
-\def\arraystretch{1.5}
+\newcommand{\arraystretch}{1.5}
 
 % hyperlinks -- %
 \hypersetup{
@@ -60,7 +60,7 @@
 
 \pagenumbering{Roman}
 
-\titlepic{\includegraphics[width=0.5\textwidth]{logo_polimi.png}}
+\titlepic{\includegraphics[width=0.5\textwidth]{logo_polimi}}
 \title{CodeKataBattle - Requirement Analysis and Specification Document}
 % https://github.com/FilippoRiva/RivaSulfaro
 \author{Filippo Riva, Antonio Sulfaro}
@@ -130,7 +130,8 @@
             define registration and submission deadlines, and configure scoring aspects for each battle.
         \item[G3] \textbf{Allow educators to evaluate students automatically via the system and optionally via a manual scoring}
             \\
-            This goal involves providing educators with the tools to assess students' performance automatically through the system.  It includes functionalities such as automated evaluation of functional aspects, timeliness, and source code quality.
+            This goal involves providing educators with the tools to assess students' performance automatically through the system.
+             It includes functionalities such as automated evaluation of functional aspects, timeliness, and source code quality.
             Additionally, there should be an option for educators to perform manual evaluations and assign personal scores based
             on their assessment.
         \item[G4] \textbf{Allow students to subscribe to Kata Tournaments available on the CKB platform}
@@ -162,7 +163,7 @@
     An important clarification to address before proceeding is the utilization of the GitHub platform as an external support platform.
     In fact for each kata the CKB platform will publish a GitHub repository with the testing environment provided by the educator
     which will be used by the students participating in that competition to locally test their solutions.
-    Furthermore the students will upload their kata solutions to GitHub, and it will be the system's responsibility to
+    Furthermore, the students will upload their kata solutions to GitHub, and it will be the system's responsibility to
     get the updated code and evaluate their solutions. 
 
     \subsection*{Phenomena}
@@ -221,7 +222,7 @@
     \end{tabular}
     \end{center}
 
-    \subsubsection*{- Machine-Controleld Shared Phenomena}
+    \subsubsection*{- Machine-Controlled Shared Phenomena}
     Machine-Controlled Shared Phenomena are phenomena that are under the direct control of the system itself and generate observable
     effects in both the system's operational environment and the stakeholders interacting with the system.
 
@@ -353,12 +354,12 @@
 In this section we'll define a UML class diagram for the application along with a compilation of significant scenarios illustrating the practical uses of our system.
 
 \subsection{Domain Level Class diagram}
-In order to enhance the understading and to enable a more effective communcation of the system requirements among stakeholders, we include a class diagram representing
-a domain level model of it's entities.
+In order to enhance the understanding and to enable a more effective communication of the system requirements among stakeholders, we include a class diagram representing
+a domain level model of its entities.
 
 \begin{figure}[H]
 \centering
-\includegraphics*[width=0.82\textwidth]{Domain-Level-Class-Diagram.jpg}
+\includegraphics*[width=0.82\textwidth]{Domain-Level-Class-Diagram}
 \caption{Domain Level Class Diagram of the CKB platform model.}
 \centering
 \label{fig:domain_level_class_diagram}
@@ -367,14 +368,14 @@ a domain level model of it's entities.
 The system model revolves around two user types: 
 
 \begin{description}
-    \item[Students] : Individuals interested in participating in Kata Tournaments.\\
+    \item[Students] Individuals interested in participating in Kata Tournaments.\\
     Students have the possibility to form Teams.
     Those Teams comprise one or more students and have the ability to compete in precisely one KataBattle.
-    \item[Educators] : Individuals interested in creating Kata Tournaments. \\
+    \item[Educators]    Individuals interested in creating Kata Tournaments. \\
     We define 2 subtypes of the Educator user, which are:
     \begin{description}
-        \item[\emph{Organizers}] : Educators involved in the organization of a KT by creating its KBs and overseeing their management.
-        \item[\emph{Owners}] : Organizers who originally create a KT. These users exclusively hold the authority to grant Organizer permissions within a KT and are the only individual capable of concluding a KT\@.
+        \item[\emph{Organizers}]    Educators involved in the organization of a KT by creating its KBs and overseeing their management.
+        \item[\emph{Owners}]    Organizers who originally create a KT. These users exclusively hold the authority to grant Organizer permissions within a KT and are the only individual capable of concluding a KT\@.
     \end{description}
 \end{description}
 
@@ -385,7 +386,7 @@ Each KT is composed by 0 or more KBs and each KB has exactly one CodeKata, which
 \subsection{Scenarios}
 \subsubsection{S1 - Educator signs up}
     John, a professor at Politecnico di Milano, is enthusiastic about teaching Go, a new programming language, to his students.
-    To embark on this journey, he discovers the CodeKataBattle (CKB) platform and decides to sign up as an educator.
+    To embark on this journey, he discovers the CKB platform and decides to sign up as an educator.
     Navigating to the CKB sign-up page, John fills in the required details, so his name, email, and a secure password.
     After submitting the form, he promptly receives a confirmation email.
     Clicking the link within the email verifies John's account, successfully completing the sign-up process.
@@ -596,7 +597,7 @@ Therefore, the software development will not address issues that arise from inco
 \textbf{ID} & \textbf{Description} \\ \hline
 \textbf{D01} & Educators and students have an internet connection. \\
 \hline
-\textbf{D02} & Educators and students have an browser application installed on their device. \\
+\textbf{D02} & Educators and students have a browser application installed on their device. \\
 \hline
 \textbf{D03} & Students know how to use GitHub and fork other repositories. \\
 \hline
@@ -614,27 +615,28 @@ Therefore, the software development will not address issues that arise from inco
 In order to provide an easy way for students to integrate a source control system into their
 interaction with the CKB platform, the system will provide a way to automatize the submission 
 to the platform via GitHub Actions (described in section (\ref{communication_interfaces})). 
-The students will in fact use GitHub to publish their solutions. The platform will handle everything else.
+The students will in fact use GitHub to publish their solutions.
+The platform will handle everything else.
 
 For this reason our system will depend on the \textbf{GitHub API}.
 In fact, The CKB platform will need to use it in order to pull the new commits from the public repos of 
-each Team that notifies the platform (via the submisison API, explained in section (\ref{communication_interfaces})).
+each Team that notifies the platform (via the submission API, explained in section (\ref{communication_interfaces})).
 This feature will allow the CKB system to automatically get new material and to assign new 
-scores to each team during the ongoing KB.
+scores to each team during the ongoing KB\@.
 
 
 %  3  --------------------------------------------------------------------------------------------%
 \chapter{Specific Requirements}
 
 \section{External Interface Requirements}
-In this section we'll provide short descriptions of all the external interfaces that our system will require in order to properly communicate to it's end users and to other systems.
+In this section we'll provide short descriptions of all the external interfaces that our system will require in order to properly communicate to its end users and to other systems.
 
 Additionally, we will outline the required external interfaces essential for the proper operation of our system, beyond those provided by our system itself.
 
 \subsection{User Interfaces}
 The users, that is Students and Educators, will interface to the CKB platform via a \textbf{Website}.
 
-The website interface will have a series of pages that will allow it's users to interact with the platform.
+The website interface will have a series of pages that will allow its users to interact with the platform.
 
 \subsubsection{Web Pages}
 We'll now define a set of website pages that will certainly need a representation in the final product, 
@@ -642,15 +644,15 @@ to allow a better understanding of what the end users will see:
 \begin{description} 
     \item[- Registration page] : where unregistered users will register themselves to the CKB platform, choosing
         whether if they are Students or Educators.
-    \item[- Login page] : where registered users will identify themselves to the system.
-    \item[- Home page] : users will see a series of informations depending on their role.
+    \item[- Login page]  where registered users will identify themselves to the system.
+    \item[- Home page]  users will see a series of information depending on their role.
 
         Both users will see a tournament list with a search bar that will allow them to search for specific tournaments.
 
-        Educators will see informations about the Kata Tournaments they own or organize.
+        Educators will see information about the Kata Tournaments they own or organize.
 
-        Students will see informations about the Kata Tournaments they are subscribed to and about the Kata Battles they have joined.
-    \item[- Kata Tournament page] : users will see a series of informations depending on their role.
+        Students will see information about the Kata Tournaments they are subscribed to and about the Kata Battles they have joined.
+    \item[- Kata Tournament page]  users will see a series of information depending on their role.
 
         Both users will see the tournament description, the current tournament rankings as a list of users associated with their scores
         and the list of all the KBs of that tournament.
@@ -658,13 +660,13 @@ to allow a better understanding of what the end users will see:
         The Owner will have the possibility to end the Tournament and to grant other Educators the Organizer permits.
 
         The Owner and Organizers will have the possibility to create new KBs
-    \item[- Kata Battle page] : users will see a series of informations depending on their role.
+    \item[- Kata Battle page] : users will see a series of information depending on their role.
 
-        Both users will see the informations about that kata battle, that is : the kata problem description, the link to the KB's Official GitHub repo, the minimum and maximum size of the Teams, the registration/submission deadlines and the scoring criteria.
+        Both users will see the information about that kata battle, that is : the kata problem description, the link to the KB's Official GitHub repo, the minimum and maximum size of the Teams, the registration/submission deadlines and the scoring criteria.
         
-        Organizers, as soon as the KB ends, will have the possibilty to evaluate Team's solutions if they selected that a manual evaluation is needed during the creation of the KB.
+        Organizers, as soon as the KB ends, will have the possibility to evaluate Team's solutions if they selected that a manual evaluation is needed during the creation of the KB\@.
 
-        Students partecipating to the KB will have the possibility to see the competition live, begin able to see Team rankings and scores while the submission deadline is approaching.
+        Students participating in the KB will have the possibility to see the competition live, begin able to see Team rankings and scores while the submission deadline is approaching.
 \end{description}
 
 \subsection{Hardware Interface}
@@ -677,11 +679,12 @@ The end users, in order to get the CKB platform website onto their devices, will
 
 \subsection{Communication Interfaces} \label{communication_interfaces}
 
-The CKB platform will offer the \textbf{CKB submission API}. This API is meant to be used via GitHub Actions, allowing teams to notify 
+The CKB platform will offer the \textbf{CKB submission API}.
+This API is meant to be used via GitHub Actions, allowing teams to notify
 the CKB system that they have pushed a new commit onto their GitHub repo associated to a specific KB. Only pushes to the main branch will be considered by the CKB platform.
 Furthermore, the CKB submission API will provide a system to allow Teams to identify themselves.
 This feature aims to prevent security issues such as fake commits from unauthorized sources.
-The API will need to be as easy as possible to setup, since every team will need to write a GitHub Action workflow at the beginning of every KB.
+The API will need to be as easy as possible to set up, since every team will need to write a GitHub Action workflow at the beginning of every KB.
 
 
 
@@ -708,17 +711,17 @@ In this section we'll list a series of requirements which are essential for our 
 \hline
 \rowcolor{gray!20}
 \textbf{ID} & \textbf{Description} \\ \hline
-    \rc & The system must allow educators to create a new KT.
+    \rc & The system must allow educators to create a new KT\@.
     \\ \hline
     \rc & The system must allow educators who are creating a KT to choose a KT name and description.
     \\ \hline
     \rc & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT\@.
     \\ \hline
-    \rc & The system must notify all students about the creation of a new KT.
+    \rc & The system must notify all students about the creation of a new KT\@.
     \\ \hline
     \rc & The system must allow students to subscribe to a KT before its subscription deadline.
     \\ \hline
-    \rc & The system must allow students and educators to read the descriptions of every KT.
+    \rc & The system must allow students and educators to read the descriptions of every KT\@.
     \\ \hline
 \end{longtable}
 
@@ -824,7 +827,7 @@ In this section we'll list a series of requirements which are essential for our 
 \textbf{ID} & \textbf{Description} \\ \hline
     \rc & The system must add, at the end of each KB, the final team's score to the tournament rank of each student of that specific team.
     \\ \hline
-    \rc & The system must allow students and educators to see the tournament rankings of every KT.
+    \rc & The system must allow students and educators to see the tournament rankings of every KT\@.
     \\ \hline
 \end{longtable}
 
@@ -842,10 +845,10 @@ In this section we'll list a series of requirements which are essential for our 
 
 \newpage
 \subsection{Use case diagrams} 
-In this subsection we define, by leveraging the use of Use Case UML diagrams, every type of interaction that Educators (figure \ref{fig:educator_usecase}) and Students (figure \ref{fig:student_usecase}) must have with the system.
+In this subsection we define, by leveraging the use of Use Case UML diagrams, every type of interaction that Educators (figure~\ref{fig:educator_usecase}) and Students (figure~\ref{fig:student_usecase}) must have with the system.
 \begin{figure}[H]
     \centering
-    \includegraphics*[width=0.8\textwidth]{Educator-Use-Case-Diagram.jpg}
+    \includegraphics*[width=0.8\textwidth]{Educator-Use-Case-Diagram}
     \centering
     \caption{Educator Use Case Diagram}
     \label{fig:educator_usecase}
@@ -853,7 +856,7 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 
 \begin{figure}[H]
     \centering
-    \includegraphics*[width=0.7\textwidth]{Student-Use-Case-Diagram.jpg}
+    \includegraphics*[width=0.7\textwidth]{Student-Use-Case-Diagram}
     \centering
     \caption{Student Use Case Diagram}
     \label{fig:student_usecase}
@@ -866,7 +869,7 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \section{Performance requirements}
 The system will prioritize its ability to be scalable, adapting to a continuous expansion of his services.
 Response time won't be its top priority since, given the fact that it will be a website and most of the interaction with the user will be asynchronous, there's no need to impose low latency.
-Nevertheless it won't be a factor to overlook, as high latency will imply low usability for the end-user.
+Nevertheless, it won't be a factor to overlook, as high latency will imply low usability for the end-user.
 
 \section{Design constraints}
 In this section we'll describe some constraints to the design processes that will take place after the 
@@ -874,11 +877,11 @@ requirement analysis phase of our developing process.
 
 \subsection{Standard compliance} \label{standard_compliance}
 The CKB platform will be compliant to the European Union's General Data Protection Regulation (GDPR) to ensure that
-the data of it's users will be stored and used in accordance to the law.
+the data of its users will be stored and used in accordance to the law.
 
 Furthermore, its submission API will be designed using standard protocols to ensure maximum compatibility.
 This will allow users to use the submission API as they prefer,
-even by developing GitHub extensions that automatically setup the GitHub Action workflow.
+even by developing GitHub extensions that automatically set up the GitHub Action workflow.
 
 \subsection{Hardware Constraints}
 The system does not impose any particular hardware constraints as it does not require bespoke hardware development.
@@ -904,8 +907,8 @@ We'll require well-commented code and proper documentation to facilitate future 
 Additionally, versioning software such as GitHub, GitLab or alternative solutions will be used to provide proper versioning support.
 
 \subsection{Portability}
-The system will be designed to be accessible from all kind of devices that support a state of the art browser.
-It will be developed using platform-independent technologies to ensure compatibility throughout various operating systems and browser softwares.
+The system will be designed to be accessible from all kind of devices that support a state-of-the-art browser.
+It will be developed using platform-independent technologies to ensure compatibility throughout various operating systems and browser software.
 
 
 %  4  --------------------------------------------------------------------------------------------%
