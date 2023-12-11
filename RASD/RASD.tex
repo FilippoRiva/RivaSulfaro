@@ -848,24 +848,48 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \subsection{Activity Diagrams}
 
 \section{Performance requirements}
+The system will prioritize its ability to be scalable, adapting to a continuous expansion of his services.
+Response time won't be its top priority since, given the fact that it will be a website and most of the interaction with the user will be asynchronous, there's no need to impose low latency.
+Nevertheless it won't be a factor to overlook, as high latency will imply low usability for the end-user.
 
 \section{Design constraints}
+In this section we'll describe some constraints to the design processes that will take place after the 
+requirement analysis phase of our developing process.
 
-\subsection{Standard compliance}
+\subsection{Standard compliance} \label{standard_compliance}
+The CKB platform will be compliant to the European Union's General Data Protection Regulation (GDPR) to ensure that
+the data of it's users will be stored and used in accordance to the law.
+
+Furthermore, its submission API will be designed using standard protocols to ensure maximum compatibility.
+This will allow users to use the submission API as they prefer,
+even by developing GitHub extensions that automatically setup the GitHub Action workflow.
 
 \subsection{Hardware Constraints}
+The system does not impose any particular hardware constraints as it does not require bespoke hardware development.
+However, users are expected to have a device capable of connecting to the internet and a standard web browser software to seamlessly access the CKB platform.
 
-\section{Software system attributes}
+\section{Software System Attributes}
 
 \subsection{Reliability}
+The system aims to achieve high reliability by implementing robust error handling mechanisms and conducting regular testing.
+It should minimize the occurrence of failures and errors, providing accurate and consistent results to users with particular emphasis on reliability during the Kata Battles evaluations and ranking system.
 
 \subsection{Availability}
+The system will be designed to maintain high availability, aiming for minimal downtime.
+This will be achieved through redundant server configurations, load balancing and other design decisions that will take place during the design phase.
 
 \subsection{Security}
+Ensuring data privacy and system integrity, as stated in section (\ref{standard_compliance}), will have primary importance.
+The system will employ strong encryption methods and authentication mechanisms to safeguard user data.
 
 \subsection{Maintainability}
+The system will put a strong emphasis on ensuring ease of maintenance as one of its primary goals.
+We'll require well-commented code and proper documentation to facilitate future updates, bug fixes, and enhancements.
+Additionally, versioning software such as GitHub, GitLab or alternative solutions will be used to provide proper versioning support.
 
 \subsection{Portability}
+The system will be designed to be accessible from all kind of devices that support a state of the art browser.
+It will be developed using platform-independent technologies to ensure compatibility throughout various operating systems and browser softwares.
 
 
 %  4  --------------------------------------------------------------------------------------------%
