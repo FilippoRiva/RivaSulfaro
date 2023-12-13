@@ -393,11 +393,12 @@ The system model revolves around two user types:
     Students have the possibility to form Teams.
     Those Teams comprise one or more students and have the ability to compete in precisely one KataBattle.
     \item[Educators]    Individuals interested in creating Kata Tournaments. \\
-    We define 2 subtypes of the Educator user, which are:
+    Each educator can be :
     \begin{description}
-        \item[\emph{Organizers}]    Educators involved in the organization of a KT by creating its KBs and overseeing their management.
-        \item[\emph{Owners}]    Organizers who originally create a KT. These users exclusively hold the authority to grant Organizer permissions within a KT and are the only individual capable of concluding a KT\@.
+        \item[\emph{an organizer of a KT}] an Educator involved in the organization of a KT by creating its KBs and overseeing their management.
+        \item[\emph{an owner of a KT}] an Educator who originally creates a KT. These educators exclusively hold the authority to grant organizer permissions within a KT and are the only individual capable of concluding a KT\@.
     \end{description}
+    Every educator can be an owner of multiple KTs, while being an organizer of other KTs.
 \end{description}
 
 
@@ -500,16 +501,16 @@ In this section we'll discuss all the product functionalities that must be met b
 
     After the creation of a KT the Educator, which will now be an Owner of a KT, will 
     have the possibility to create KBs and the possibility to invite other Educators to become 
-    Organizers of that KT\@.
+    organizers of that KT\@.
 
     \item \textbf{Create KBs within a KT}
     
-    This functionality will be offered to both the Owner and all the Organizers of a KT\@.
+    This functionality will be offered to both the Owner and all the organizers of a KT\@.
     Those users will have the possibility to upload a code kata to the platform (composed of its description,
     a software project, test cases and build automation scripts) and the ability to specify the description,
     a minimum and a maximum team size, the registration deadline and the submission deadline of a KB\@.
 
-    After all of those aspect of a KB are declared by the Organizer, the creation of the KB terminates.
+    After all of those aspect of a KB are declared by the organizer, the creation of the KB terminates.
     When the KB is created the students which are subscribed to the corresponding KT will have the
     possibility to join that KB as a team.
 
@@ -902,7 +903,7 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \end{enumerate}
     \\
     \hline
-    \textbf{Exit condition} & The KT is correctly created and available on the platform. The Educator is notified about the successful creation of the Kata Tournament. The Educator is now considered an Owner of a KT.
+    \textbf{Exit condition} & The KT is correctly created and available on the platform. The Educator is notified about the successful creation of the Kata Tournament. The Educator is now considered an owner of a KT.
     \\
     \hline
     \textbf{Exceptions}  & 
@@ -925,34 +926,34 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 
     \\
     \hline
-    \textbf{Partecipating Actors} & Organizer
+    \textbf{Partecipating Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Organizer has registered to the CKB platform and he is logged in. The Organizer has been granted the permits to organize a specific KT by its Owner.
+    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in. The Educator has been granted the permits to organize a specific KT by its owner.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Organizer goes to a Kata Tournament Page of a KT that he organizes and clicks on the "Create Kata Battle" button.
-        \item The Organizer inserts a description of the kata problem
-        \item The Organizer uploads a software project, including test cases and build automation scripts.
+        \item The Educator goes to a Kata Tournament Page of a KT that he organizes and clicks on the "Create Kata Battle" button.
+        \item The Educator inserts a description of the kata problem
+        \item The Educator uploads a software project, including test cases and build automation scripts.
         \item The System checks if the software project, test cases and build automation scripts are valid\footnotemark[1] for the automatic evaluation system.
-        \item The Organizer sets a minimum and maximum team size.
-        \item The Organizer sets a registration deadline.
-        \item The Organizer sets the final submission deadline.
-        \item The Organizer sets if the KB will need manual evaluation or not by clicking a flag button.
-        \item The Organizer clicks on the "Create" button.
+        \item The Educator sets a minimum and maximum team size.
+        \item The Educator sets a registration deadline.
+        \item The Educator sets the final submission deadline.
+        \item The Educator sets if the KB will need manual evaluation or not by clicking a flag button.
+        \item The Educator clicks on the "Create" button.
         \item The System validates the received data.
     \end{enumerate}
     \\
     \hline
-    \textbf{Exit condition} & The KB is correctly created and available to all the Students subscribed to the corresponding KT. The Organizer is notified about the successful creation of that KB.
+    \textbf{Exit condition} & The KB is correctly created and available to all the Students subscribed to the corresponding KT. The Educator is notified about the successful creation of that KB.
     \\
     \hline
     \textbf{Exceptions}  & 
     \begin{itemize}
-        \item The Organizer sets and invalid number of minimum and maximum team size, or the registration an submission deadline are not a valid couple of dates(i.e. submission date before or equal to the registration date). The KB creation fails and the Organizer is notified about it.
-        \item The software project, test cases and build automation scripts are not valid for the automatic evaluation system. The Organizer is notified about it and asked to re-upload the part of the uploads that was not valid.
+        \item The Educator sets and invalid number of minimum and maximum team size, or the registration an submission deadline are not a valid couple of dates(i.e. submission date before or equal to the registration date). The KB creation fails and the Educator is notified about it.
+        \item The software project, test cases and build automation scripts are not valid for the automatic evaluation system. The Educator is notified about it and asked to re-upload the part of the uploads that was not valid.
     \end{itemize}
     \\
     \hline
@@ -969,27 +970,21 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 
     \\
     \hline
-    \textbf{Partecipating Actors} & Organizer
+    \textbf{Partecipating Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Organizer has registered to the CKB platform and he is logged in. The Organizer has been granted the permits to organize a specific KT by its Owner. The Organizer has previously created a KB.
+    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in. The Educator has been granted the permits to organize a specific KT by its owner. The educator has previously created a KB for that specific KT.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Organizer goes to the Kata Battle Page of a KB that he organizes and clicks on the "View Solutions" button.
-        \item The Organizer sees a list of all the GitHub repos of the team partecipating.
-        \item The Organizer clicks on the link of a certain team's GitHub repo.
+        \item The Educator goes to the Kata Battle Page of a KB that he organizes and clicks on the "View Solutions" button.
+        \item The Educator sees a list of all the GitHub repos of the team partecipating.
+        \item The Educator clicks on the link of a certain team's GitHub repo.
     \end{enumerate}
     \\
     \hline
-    \textbf{Exit condition} & The Organizer correctly sees the team's GitHub repo.
-    \\
-    \hline
-    \textbf{Exceptions}  & 
-    \begin{itemize}
-        \item The Team has created a private GitHub repository and has not granted the view permission to the Organizer's GitHub account. The Organizer is not able to see the repo.
-    \end{itemize}
+    \textbf{Exit condition} & The Educator correctly sees the team's GitHub repo.
     \\
     \hline
 \end{tabular}
@@ -1005,22 +1000,22 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 
     \\
     \hline
-    \textbf{Partecipating Actors} & Organizer
+    \textbf{Partecipating Actors} & Educator 
     \\
     \hline
-    \textbf{Entry Condition} & The Organizer has registered to the CKB platform and he is logged in. The Organizer has been granted the permits to organize a specific KT by its Owner. The Organizer has selected the need for a manual evaluation during the creation of that KB.
+    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in. The Educator has been granted the permits to organize a specific KT by its Owner. The Educator has selected the need for a manual evaluation during the creation of that KB.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
         \item The KB's submission deadline expires.
-        \item The System notifies the Organizer about the beginning of the Consolidation Stage.
-        \item The Organizer goes to the Kata Battle Page of that KB and clicks on the "View Solutions" button.
-        \item The Organizer sees a list of all the GitHub repos of the team partecipating.
-        \item The Organizer, for each team, clicks on a certain team's GitHub repo and evaluates their solution by reading the code. \label{item_evaluate}
-        \item The Organizer goes to the Kata Battle Page of a KB that he organizes and clicks on the "Evaluate Teams" button.
-        \item The Organizer, for each team, inserts a score based on his manual evaluation at point \ref{item_evaluate}. If he couldn't see the GitHub repo since the Team created a private repo and didn't grant view permissions to the Organizer's GitHub Account, the Organizer will flag the "Unable to Evaluate" flag.
-        \item The Organizer confirms his evaluation by clicking on the "Confirm Manual Evaluation" button.
+        \item The System notifies the Educator about the beginning of the Consolidation Stage.
+        \item The Educator goes to the Kata Battle Page of that KB and clicks on the "View Solutions" button.
+        \item The Educator sees a list of all the GitHub repos of the team partecipating.
+        \item The Educator, for each team, clicks on a certain team's GitHub repo and evaluates their solution by reading the code. \label{item_evaluate}
+        \item The Educator goes to the Kata Battle Page of a KB that he organizes and clicks on the "Evaluate Teams" button.
+        \item The Educator, for each team, inserts a score based on his manual evaluation at point \ref{item_evaluate}.
+        \item The Educator confirms his evaluation by clicking on the "Confirm Manual Evaluation" button.
     \end{enumerate}
     \\
     \hline
@@ -1029,7 +1024,7 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \hline
     \textbf{Exceptions}  & 
     \begin{itemize}
-        \item The Organizer does not insert a score for each team. The manual evaluation fails and the Organizer is notified about it.
+        \item The Educator does not insert a score for each team. The manual evaluation fails and the Educator is notified about it.
     \end{itemize}
     \\
     \hline
@@ -1045,29 +1040,29 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 
     \\
     \hline
-    \textbf{Partecipating Actors} & Owner, Educator
+    \textbf{Partecipating Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Owner has registered to the CKB platform and he is logged in.
+    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in. The Educator is an owner of a specifit KT.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Owner goes to the Kata Tournament Page of the KT that he owns.
-        \item The Owner clicks on the "Add Organizer" button.
-        \item The Owner inserts an username or a mail of an Educator and clicks the "Send Organization Invite" button.
-        \item The System sends an e-mail and a website notification about the invitation to the Educator specified by the Owner.
+        \item The Educator goes to the Kata Tournament Page of the KT that he owns.
+        \item The Educator clicks on the "Add Organizer" button.
+        \item The Educator inserts an username or a mail of an Educator and clicks the "Send Organization Invite" button.
+        \item The System sends an e-mail and a website notification about the invitation to the Educator specified by the owner.
         \item The Educator clicks on the link received by e-mail or clicks on the website notification and is redirected to the KB page.
         \item The Educator clicks on the "Accept Organization Invite" button.
     \end{enumerate}
     \\
     \hline
-    \textbf{Exit condition}  & The Educator become an Organizer of that KT.
+    \textbf{Exit condition}  & The Educator become an organizer of that KT.
     \\
     \hline
     \textbf{Exceptions}  & 
     \begin{itemize}
-        \item The Owner tries to add a non existing user or a non existing e-mail. The invitation fails and the Owner is notified about it.
+        \item The Educator tries to add a non existing user or a non existing e-mail. The invitation fails and the owner is notified about it.
         \item The Educator clicks on the "Refuse Organization Invite". The invitation fails.
     \end{itemize}
     \\
@@ -1084,27 +1079,27 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 
     \\
     \hline
-    \textbf{Partecipating Actors} & Owner
+    \textbf{Partecipating Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Owner has registered to the CKB platform and he is logged in. All the KB of that tournament are finished.
+    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in. The Educator is an owner of a specific KT. All the KB of that tournament are finished.
     \\
     \hline
     \textbf{Flow of events}  &
     \begin{enumerate}
-        \item The Owner goes to the Kata Tournament Page of a KT he owns.
-        \item The Owner clicks on the "Close Kata Tournament" button.
-        \item The System shows a confirmation prompt to the Owner
-        \item The Owner clicks on the "Yes" button.
+        \item The Educator goes to the Kata Tournament Page of a KT he owns.
+        \item The Educator clicks on the "Close Kata Tournament" button.
+        \item The System shows a confirmation prompt to the owner.
+        \item The Educator clicks on the "Yes" button.
     \end{enumerate}
     \\
     \hline
-    \textbf{Exit condition} & The System correctly ends the Kata Tournament and notifies via website notification and e-mail both the Owner, the Organizers and the Students of all the Teams partecipating to it.
+    \textbf{Exit condition} & The System correctly ends the Kata Tournament and notifies via website notification and e-mail both the owner, the organizers and the Students of all the Teams partecipating to it.
     \\
     \hline
     \textbf{Exceptions}  & 
     \begin{itemize}
-        \item The KBs of the Tournament has not ended yet. The Kata Tournament is not closed and the Owner is notified about it.
+        \item The KBs of the Tournament has not ended yet. The Kata Tournament is not closed and the owner is notified about it.
     \end{itemize}
     \\
     \hline
@@ -1154,7 +1149,7 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \hline
     \textbf{Exceptions}  & 
     \begin{itemize}
-        \item The KT has been previously closed by its Owner. The Student cannot subscribe to the KT and he is notified about the failed KT subscribtion attempt.
+        \item The KT has been previously closed by its owner. The Student cannot subscribe to the KT and he is notified about the failed KT subscribtion attempt.
     \end{itemize}
     \\
     \hline
@@ -1219,7 +1214,7 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \begin{enumerate}
         \item The System notifies the Student about the invitation to join a Team via website notification and via e-mail.
         \item The Student clicks on the link provided via e-mail or on the website notification.
-        \item If the Student has not yet registered to the KT of that KB he's asked to subscrite to the KT, following the Subscrite to a KT use case.
+        \item If the Student has not yet registered to the KT of that KB he's asked to subscribe to the KT, following the Subscribe to a KT use case.
         \item The Student is redirected to the Kata Battle Page of the KB that he's been invited to.
         \item The Student clicks on the "Accept Invitation" button.
     \end{enumerate}
@@ -1352,6 +1347,34 @@ We'll say "Educator / Student" to refer either to an Educator or a Student.
     \begin{itemize}
         \item The Educator / Student has inserted a non valid username-password couple or a non valid e-mail-password couple. The Educator / Student does not login and is notified about the failed login attempt.
     \end{itemize}
+    \\
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
+    \hline
+    \multicolumn{2}{|c|}{\textbf{Visualize Rankings}} \\
+    \hline
+    \textbf{ID} & \uc
+
+    \\
+    \hline
+    \textbf{Partecipating Actors} & Educator, Student
+    \\
+    \hline
+    \textbf{Entry Condition} &  The Educator / Student is registered to the CKB platform and is correctly logged in.
+    \\
+    \hline
+    \textbf{Flow of events}  & 
+    \begin{enumerate}
+        \item The Educator / Student goes to a Kata Tournament Page of a certain KT.
+        \item The Educator / Student clicks the "Visualize Rankings" button.
+    \end{enumerate}
+    \\
+    \hline
+    \textbf{Exit condition} & The Educator / Student sees the list of all the Students subscribed to that KT associated with their tournament score.
     \\
     \hline
 \end{tabular}
