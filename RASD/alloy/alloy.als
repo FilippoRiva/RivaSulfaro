@@ -15,13 +15,18 @@ sig Student extends User {
 	//teams : set Team,
 	//kts : set KataTournament
 }{
-	one this.~students
+	//one this.~students
 }
 
 sig Team {
 	players : some Student,
 	kb : one KataBattle,
 	solution : disj one TeamKataSolution
+}
+
+fact StudentInTeamAreSubscribedToKT {
+	all t : Team |
+	t.players in t.kb.kt.students
 }
 
 sig Educator extends User {}
@@ -66,9 +71,14 @@ fact DistinctStudentInSameKB {
       t1.kb != t2.kb
 }
 
+fact OrganizersOfKBAreAlsoOfKT {
+	all kb : KataBattle | kb.organizer in kb.kt.organizers
+}
+
 pred show2 {
-	#TeamKataSolution = 4
-	#CodeKata = 3
+	#Educator = 6
+	#KataTournament = 1
+	#KataBattle = 6
 }
 
 run show2 for 8
