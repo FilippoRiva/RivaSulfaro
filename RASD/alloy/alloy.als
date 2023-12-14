@@ -1,27 +1,58 @@
+abstract sig Boolean {}
+lone sig True extends Boolean {}
+lone sig False extends Boolean {}
+sig DateTime {
+	time: one Int
+} {
+	time >= 0
+}
+
 sig Email {}{
 	one this.~email
 }
 sig Username {}{
 	one this.~username
 }
-//sig Password {}
+sig Password {}{
+	some this.~password
+}
+sig Description {}{
+	one this.~descriptionKT
+	one this.~descriptionCode
+}
+sig GitHubRepo {}{
+}
+//project, testCases, scripts
+sig Code {}
 
 abstract sig User {
 	username : disj one Username,
 	email : disj one Email,
-	//password: one Password
+	password: one Password
 }
 sig Student extends User {
-	//teams : set Team,
-	//kts : set KataTournament
-}{
-	//one this.~students
 }
 
 sig Team {
 	players : some Student,
 	kb : one KataBattle,
-	solution : disj one TeamKataSolution
+	solution : disj one TeamKataSolution,
+	battleRank : one Int,
+	gitHubRepoTeam : disj one GitHubRepo
+} {
+	battleRank >= 1 and battleRank <= #(kb.teams)
+	
+}
+
+fact gitHubRepoAreAllDifferent{
+	all t : Team, ck : CodeKata |
+	ck.gitHubRepoKata != t.gitHubRepoTeam
+}
+
+
+fact RankProperlyBasedOnScore{
+	all t1, t2 : Team | t1 != t2 and t1.kb = t2.kb implies (t1.battleRank != t2.battleRank and
+	(t1.solution.score < t2.solution.score implies t1.battleRank > t2.battleRank))
 }
 
 fact StudentInTeamAreSubscribedToKT {
@@ -34,8 +65,8 @@ sig Educator extends User {}
 sig KataTournament {
 	owner : one Educator,
 	organizers: some Educator,
-	//kbs : disj set KataBattle,
-	students : set Student
+	students : set Student,
+	descriptionKT : one Description
 }{
 	owner in organizers
 }
@@ -43,22 +74,36 @@ sig KataTournament {
 
 sig KataBattle {
 	kt : one KataTournament,
-	//teams : set Team,
 	organizer : one Educator,
-	code : disj one CodeKata
+	code : disj one CodeKata,
+	minTeamSize : one Int,
+	maxTeamSize : one Int,
+	registrationDeadline : one DateTime,
+	submissionDeadline : one DateTime,
+	isManualEvaluationNeeded : one Boolean,
+	teams : set Team
+}{
+	minTeamSize > 0
+	maxTeamSize >= minTeamSize
+	submissionDeadline.time > registrationDeadline.time
+	teams = {t : Team | t.kb = this}
 }
+
 sig CodeKata {
-	//kb : one KataBattle,
-	solutions : disj set TeamKataSolution
+	solutions : disj set TeamKataSolution,
+	descriptionCode : one Description,
+	gitHubRepoKata : disj one GitHubRepo
 }{
 	one this.~code
 }
 sig TeamKataSolution {
-	//team : one Team,
-	//code : one CodeKata
+	code : one Code,
+	score : one Int
 }{
 	one this.~solution
 	one this.~solutions
+	score >= 0 //and score <= 100
+	//int cannot be that big
 }
 
 fact KataSolutionForSpecificKB {
@@ -76,9 +121,8 @@ fact OrganizersOfKBAreAlsoOfKT {
 }
 
 pred show2 {
-	#Educator = 6
-	#KataTournament = 1
-	#KataBattle = 6
+	#Team = 2
+	#KataBattle = 1
 }
 
 run show2 for 8
