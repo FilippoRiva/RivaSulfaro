@@ -88,6 +88,10 @@ sig KataBattle {
 	submissionDeadline.time > registrationDeadline.time
 	teams = {t : Team | t.kb = this}
 }
+fact ProperTeamSize{
+	all kb : KataBattle | all t : kb.teams |
+	#t.players >= kb.minTeamSize and 	#t.players <= kb.minTeamSize
+}
 
 sig CodeKata {
 	solutions : disj set TeamKataSolution,
