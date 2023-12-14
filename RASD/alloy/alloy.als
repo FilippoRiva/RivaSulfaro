@@ -23,7 +23,9 @@ sig Description {}{
 sig GitHubRepo {}{
 }
 //project, testCases, scripts
-sig Code {}
+sig Code {}{
+	one this.~code
+}
 
 abstract sig User {
 	username : disj one Username,
@@ -45,20 +47,21 @@ sig Team {
 
 sig KTRank {
 	student : one Student,
-	ktRank : one Int
+	ktRank : one Int,
+	tournament : one KataTournament
 }{
 	ktRank >= 1 
 	//and ktRank <= #(ktt.ktRanks)
 }
 
-fact StudentsInKTHaveRanks {
-	all kb2 : KataBattle, ktr : KTRank | 
-		all t : kb2.teams |
-			ktr.student in t.players implies (ktr in kb2.kt.ktRanks)
-}
+//fact StudentsInKTHaveRanks {
+//	all kb2 : KataBattle, ktr : KTRank | 
+//		all t : kb2.teams |
+//				ktr.student in t.players implies (ktr in kb2.kt.ktRanks)
+//}
 fact EachStudentInTeamHasKTRank {
-    all kt : KataTournament, t : Team, s : Student |
-        s in t.players implies one ktr : KTRank | ktr.student = s and ktr in kt.ktRanks
+    all t : Team, s : Student |
+        s in t.players implies one ktr : KTRank | ktr.student = s and ktr.tournament = t.kb.kt
 }
 
 fact gitHubRepoAreAllDifferent{
@@ -77,7 +80,6 @@ sig Educator extends User {}
 sig KataTournament {
 	owner : one Educator,
 	organizers: some Educator,
-	ktRanks : set KTRank,
 	descriptionKT : one Description
 }{
 	owner in organizers
@@ -113,7 +115,7 @@ sig CodeKata {
 	one this.~code
 }
 sig TeamKataSolution {
-	code : one Code,
+	code : disj one Code,
 	score : one Int
 }{
 	one this.~solution
@@ -132,6 +134,11 @@ fact DistinctStudentInSameKB {
       t1.kb != t2.kb
 }
 
+fact OneKTRForKT {
+	all ktr1, ktr2 : KTRank |
+	(ktr1 != ktr2 and ktr1.tournament = ktr2.tournament) implies ktr1.student != ktr2.student
+}
+
 fact OrganizersOfKBAreAlsoOfKT {
 	all kb : KataBattle | kb.organizer in kb.kt.organizers
 }
@@ -139,6 +146,7 @@ fact OrganizersOfKBAreAlsoOfKT {
 pred show2 {
 	#Team = 2
 	#KataBattle = 1
+	//#KataTournament = 2
 }
 
 run show2 for 8
