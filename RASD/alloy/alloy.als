@@ -41,7 +41,24 @@ sig Team {
 	gitHubRepoTeam : disj one GitHubRepo
 } {
 	battleRank >= 1 and battleRank <= #(kb.teams)
-	
+}
+
+sig KTRank {
+	student : one Student,
+	ktRank : one Int
+}{
+	ktRank >= 1 
+	//and ktRank <= #(ktt.ktRanks)
+}
+
+fact StudentsInKTHaveRanks {
+	all kb2 : KataBattle, ktr : KTRank | 
+		all t : kb2.teams |
+			ktr.student in t.players implies (ktr in kb2.kt.ktRanks)
+}
+fact EachStudentInTeamHasKTRank {
+    all kt : KataTournament, t : Team, s : Student |
+        s in t.players implies one ktr : KTRank | ktr.student = s and ktr in kt.ktRanks
 }
 
 fact gitHubRepoAreAllDifferent{
@@ -55,17 +72,12 @@ fact RankProperlyBasedOnScore{
 	(t1.solution.score < t2.solution.score implies t1.battleRank > t2.battleRank))
 }
 
-fact StudentInTeamAreSubscribedToKT {
-	all t : Team |
-	t.players in t.kb.kt.students
-}
-
 sig Educator extends User {}
 
 sig KataTournament {
 	owner : one Educator,
 	organizers: some Educator,
-	students : set Student,
+	ktRanks : set KTRank,
 	descriptionKT : one Description
 }{
 	owner in organizers
@@ -90,7 +102,7 @@ sig KataBattle {
 }
 fact ProperTeamSize{
 	all kb : KataBattle | all t : kb.teams |
-	#t.players >= kb.minTeamSize and 	#t.players <= kb.minTeamSize
+	#t.players >= kb.minTeamSize and #t.players <= kb.minTeamSize
 }
 
 sig CodeKata {
