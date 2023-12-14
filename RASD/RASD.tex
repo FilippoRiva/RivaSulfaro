@@ -174,7 +174,6 @@
     \section{Scope}
     The application domain of CodeKataBattle revolves around providing a dedicated space for students to engage in programming challenges hosted on the platform
     while giving Educators the ability to curate and upload diverse kata problems aligned with their educational objectives.
-    \\
 
     An important clarification to address before proceeding is the utilization of the GitHub platform as an external support platform.
     In fact for each kata the CKB platform will publish a GitHub repository with the testing environment provided by the educator
@@ -311,13 +310,15 @@
         \hline
         0.2 & 11/29/2023 & Document structure. \\
         \hline
-        0.3 & 12/9/2023 & Completed Introduction and Overall Description. \\
+        0.3 & 12/9/2023 & Introduction and Overall Description. \\
         \hline
-        0.4 & 12/10/2023 & Completed External Interfaces and Functional Requirements.  \\
+        0.4 & 12/10/2023 & External Interfaces and Functional Requirements.  \\
         \hline
-        0.5 & 12/11/2023 & Completed Performance Requirements, Design Constraints and Software System Attributes. \\
+        0.5 & 12/11/2023 & Performance Requirements, Design Constraints and Software System Attributes. \\
         \hline
-        0.6 & 12/13/2023 & Completed Use Cases. \\
+        0.6 & 12/13/2023 & Use Cases. \\
+        \hline
+        0.7 & 12/14/2023 & Sequence Diagrams. \\
         \hline
     \end{tabular}
     \end{center}
@@ -325,9 +326,8 @@
     \section{Reference Documents}
 
     Reference Books : 
-    
+
     Hans Van Vilet - Software Engineering: Principles and Practice
-    \\
 
     \noindent Alloy documentation :     
 
@@ -378,21 +378,13 @@ In this section we'll define a UML class diagram for the application along with 
 In order to enhance the understanding and to enable a more effective communication of the system requirements among stakeholders, we include a class diagram representing
 a domain level model of its entities.
 
-\begin{figure}[H]
-\centering
-\includegraphics*[width=0.82\textwidth]{Domain-Level-Class-Diagram}
-\caption{Domain Level Class Diagram of the CKB platform model.}
-\centering
-\label{fig:domain_level_class_diagram}
-\end{figure}
-
 The system model revolves around two user types: 
 
 \begin{description}
-    \item[Students] Individuals interested in participating in Kata Tournaments.\\
+    \item[Students :] Individuals interested in participating in Kata Tournaments.\\
     Students have the possibility to form Teams.
     Those Teams comprise one or more students and have the ability to compete in precisely one KataBattle.
-    \item[Educators]    Individuals interested in creating Kata Tournaments. \\
+    \item[Educators :] Individuals interested in creating Kata Tournaments. \\
     Each educator can be :
     \begin{description}
         \item[\emph{an organizer of a KT}] an Educator involved in the organization of a KT by creating its KBs and overseeing their management.
@@ -401,6 +393,13 @@ The system model revolves around two user types:
     Every educator can be an owner of multiple KTs, while being an organizer of other KTs.
 \end{description}
 
+\begin{figure}[H]
+\centering
+\includegraphics*[width=\textwidth]{Domain-Level-Class-Diagram}
+\caption{Domain Level Class Diagram of the CKB platform model.}
+\centering
+\label{fig:domain_level_class_diagram}
+\end{figure}
 
 Another important aspect that can be clearly seen in the class diagram is the KT-KB relationship.
 Each KT is composed by 0 or more KBs and each KB has exactly one CodeKata, which represent the problem to solve.
@@ -867,16 +866,34 @@ In this section we'll list a series of requirements which are essential for our 
 
 \newpage
 \subsection{Use case diagrams} 
-In this subsection we define, by leveraging the use of Use Case UML diagrams, every type of interaction that Educators (figure~\ref{fig:educator_usecase}) and Students (figure~\ref{fig:student_usecase}) must have with the system, describing them more in detail using the Use Case tables.
+In this subsection we define, by employing Use Case UML diagrams, every type of interaction that Educators (figure~\ref{fig:educator_usecase}) and Students (figure~\ref{fig:student_usecase}) must have with the system.
+
 \begin{figure}[H]
     \centering
-    \includegraphics*[width=0.8\textwidth]{Educator-Use-Case-Diagram}
+    \includegraphics*[width=\textwidth]{Educator-Use-Case-Diagram}
     \centering
     \caption{Educator Use Case Diagram}
     \label{fig:educator_usecase}
 \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Student-Use-Case-Diagram}
+    \centering
+    \caption{Student Use Case Diagram}
+    \label{fig:student_usecase}
+\end{figure}
 
-\subsubsection{Educator Only Use Cases}
+\newpage
+The subsequent sections provide a detailed exploration of the use cases by leveraging the use of Use Case tables and UML sequence diagrams for enhanced clarity and comprehension.
+
+The use cases will be categorized into three sections:
+\begin{itemize}
+    \item one dedicated to Educator-exclusive use cases.
+    \item another one focusing on Student-exclusive use cases.
+    \item a separate section for shared use cases between Educators and Students.
+\end{itemize}
+
+\subsubsection{Educator-Exclusive Use Cases}
 
 \begin{center}
 \begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
@@ -884,21 +901,20 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \multicolumn{2}{|c|}{\textbf{Create Kata Tournament}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Educator
+    \textbf{Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Educator has previously registered to the CKB platform and he/she is logged in
+    \textbf{Entry condition} & The Educator has previously registered to the CKB platform and he/she is logged in
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Educator goes to the Home Page and clicks on the \(\("\)\)Create Kata Tournament\("\) button.
-        \item The Educator inserts a name for the KT\@.
-        \item The Educator inserts a description for the KT\@.
-        \item The Educator clicks on the \("\)Create\("\) button.
+        \item The Educator goes to the Home Page and clicks on the ``Create Kata Tournament" button.
+        \item The Educator inserts a name for the KT.
+        \item The Educator inserts a description for the KT.
+        \item The Educator clicks on the ``Create" button.
         \item The System checks if the KT name is available.
     \end{enumerate}
     \\
@@ -918,6 +934,14 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \end{tabular}
 \end{center}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Create-Kata-Tournament.jpg}
+    \centering
+    \label{fig:uc_kata_tournament}
+    \caption{Create Kata Tournament Sequence Diagram}
+\end{figure}
+
 \cleardoublepage
 
 \begin{center}
@@ -926,27 +950,26 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \multicolumn{2}{|c|}{\textbf{Create Kata Battle}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Educator
+    \textbf{Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in.
+    \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
     The Educator has been granted the permits to organize a specific KT by its owner.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Educator goes to a Kata Tournament Page of a KT that he organizes and clicks on the \("\)Create Kata Battle\("\) button.
+        \item The Educator goes to a Kata Tournament Page of a KT that he organizes and clicks on the ``Create Kata Battle" button.
         \item The Educator inserts a description of the kata problem
-        \item The Educator uploads a software project, including test cases and build automation scripts.
-        \item The System checks if the software project, test cases and build automation scripts are valid\footnotemark[1] for the automatic evaluation system.
         \item The Educator sets a minimum and maximum team size.
         \item The Educator sets a registration deadline.
         \item The Educator sets the final submission deadline.
         \item The Educator sets if the KB will need manual evaluation or not by clicking a flag button.
-        \item The Educator clicks on the \("\)Create\("\) button.
+        \item The Educator uploads a software project, including test cases and build automation scripts.
+        \item The System checks if the software project, test cases and build automation scripts are valid\footnotemark[1] for the automatic evaluation system.
+        \item The Educator clicks on the ``Create" button.
         \item The System validates the received data.
     \end{enumerate}
     \\
@@ -965,6 +988,14 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \hline
 \end{longtable}
 \end{center}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Create-Kata-Battle.jpg}
+    \centering
+    \caption{Create Kata Battle Sequence Diagram}
+\end{figure}
+
 \footnotetext[1]{How to determine the validity of a software project, test cases and build automation scripts will be an implementation choice during the development phase}
 
 \begin{center}
@@ -973,21 +1004,20 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \multicolumn{2}{|c|}{\textbf{View Solutions}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Educator
+    \textbf{Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in.
-    The Educator has been granted the permits to organize a specific KT by its owner.
-    The educator has previously created a KB for that specific KT\@.
+    \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
+    The KT owner has authorized the Educator to organize that KT.
+    The educator has previously created a KB for that specific KT.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Educator goes to the Kata Battle Page of a KB that he organizes and clicks on the \("\)View Solutions\("\) button.
-        \item The Educator sees a list of all the GitHub repos of the team participating.
+        \item The Educator goes to the Kata Battle Page of a KB that he organizes and clicks on the ``View Solutions" button.
+        \item The Educator sees a list of all the GitHub repos of the team partecipating.
         \item The Educator clicks on the link of a certain team's GitHub repo.
     \end{enumerate}
     \\
@@ -998,6 +1028,13 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \end{tabular}
 \end{center}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{View-Solutions.jpg}
+    \centering
+    \caption{View Solutions Sequence Diagram}
+\end{figure}
+
 \cleardoublepage
 \begin{center}
 \begin{longtable}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
@@ -1005,13 +1042,12 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \multicolumn{2}{|c|}{\textbf{Evaluate Solution}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Educator 
+    \textbf{Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in.
+    \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
     The Educator has been granted the permits to organize a specific KT by its Owner.
     The Educator has selected the need for a manual evaluation during the creation of that KB\@.
     \\
@@ -1020,17 +1056,16 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \begin{enumerate}
         \item The KB's submission deadline expires.
         \item The System notifies the Educator about the beginning of the Consolidation Stage.
-        \item The Educator goes to the Kata Battle Page of that KB and clicks on the \("\)View Solutions\("\) button.
-        \item The Educator sees a list of all the GitHub repos of the team participating.
+        \item The Educator goes to the Kata Battle Page of that KB and clicks on the ``View Solutions" button.
+        \item The Educator sees a list of all the GitHub repos of the team partecipating.
         \item The Educator, for each team, clicks on a certain team's GitHub repo and evaluates their solution by reading the code. \label{item_evaluate}
-        \item The Educator goes to the Kata Battle Page of a KB that he organizes and clicks on the \("\)Evaluate Teams\("\) button.
+        \item The Educator goes to the Kata Battle Page of a KB that he organizes and clicks on the ``Evaluate Teams" button.
         \item The Educator, for each team, inserts a score based on his manual evaluation at point~\ref{item_evaluate}.
-        \item The Educator confirms his evaluation by clicking on the \("\)Confirm Manual Evaluation\("\) button.
+        \item The Educator confirms his evaluation by clicking on the ``Confirm Manual Evaluation" button.
     \end{enumerate}
     \\
     \hline
-    \textbf{Exit condition}  & The evaluation is successful and each Team get its final score.
-    The KB ends and the Students of each Team are notified about the end of it. 
+    \textbf{Exit condition}  & The evaluation is successful and each Team gets its final score. The KB ends and the Students of each Team are notified about the end of it.
     \\
     \hline
     \textbf{Exceptions}  & 
@@ -1043,30 +1078,36 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \end{longtable}
 \end{center}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Evaluate-Solutions.jpg}
+    \centering
+    \caption{Evaluate Solutions Sequence Diagram}
+\end{figure}
+
 \begin{center}
 \begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
     \hline
     \multicolumn{2}{|c|}{\textbf{Invite Organizer}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Educator
+    \textbf{Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in.
+    \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
     The Educator is an owner of a specific KT\@.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
         \item The Educator goes to the Kata Tournament Page of the KT that he owns.
-        \item The Educator clicks on the \("\)Add Organizer\("\) button.
-        \item The Educator inserts an username or a mail of an Educator and clicks the \("\)Send Organization Invite\("\) button.
+        \item The Educator clicks on the ``Add Organizer" button.
+        \item The Educator inserts an username or a mail of an Educator and clicks the ``Send Organization Invite" button.
         \item The System sends an e-mail and a website notification about the invitation to the Educator specified by the owner.
         \item The Educator clicks on the link received by e-mail or clicks on the website notification and is redirected to the KB page.
-        \item The Educator clicks on the \("\)Accept Organization Invite\("\) button.
+        \item The Educator clicks on the ``Accept Organization Invite" button.
     \end{enumerate}
     \\
     \hline
@@ -1077,13 +1118,19 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \begin{itemize}
         \item The Educator tries to add a non existing user or a non existing e-mail.
         The invitation fails and the owner is notified about it.
-        \item The Educator clicks on the \("\)Refuse Organization Invite\("\).
-        The invitation fails.
+        \item The Educator clicks on the ``Refuse Organization Invite". The invitation fails.
     \end{itemize}
     \\
     \hline
 \end{tabular}
 \end{center}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Invite-Organizer.jpg}
+    \centering
+    \caption{Invite Organizer Sequence Diagram}
+\end{figure}
 
 \begin{center}
 \begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
@@ -1091,26 +1138,25 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \multicolumn{2}{|c|}{\textbf{Close Tournament}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Educator
+    \textbf{Actors} & Educator
     \\
     \hline
-    \textbf{Entry Condition} & The Educator has registered to the CKB platform and he is logged in.
+    \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
     The Educator is an owner of a specific KT. All the KB of that tournament are finished.
     \\
     \hline
     \textbf{Flow of events}  &
     \begin{enumerate}
         \item The Educator goes to the Kata Tournament Page of a KT he owns.
-        \item The Educator clicks on the \("\)Close Kata Tournament\("\) button.
+        \item The Educator clicks on the ``Close Kata Tournament" button.
         \item The System shows a confirmation prompt to the owner.
-        \item The Educator clicks on the \("\)Yes\("\) button.
+        \item The Educator clicks on the ``Yes" button.
     \end{enumerate}
     \\
     \hline
-    \textbf{Exit condition} & The System correctly ends the Kata Tournament and notifies via website notification and e-mail both the owner, the organizers and the Students of all the Teams Participating to it.
+    \textbf{Exit condition} & The System correctly ends the Kata Tournament and notifies via website notification and e-mail both the owner, the organizers and the partecipating Students.
     \\
     \hline
     \textbf{Exceptions}  & 
@@ -1123,19 +1169,18 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \end{tabular}
 \end{center}
 
-
-
-
-
-\subsubsection{Student Only Use Cases}
-
 \begin{figure}[H]
     \centering
-    \includegraphics*[width=0.7\textwidth]{Student-Use-Case-Diagram}
+    \includegraphics*[width=\textwidth]{Close-Tournament.jpg}
     \centering
-    \caption{Student Use Case Diagram}
-    \label{fig:student_usecase}
+    \caption{Close Tournament Sequence Diagram}
 \end{figure}
+
+
+
+\cleardoublepage
+\subsubsection{Student-Exclusive Use Cases}
+
 
 \begin{center}
 \begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
@@ -1143,21 +1188,20 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \multicolumn{2}{|c|}{\textbf{Subscribe to a KT}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Student
+    \textbf{Actors} & Student
     \\
     \hline
-    \textbf{Entry Condition} & The Student has registered to the CKB platform and he is logged in.
+    \textbf{Entry condition} & The Student has registered to the CKB platform and he is logged in.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Student goes to a Kata Tournament Page of a KT\@.
-        \item The Student clicks on the \("\)Subscribe to the Kata Tournament\("\) button.
+        \item The Student goes to a Kata Tournament Page of a KT.
+        \item The Student clicks on the ``Subscribe to the Kata Tournament" button.
         \item The System shows to the Student a confirmation prompt.
-        \item The Student clicks on the \("\)Yes\("\) button.
+        \item The Student clicks on the ``Yes" button.
     \end{enumerate}
     \\
     \hline
@@ -1175,6 +1219,13 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \end{tabular}
 \end{center}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Subscribe-to-a-KT.jpg}
+    \centering
+    \caption{Subscribe to a KT Sequence Diagram}
+\end{figure}
+
 
 \begin{center}
 \begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
@@ -1182,19 +1233,18 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \multicolumn{2}{|c|}{\textbf{Create a Team}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Student
+    \textbf{Actors} & Student
     \\
     \hline
-    \textbf{Entry Condition} & The Student is registered to the CKB platform and he is logged in.
+    \textbf{Entry condition} & The Student is registered to the CKB platform and he is logged in.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
         \item The Student goes to a Kata Battle page of a KB of a KT he is subscribed to.
-        \item The Student clicks on the \("\)Create Team\("\) button.
+        \item The Student clicks on the ``Create Team" button.
         \item The Student inserts the username or e-mail of zero\footnotemark[1] or more students to invite to his team.
         \item The System sends a website notification and an e-mail about the invitation to all the invited students.
     \end{enumerate}
@@ -1215,6 +1265,12 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \hline
 \end{tabular}
 \end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Create-a-Team.jpg}
+    \centering
+    \caption{Create a Team Sequence Diagram}
+\end{figure}
 \footnotetext[1]{We remind that a Student must have a Team to partecipate to a KB, and a Team, as depicted on the Domain Level Class Diagram, can be formed by 1 ore more students.}
 
 \begin{center}
@@ -1223,14 +1279,13 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
     \multicolumn{2}{|c|}{\textbf{Accept a Team Invitation}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Student
+    \textbf{Actors} & Student
     \\
     \hline
-    \textbf{Entry Condition} & The Student is registered to the CKB platform.
-    Another Student invites the Student to join a Team for a specific KB\@.
+    \textbf{Entry condition} & The Student is registerd to the CKB platform.
+    Another Student invited the subject Student to join a Team for a specific KB.
     \\
     \hline
     \textbf{Flow of events}  & 
@@ -1239,7 +1294,7 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
         \item The Student clicks on the link provided via e-mail or on the website notification.
         \item If the Student has not yet registered to the KT of that KB he's asked to subscribe to the KT, following the Subscribe to a KT use case.
         \item The Student is redirected to the Kata Battle Page of the KB that he's been invited to.
-        \item The Student clicks on the \("\)Accept Invitation\("\) button.
+        \item The Student clicks on the ``Accept Invitation" button.
     \end{enumerate}
     \\
     \hline
@@ -1258,28 +1313,34 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \end{tabular}
 \end{center}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Accept-a-Team-Invitation.jpg}
+    \centering
+    \caption{Accept a Team Invitation}
+\end{figure}
+
 \begin{center}
 \begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
     \hline
     \multicolumn{2}{|c|}{\textbf{Subscribe a Team to a KB}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Student
+    \textbf{Actors} & Student
     \\
     \hline
-    \textbf{Entry Condition} & The Student is registered to the CKB platform.
-    The Student has previously created the Team he's about to subscribe to the KB\@.
+    \textbf{Entry condition} & The Student is registerd to the CKB platform.
+    The Student has previously created the Team he's about to subscribe to the KB.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
         \item The Student goes to the Kata Battle page of the KB he has previously created a team for.
-        \item The Student clicks on the \("\)Subscribe Team\("\) button.
+        \item The Student clicks on the ``Subscribe Team" button.
         \item The Student is prompted to confirm his decision.
-        \item The Student clicks on the \("\)Yes\("\) button.
+        \item The Student clicks on the ``Yes" button.
     \end{enumerate}
     \\
     \hline
@@ -1296,10 +1357,17 @@ In this subsection we define, by leveraging the use of Use Case UML diagrams, ev
 \end{tabular}
 \end{center}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Subscribe-a-Team-to-a-KB.jpg}
+    \centering
+    \caption{Subscribe a Team to a KB Sequence Diagram}
+\end{figure}
+
 \cleardoublepage
 \subsubsection{Educator / Student Use Cases}
 In this subsection the use cases are identical for both the Educators and Students. 
-We'll say \("\)Educator / Student\("\) to refer either to an Educator or a Student. 
+We'll say ``Educator / Student" to refer either to an Educator or a Student.
 
 
 \begin{center}
@@ -1308,13 +1376,12 @@ We'll say \("\)Educator / Student\("\) to refer either to an Educator or a Stude
     \multicolumn{2}{|c|}{\textbf{Register}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Educator, Student
+    \textbf{Actors} & Educator, Student
     \\
     \hline
-    \textbf{Entry Condition} &  True 
+    \textbf{Entry condition} &  True
     \\
     \hline
     \textbf{Flow of events}  & 
@@ -1322,7 +1389,7 @@ We'll say \("\)Educator / Student\("\) to refer either to an Educator or a Stude
         \item The Educator / Student goes to the Registration Page.
         \item The Educator / Student chooses its user type between Educator or Student.
         \item The Educator / Student inserts an username, e-mail, password and a copy of the password.
-        \item The Educator / Student clicks the \("\)Confirm\("\) button.
+        \item The Educator / Student clicks the ``Confirm" button.
         \item The system checks the availability and validity of the inserted data.
         \item The system sends an email to the specified e-mail.
         \item The system notifies the user about the email being sent.
@@ -1346,6 +1413,13 @@ We'll say \("\)Educator / Student\("\) to refer either to an Educator or a Stude
 \end{tabular}
 \end{center}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Register.jpg}
+    \centering
+    \caption{Register Sequence Diagram}
+\end{figure}
+
 \begin{center}
 \begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
     \hline
@@ -1354,17 +1428,17 @@ We'll say \("\)Educator / Student\("\) to refer either to an Educator or a Stude
     \textbf{ID} & \uc
     \\
     \hline
-    \textbf{Participating Actors} & Educator, Student
+    \textbf{Actors} & Educator, Student
     \\
     \hline
-    \textbf{Entry Condition} &  The Educator / Student has previously registered to the CKB platform.
+    \textbf{Entry condition} &  The Educator / Student has previously registered to the CKB platform.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
         \item The Educator / Student goes to the Login Page 
         \item The Educator / Student inserts his username and password or his e-mail and password.
-        \item The Educator / Student clicks on the \("\)Login\("\) button.
+        \item The Educator / Student clicks on the ``Login" button.
         \item The System checks the validity of the credentials inserted by the user.
     \end{enumerate}
     \\
@@ -1374,7 +1448,7 @@ We'll say \("\)Educator / Student\("\) to refer either to an Educator or a Stude
     \hline
     \textbf{Exceptions}  & 
     \begin{itemize}
-        \item The Educator / Student has inserted a non valid username-password couple or a non valid e-mail-password couple.
+        \item The Educator / Student has inserted a non valid username - password couple or a non valid e-mail-password couple.
         The Educator / Student does not login and is notified about the failed login attempt.
     \end{itemize}
     \\
@@ -1382,25 +1456,32 @@ We'll say \("\)Educator / Student\("\) to refer either to an Educator or a Stude
 \end{tabular}
 \end{center}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{Login.jpg}
+    \centering
+    \caption{Login Sequence Diagram}
+\end{figure}
+
+\newpage
 \begin{center}
 \begin{tabular}[h] {|>{\columncolor[gray]{0.8}}l|p{100mm}|}
     \hline
     \multicolumn{2}{|c|}{\textbf{Visualize Rankings}} \\
     \hline
     \textbf{ID} & \uc
-
     \\
     \hline
-    \textbf{Participating Actors} & Educator, Student
+    \textbf{Actors} & Educator, Student
     \\
     \hline
-    \textbf{Entry Condition} &  The Educator / Student is registered to the CKB platform and is correctly logged in.
+    \textbf{Entry condition} &  The Educator / Student is registered to the CKB platform and is correctly logged in.
     \\
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Educator / Student goes to a Kata Tournament Page of a certain KT\@.
-        \item The Educator / Student clicks the \("\)Visualize Rankings\("\) button.
+        \item The Educator / Student goes to a Kata Tournament Page of a certain KT.
+        \item The Educator / Student clicks the ``Visualize Rankings" button.
     \end{enumerate}
     \\
     \hline
@@ -1410,10 +1491,14 @@ We'll say \("\)Educator / Student\("\) to refer either to an Educator or a Stude
 \end{tabular}
 \end{center}
 
-\subsection{Sequence diagrams} 
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=0.6\textwidth]{Visualize-Rankings.jpg}
+    \centering
+    \caption{Visualize Rankings Sequence Diagram}
+\end{figure}
 
-\subsection{Activity Diagrams}
-
+\newpage
 \section{Performance requirements}
 The system will prioritize its ability to be scalable, adapting to a continuous expansion of his services.
 Response time won't be its top priority since, given the fact that it will be a website and most of the interaction with the user will be asynchronous, there's no need to impose low latency.
@@ -1475,7 +1560,7 @@ It will be developed using platform-independent technologies to ensure compatibi
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Student}       & \textbf{Effort} \\ \hline
-Filippo Riva           & 26h             \\ \hline
+Filippo Riva           & 30h             \\ \hline
 Antonio Sulfaro        & 28h             \\ \hline
 \end{tabular}
 \end{table}
