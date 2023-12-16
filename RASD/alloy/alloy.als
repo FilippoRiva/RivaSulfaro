@@ -24,13 +24,9 @@ sig Password {}{
     some this.~password
 }
 
-sig Description {}{
-//  one this.~descriptionKT
-//  one this.~descriptionCode
-}
+sig Description {}
 
-sig GitHubRepo {}{
-}
+sig GitHubRepo {}
 
 //project, testCases, scripts
 sig Code {}{
@@ -45,28 +41,22 @@ abstract sig User {
 
 sig Educator extends User {}
 
-sig Student extends User {
-	steams : set Team
-}{
-	steams = {t : Team | this in t.players}
-}
+sig Student extends User {}
 
 sig KTRank {
 	ktRank : one Int,
 	tournament : one KataTournament,
 	student : one Student
 }{
-	ktRank >= 1 and ktRank <= #(tournament.ktrs)
+	ktRank >= 1 and ktRank <= #(getKTRanks[tournament])
 }
 
 sig KataTournament {
 	owner : one Educator,
 	organizers: some Educator,
-	descriptionKT : one Description,
-	ktrs : set KTRank
+	descriptionKT : one Description
 }{
 	owner in organizers
-	ktrs = {ktr : KTRank | ktr.tournament = this}
 }
 
 sig TeamKataSolution {
@@ -94,7 +84,7 @@ sig Team {
     battleRank : one Int,
     gitHubRepoTeam : disj one GitHubRepo
 }{
-    battleRank >= 1 and battleRank <= #(kb.teams)
+    battleRank >= 1 and battleRank <= #(getTeams[kb])
 }
 
 sig KataBattle {
@@ -105,20 +95,18 @@ sig KataBattle {
  	maxTeamSize : one Int,
  	registrationDeadline : one DateTime,
  	submissionDeadline : one DateTime,
- 	isManualEvaluationNeeded : one Boolean,
- 	teams : set Team
+ 	isManualEvaluationNeeded : one Boolean
 }{
     minTeamSize > 0
     maxTeamSize >= minTeamSize
     submissionDeadline.time > registrationDeadline.time
-    teams = {t : Team | t.kb = this}
 }
 
 // PREDICATES ----------------------------------------------------------------------------------------------------------
 
 //return true is the Student s is subscribed to the KataTournament kt2
 pred isSubscribed [s : Student, kt2 : KataTournament] {
-	some t : s.steams | t.kb.kt = kt2
+	some t : getTeams[s] | t.kb.kt = kt2
 }
 
 
@@ -135,6 +123,13 @@ fun studentScore [s : Student, kt : KataTournament] : Int {
 	sum solution : getSolutions[s, kt]  | solution.score
 }
 
+//Reverse associations' functions-------------------------------------------
+
+//return the teams of a Student s
+fun getKTRanks [t : KataTournament] : KTRank {
+	{ktr : KTRank | ktr.tournament = t}
+}
+
 //return the ktRanks of a Student s
 fun getKTRanks [s : Student] : KTRank {
 	{ktr : KTRank | ktr.student = s}
@@ -145,6 +140,10 @@ fun getTeams [s : Student] : Team {
 	{team : Team | s in team.players}
 }
 
+//return the teams of a Student s
+fun getTeams [battle : KataBattle] : Team {
+	{team : Team | team.kb = battle}
+}
 
 // FACTS ----------------------------------------------------------------------------------------------------------
 
@@ -162,7 +161,7 @@ fact RankProperlyBasedOnScore{
 
 //Every team has a number of student that respect the minimum and maximum imposed by the educator
 fact ProperTeamSize{
-	all kb : KataBattle | all t : kb.teams |
+	all kb : KataBattle | all t : getTeams[kb] |
 	#t.players >= kb.minTeamSize and #t.players <= kb.minTeamSize
 }
 
@@ -204,7 +203,7 @@ fact KTROnlyIfSubscribed{
 //The tournament rank for every student in every tournament depends on the sum of the scores of all his teams
 fact TournamentRankProperlyBasedOnScore{
 	all s1, s2 : Student, kt : KataTournament | 
-		(isSubscribed[s1, kt] and isSubscribed[s2, kt] and studentScore[s1, kt] <= studentScore[s2, kt] and s1 != s2) implies 
+		(s1 != s2 and isSubscribed[s1, kt] and isSubscribed[s2, kt] and studentScore[s1, kt] <= studentScore[s2, kt]) implies 
 			(all ktr1 : getKTRanks[s1] , ktr2 : getKTRanks[s2] | 
 				( ktr1.tournament = kt and ktr2.tournament = kt ) implies ktr1.ktRank > ktr2.ktRank)
 }
@@ -231,6 +230,7 @@ pred show {
 	#KataTournament = 1
 	#KataBattle = 2
 	#Team = 3
+	#Student = 4
 }
 
-run show for 8
+run show for 10
