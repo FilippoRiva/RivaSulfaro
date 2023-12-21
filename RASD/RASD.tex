@@ -72,6 +72,8 @@
     \addtocounter{uccounter}{1}
     UC\arabic{uccounter}
 }
+\usepackage{listings}
+\usepackage{alloy-style}
 
 % --------------------------------------------------------------------------------------------- %
 
@@ -170,7 +172,7 @@
             This goal ensures that users stay informed about key activities and developments
             such as the beginning or end of the Kata Battles they are subscribed to 
             enhancing their engagement and overall experience
-           (for the full list of what we call ``major events'' see section \ref{standard_compliance}).
+           (for the full list of what we call ``major events'' see section~\ref{standard_compliance}).
     \end{description}
 
     \newpage
@@ -281,7 +283,7 @@
         \item[Battle Rank :] The position of a team in a battle in comparison to others based on their score.
         \item[Score :] The numerical representation, between 0 and 100, of the students' performance in a battle,
             calculated taking into consideration every evaluation factor in a proper way.
-        \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students (full list in section \ref{standard_compliance}).
+        \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students (full list in section~\ref{standard_compliance}).
     \end{description}
 
     \subsection{Acronyms}
@@ -483,10 +485,10 @@ These visual representations will illustrate the diverse phases that these entit
 
 \begin{figure}[H]
     \centering
-    \includegraphics*[width=0.8\textwidth]{KB-state-diagram.jpg}
+    \includegraphics*[width=0.8\textwidth]{KB-state-diagram}
     \centering
     \caption{Kata Battle State Diagram}
-    \label{fig:educator_usecase}
+    \label{fig:kb_state_diagram}
 \end{figure}
 
 
@@ -881,7 +883,7 @@ In this section we'll list a series of requirements which are essential for our 
 \cleardoublepage
 \subsection{Mapping on goals}
 
-In this section we will prove that each goal (defined in section \ref{goals}) is satisfied by the specified requirements (section \ref{functional_requirements}) given the domain assumptions (section \ref{domain_assumption}).
+In this section we will prove that each goal (defined in section~\ref{goals}) is satisfied by the specified requirements (section~\ref{functional_requirements}) given the domain assumptions (section~\ref{domain_assumption}).
 
 
 \subsubsection{G1 Allow educators to create Kata Tournaments}
@@ -910,7 +912,7 @@ In order to allow educators to create KBs the system must :
 \begin{itemize}
     \item allow the creation of Kata Tournaments (G1),
     \item allow the owners of KTs to grand organizers permits,
-    \item allow the organizers to start the KBs creation process and let them insert all the necessary informations,
+    \item allow the organizers to start the KBs creation process and let them insert all the necessary information's,
     \item correctly create GitHub repositories and make the KBs public and readable on the platform and on GitHub.
 \end{itemize}
 
@@ -970,12 +972,12 @@ R16 & The system must allow organizers who are creating a KB to set its submissi
 R17 & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required. \\ 
 R18 & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system. \\ 
 R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
-R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn’t exceed the maximum one defined by the organizer. \\ 
+R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer. \\
 R23 & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB. \\ 
 R25 & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository. \\ 
 R26 & The system must pull the new source code from the main branch of a certain team’s GitHub repository every time it is notified via its submission API. \\ 
 R27 & The system must automatically run static analysis tools over a team’s code each time it receives a new update. \\ 
-R28 & The system must automatically update a team’s score each time a static anal- ysis tool is executed over the team’s code. \\ 
+R28 & The system must automatically update a team’s score each time a static analysis tool is executed over the team’s code. \\
 R29 & The system must automatically run test cases over a team’s executables each time it receives a new update. \\ 
 R30 & The system must automatically update a team’s score each time test cases are run over the team’s executables. \\ 
 R31 & The system must automatically assign an additional score to each team based on the timeliness of the team’s commits. \\ 
@@ -1045,7 +1047,7 @@ R17 & The system must allow organizers who are creating a KB to set if a manual 
 R18 & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system. \\ 
 R20 & The system must allow students and educators to read the description of all the KB of every KT. \\ 
 R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
-R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn’t exceed the maximum one defined by the organizer. \\ 
+R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer. \\
 \hline
 \textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
 D01 & Educators and students have an internet connection. \\ 
@@ -1075,12 +1077,12 @@ R5 & The system must allow educators who created a KT to grant the permission to
 R7 & The system must allow students to subscribe to a KT before its subscription deadline. \\ 
 R9 & The system must allow organizers of a specific KT to start and end the KB creation procedure for that KT\@. \\
 R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
-R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn’t exceed the maximum one defined by the organizer. \\ 
+R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer. \\
 R23 & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB. \\ 
 R25 & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository. \\ 
 R26 & The system must pull the new source code from the main branch of a certain team’s GitHub repository every time it is notified via its submission API. \\ 
 R27 & The system must automatically run static analysis tools over a team’s code each time it receives a new update. \\ 
-R28 & The system must automatically update a team’s score each time a static anal- ysis tool is executed over the team’s code. \\ 
+R28 & The system must automatically update a team’s score each time a static analysis tool is executed over the team’s code. \\
 R29 & The system must automatically run test cases over a team’s executables each time it receives a new update. \\ 
 R30 & The system must automatically update a team’s score each time test cases are run over the team’s executables. \\ 
 R31 & The system must automatically assign an additional score to each team based on the timeliness of the team’s commits. \\ 
@@ -1853,10 +1855,75 @@ It will be developed using platform-independent technologies to ensure compatibi
 \chapter{Formal analysis using Alloy}
 
 \section{Alloy Code}
+This section provides all the alloy code used to prove the correctness of the project.
+For a better reading, the code is subdivided into the different blocks it's composed.
+
+\subsection{Signatures}
+\lstinputlisting[language=alloy]{alloy/sig.als}
+
+We can see the structure of the Alloy model generating the MetaModel:
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{metaModel}
+    \centering
+    \caption{MetaModel}
+\end{figure}
+
+\pagebreak
+
+\subsection{Predicates}
+Predicates are utils boolean functions
+
+\lstinputlisting[language=alloy]{alloy/pred.als}
+
+\subsection{Functions}
+Functions return a set of a specif Signature.
+They are useful to make more readable the code and to avoid inverse associations
+
+\lstinputlisting[language=alloy]{alloy/fun.als}
+
+\subsection{Facts}
+Constraints to adapt the model to the world
+
+\lstinputlisting[language=alloy]{alloy/fact.als}
 
 \section{Alloy Worlds}
-\subsection{First World…}
-\section{...}
+
+Here there are some generated worlds from the alloys source that show some functionalities of the system.
+Each one of them has a brief description of the depicted situation and the generated diagram.
+
+\subsection{Organizers and TeamSize}
+In this world we can see that for a KT there is always an educator that is both owner and organizer, and can have others organizers;
+the KBs associated to that tournament have an organizer that must be an organizer of that KT\@.
+We can also see that a student can join different teams only if they are associated to different KBs,
+and that the minimum and maximum size for teams is respected.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{organizer+teamsize}
+    \centering
+    \caption{Organizer and Teamsize}
+\end{figure}
+
+\subsection{Rankings}
+In this world we can see that both battle rankings and tournament rankings are correctly calculated.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{ranking}
+    \centering
+    \caption{Rankings}
+\end{figure}
+
+\subsection{Complete World}
+In this world we can see every signature and association
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{complete}
+    \centering
+    \caption{Complete model}
+\end{figure}
 
 %  5  --------------------------------------------------------------------------------------------%
 \chapter{Effort spent}
