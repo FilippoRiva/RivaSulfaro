@@ -1,0 +1,224 @@
+\documentclass[11pt]{report}
+\usepackage[utf8]{inputenc}
+
+% include images -- % 
+\usepackage{graphicx}
+
+% define page geometry -- %
+\usepackage{geometry}
+
+\geometry{a4paper, margin=100px}
+
+% enables referencing to enum items -- %
+\usepackage{enumitem}
+
+% places footnotes at the bottom -- %
+\usepackage[bottom]{footmisc}
+
+% hyperlinks and hyper references -- %
+\usepackage{hyperref}
+\usepackage{colortbl}
+
+\usepackage{array}
+\usepackage{float}
+
+% tables -- % 
+\usepackage{tabularx}
+\usepackage{longtable} % splits a table when it takes more then one page
+
+% including pictures in the title -- %
+\usepackage{titlepic}
+
+% fancy headers -- %
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\fancyhead[L]{\nouppercase{\rightmark}}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\setlength{\headheight}{13.6pt}
+\addtolength{\topmargin}{-0.1pt}
+
+%table coloring -- %
+\usepackage[table]{xcolor} % Add the xcolor package for background color
+
+%table padding -- %
+\renewcommand{\arraystretch}{1.5}
+
+% hyperlinks -- %
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=purple,
+    pdftitle={Requirement Analysis and Specification Document},}
+
+% paths to the graphic folder relative to the tex file -- %
+\graphicspath{ {./images/} }
+
+
+% --------------------------------------------------------------------------------------------- %
+
+\pagenumbering{Roman}
+
+\titlepic{\includegraphics[width=0.5\textwidth]{logo_polimi}}
+\title{CodeKataBattle - Design Document}
+% https://github.com/FilippoRiva/RivaSulfaro
+\author{Filippo Riva, Antonio Sulfaro}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\cleardoublepage
+
+
+
+
+
+
+
+
+
+
+%  1  --------------------------------------------------------------------------------------------%
+
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+
+\section{Purpose}
+    %TODO
+
+\section{Scope}
+    %TODO
+
+\section{Definitions, Acronyms, Abbreviations}
+
+Here's a list of useful definitions necessary to a comprehensive understanding of the CodeKataBattle RASD document
+
+\subsection{Definitions}
+
+\begin{description}
+    \item[Kata Tournament :] A competition organized by educators on the CKB platform, where students
+        can participate in various Kata Battles.
+    \item[Kata Battle :] A competition organized by an educator associated to a Kata Tournament, where students
+        compete with each other by programming solutions to code katas.
+    \item[Organizer :] An educator who possesses the permission to upload KB for a specific tournament.
+    This authorization is granted when the educator has been invited by the creator of the tournament.
+    \item[Code Kata :] A programming problem associated with each Kata Battle uploaded by an Organizer.
+        It consists in a description of the problem, a software project, build automation scripts and test cases.
+    \item[Team :] A group of one or more students taking part to a Kata Battle.
+    \item[Consolidation Stage :] In this phase, the Kata Battle's Organizer will manually assess and evaluate the submissions made by students.
+        If no manual evaluation is required, it does not exist.
+        This phase commences upon the conclusion of a KB and extends until the educator decides to finalize it.
+    \item[Tournament Rank :] The position of a student in a tournament in comparison to others based on the sum of the scores
+    he obtained in each Kata Battle of that Kata Tournament.
+    \item[Battle Rank :] The position of a team in a battle in comparison to others based on their score.
+    \item[Score :] The numerical representation, between 0 and 100, of the students' performance in a battle,
+        calculated taking into consideration every evaluation factor in a proper way.
+    \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students (full list in section \ref{standard_compliance}).
+\end{description}
+
+\subsection{Acronyms}
+
+\begin{description}
+    \item[CKB :] CodeKataBattle platform.
+    \item[KB :] Kata Battle.
+    \item[KT :] Kata Tournament.
+    \item[WPx :] x-th World Phenomena.
+    \item[SPx :] x-th Shared Phenomena.
+    \item[Rx :] x-th Requirement.
+    \item[Dx :] x-th Domain Assumption.
+    \item[Sx :] x-th Scenario.
+    \item[UCx :] x-th Use Case.
+\end{description}
+
+\subsection{Abbreviations}
+
+\begin{description}
+    \item[repo :] GitHub repository.
+\end{description}
+
+\section{Revision History}
+
+\begin{center}
+\begin{tabular}{|c|c|p{9cm}|}
+    \hline
+    \rowcolor{gray!20}
+    \textbf{Version} & \textbf{Date} & \textbf{Changes} \\
+    \hline
+    0.1 & 12/21/2023 & Document Structure\\
+    \hline
+\end{tabular}
+\end{center}
+
+\section{Reference Documents}
+
+Reference Books : 
+
+Hans Van Vilet - Software Engineering: Principles and Practice
+
+\section{Document Structure}
+
+We offer a concise overview of the document structure: 
+\begin{itemize}
+    \item \textbf{Chapter 1: Introduction}\\
+        %TODO
+    \item \textbf{Chapter 2: Architectural Design}\\
+        %TODO
+    \item \textbf{Chapter 3: User Interface Design}\\
+        %TODO
+    \item \textbf{Chapter 4: Requirements Traceability}\\
+        %TODO
+    \item \textbf{Chapter 5: Implementation, Integration and Test Plan}\\
+        %TODO
+    \item \textbf{Chapter 6: Effort Spent}\\
+        %TODO
+\end{itemize}
+
+%  2  --------------------------------------------------------------------------------------------%
+
+\chapter{Architectural Design}
+
+
+\section{Overview}
+\section{Component view}
+\section{Deployment view}
+\section{Runtime view}
+\section{Component interfaces}
+\section{Selected architectural styles and patterns}
+\section{Other design decisions}
+
+%  3  --------------------------------------------------------------------------------------------%
+
+\chapter{User Interface Design}
+
+
+%  4  --------------------------------------------------------------------------------------------%
+
+\chapter{Requirements Traceability}
+
+
+%  5  --------------------------------------------------------------------------------------------%
+
+\chapter{Implementation, Integration and Test Plan}
+
+
+
+%  6  --------------------------------------------------------------------------------------------%
+\chapter{Effort Spent}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Student}       & \textbf{Effort} \\ \hline
+Filippo Riva           & 0h              \\ \hline
+Antonio Sulfaro        & 0h              \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}
