@@ -264,7 +264,7 @@
     \newpage
     \section{Definitions, Acronyms, Abbreviations}
     Here's a list of useful definitions necessary to a comprehensive understanding of the CodeKataBattle RASD document
-    \subsection{Definitions}
+    \subsection{Definitions} \label{definitions}
     \begin{description}
         \item[Kata Tournament :] A competition organized by educators on the CKB platform, where students
             can participate in various Kata Battles.
@@ -283,7 +283,15 @@
         \item[Battle Rank :] The position of a team in a battle in comparison to others based on their score.
         \item[Score :] The numerical representation, between 0 and 100, of the students' performance in a battle,
             calculated taking into consideration every evaluation factor in a proper way.
-        \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students (full list in section~\ref{standard_compliance}).
+        \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students.
+            Here's a full list of major events for a specific student:
+            \begin{itemize}
+                \item creation of a KT on the CKB platform,
+                \item creation of a KB of a KT the student is subscribed to,
+                \item the start of a KB the student has joined as a team,
+                \item the end of a KB the student has joined as a team,
+                \item the end of a KT the student has subscribed to.
+            \end{itemize}
     \end{description}
 
     \subsection{Acronyms}
@@ -328,6 +336,9 @@
         \hline
         0.8 & 20/14/2023 & Complete Revision. \\
         \hline
+        0.9 & 21/14/2023 & Requirement Mappings and Use Case Mappings. \\
+        \hline
+        1.0 & 21/14/2023 & Alloy. \\
     \end{tabular}
     \end{center}
 
@@ -1106,9 +1117,9 @@ D06 & Educators evaluate students during a consolidation stage in a reasonable t
 \end{longtable}
 
 
-\subsubsection{G7  Provide notifications about major events}
+\subsubsection{G7  Provide notifications about major events} 
 The system must provide all the necessary notifications to let students have a proper interaction with the 
-CKB platform. The events that are defined as ``major'' are defined in section (\ref{standard_compliance}).
+CKB platform. The events that are defined as ``major events'' are standard events defined in section (\ref{definitions}).
 
 \begin{longtable}[h] {|p{10mm} p{130mm}|}
 \hline
@@ -1812,16 +1823,6 @@ Furthermore, its submission API will be designed using standard protocols to ens
 This will allow users to use the submission API as they prefer,
 even by developing GitHub extensions that automatically set up the GitHub Action workflow.
 
-In addition to GDPR compliance and ensuring compatibility through standard protocols, 
-we the software will implement a notification system that will notify students about what we call \emph{major events}.
-Here's a full list of major events for a specific student :
-\begin{itemize}
-    \item creation of a KT on the CKB platform,
-    \item creation of a KB of a KT the student is subscribed to,
-    \item the start of a KB the student has joined as a team,
-    \item the end of a KB the student has joined as a team,
-    \item the end of a KT the student has subscribed to.
-\end{itemize}
 
 \subsection{Hardware Constraints}
 The system does not impose any particular hardware constraints as it does not require bespoke hardware development.
@@ -1932,8 +1933,8 @@ In this world we can see every signature and association
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Student}       & \textbf{Effort} \\ \hline
-Filippo Riva           & 30h             \\ \hline
-Antonio Sulfaro        & 33h             \\ \hline
+Filippo Riva           & 45h             \\ \hline
+Antonio Sulfaro        & 44h             \\ \hline
 \end{tabular}
 \end{table}
 
