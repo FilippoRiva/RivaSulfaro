@@ -128,7 +128,7 @@
     The main idea is to apply this concept to competitive programming, giving students many
     problems to solve (that will be referred to as code katas) and making them learn by trial and error.
 
-    \subsection*{Goals} 
+    \subsection*{Goals} \label{goals}
     Let's now introduce the main goals of the CKB project.
     These goals collectively outline the essential functionalities and interactions that the CKB platform should support.
     Achieving these goals will result in a comprehensive and effective platform
@@ -165,11 +165,12 @@
             \\
             This goal emphasizes enabling students to actively participate and compete in the overall Kata Tournament.
             It encompasses the entire process, from coding to submitting solution and ultimately competing for scores and rankings.
-        \item[G7] \textbf{Provide notifications about important event}
+        \item[G7] \textbf{Provide notifications about major events}
             \\
             This goal ensures that users stay informed about key activities and developments
-            such as the beginning or end of the Kata Battles they are subscribed to,
-            enhancing their engagement and overall experience.
+            such as the beginning or end of the Kata Battles they are subscribed to 
+            enhancing their engagement and overall experience
+           (for the full list of what we call ``major events'' see section \ref{standard_compliance}).
     \end{description}
 
     \newpage
@@ -280,6 +281,7 @@
         \item[Battle Rank :] The position of a team in a battle in comparison to others based on their score.
         \item[Score :] The numerical representation, between 0 and 100, of the students' performance in a battle,
             calculated taking into consideration every evaluation factor in a proper way.
+        \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students (full list in section \ref{standard_compliance}).
     \end{description}
 
     \subsection{Acronyms}
@@ -475,6 +477,19 @@ Each KT is composed by 0 or more KBs and each KB has exactly one CodeKata, which
     The system then finalizes the tournament rankings and notifies all participating students about the closure.
     Students can now view their updated personal tournament scores, and the KT is marked as closed on the platform.
 
+\subsection{State Diagrams}
+To enhance comprehension regarding the logical progression and various states within a Kata Battle, we want to provide an UML state diagram.
+These visual representations will illustrate the diverse phases that these entities undergo, aiding in a clearer understanding of their dynamics and functionality.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=0.8\textwidth]{KB-state-diagram.jpg}
+    \centering
+    \caption{Kata Battle State Diagram}
+    \label{fig:educator_usecase}
+\end{figure}
+
+
 \section{Product Functions}
 In this section we'll discuss all the product functionalities that must be met by the final software product.
 
@@ -661,17 +676,17 @@ The website interface will have a series of pages that will allow its users to i
 We'll now define a set of website pages that will certainly need a representation in the final product, 
 to allow a better understanding of what the end users will see:
 \begin{description} 
-    \item[- Registration page] : where unregistered users will register themselves to the CKB platform, choosing
+    \item[- Registration Page] : where unregistered users will register themselves to the CKB platform, choosing
         whether if they are Students or Educators.
-    \item[- Login page]  where registered users will identify themselves to the system.
-    \item[- Home page]  users will see a series of information depending on their role.
+    \item[- Login Page]  where registered users will identify themselves to the system.
+    \item[- Home Page]  users will see a series of information depending on their role.
 
         Both users will see a tournament list with a search bar that will allow them to search for specific tournaments.
 
         Educators will see a list of the Kata Tournaments they own or organize.
 
         Students will see a list of the Kata Tournaments they are subscribed to and another one containing the Kata Battles they have joined.
-    \item[- Kata Tournament page]  users will see a series of information depending on their role.
+    \item[- Kata Tournament Page]  users will see a series of information depending on their role.
 
         Both users will see the tournament description, the current tournament rankings as a list of users associated with their scores
         and the list of all the KBs of that tournament.
@@ -679,7 +694,7 @@ to allow a better understanding of what the end users will see:
         The KT's owner will have the possibility to end the Tournament and to grant other Educators the organizer permits.
 
         The KT's owner and organizers will have the possibility to create new KBs
-    \item[- Kata Battle page] : users will see a series of information depending on their role.
+    \item[- Kata Battle Page] : users will see a series of information depending on their role.
 
         Both users will see the information about that kata battle, that is : the code kata description, the link to the KB's Official GitHub repo, the minimum and maximum size of the Teams, the registration/submission deadlines and if a manual evaluation is needed.
         
@@ -709,7 +724,7 @@ The API will need to be as easy as possible to set up, since every team will nee
 
 
 
-\section{Functional Requirements}
+\section{Functional Requirements} \label{functional_requirements}
 In this section we'll list a series of requirements which are essential for our platform in order to reach the goal defined in section (\ref{purpose}) given the domain assumptions defined in section (\ref{domain_assumption}).
  
 
@@ -731,7 +746,7 @@ In this section we'll list a series of requirements which are essential for our 
 \hline
 \rowcolor{gray!20}
 \textbf{ID} & \textbf{Description} \\ \hline
-    \rc & The system must allow educators to create a new KT\@.
+    \rc & The system must allow educators to start and end the KT creation procedure\@.
     \\ \hline
     \rc & The system must allow educators who are creating a KT to choose a KT name and description.
     \\ \hline
@@ -751,7 +766,7 @@ In this section we'll list a series of requirements which are essential for our 
 \hline
 \rowcolor{gray!20} 
 \textbf{ID} & \textbf{Description} \\ \hline
-    \rc & The system must allow organizers of a specific KT to create KBs for that KT\@.
+    \rc & The system must allow organizers of a specific KT to start and end the KB creation procedure for that KT\@.
     \\ \hline
     \rc & The system must allow organizers who are creating a KB to specify its description.
     \\ \hline
@@ -863,6 +878,252 @@ In this section we'll list a series of requirements which are essential for our 
     \\ \hline
 \end{longtable}
 
+\cleardoublepage
+\subsection{Mapping on goals}
+
+In this section we will prove that each goal (defined in section \ref{goals}) is satisfied by the specified requirements (section \ref{functional_requirements}) given the domain assumptions (section \ref{domain_assumption}).
+
+
+\subsubsection{G1 Allow educators to create Kata Tournaments}
+To create a KT the system must allow educators to sign-up, sign-in, start the KT creation procedure and let them choose name and description.
+
+\begin{longtable}[h] {|p{10mm} p{130mm}|} 
+\hline
+\textbf{Rx} & \textbf{Requirement Description} \\ \hline
+    R1  & The system must allow educators and students to sign up. \\ 
+    R2  & The system must allow educators and students to identify themselves via a sign-in procedure.\\
+    R3  & The system must allow educators to start and end the KT creation procedure.\\
+    R4  & The system must allow educators who are creating a KT to choose a KT name and description.\\
+    R5  & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT.\\
+    R41 & The system must allow educators who created a tournament to end that specific KT.\\
+\hline
+\textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
+    D01 & Educators and students have an internet connection.\\
+    D02 & Educators and students have a browser application installed on their device. \\
+    D05 & Educators create KT and KB properly.\\ \hline
+\caption{G1 mapping}
+\end{longtable}
+
+
+\subsubsection{G2 Allow educators to create Kata Battles for a specific Kata Tournament}
+In order to allow educators to create KBs the system must :
+\begin{itemize}
+    \item allow the creation of Kata Tournaments (G1),
+    \item allow the owners of KTs to grand organizers permits,
+    \item allow the organizers to start the KBs creation process and let them insert all the necessary informations,
+    \item correctly create GitHub repositories and make the KBs public and readable on the platform and on GitHub.
+\end{itemize}
+
+
+\begin{longtable}[h] {|p{10mm} p{130mm}|}
+\hline
+\textbf{Rx} & \textbf{Requirement Description} \\ \hline
+R1 & The system must allow educators and students to sign up. \\
+R2 & The system must allow educators and students to identify themselves via a sign-in procedure. \\ 
+R3 & The system must allow educators to start and end the KT creation procedure.\\
+R5 & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT. \\ 
+R9 & The system must allow organizers of a specific KT to start and end the KB creation procedure for that KT\@. \\
+R10 & The system must allow organizers who are creating a KB to specify its description. \\ 
+R11 & The system must allow organizers who are creating a KB to upload its software project. \\ 
+R12 & The system must allow organizers who are creating a KB to upload its test cases. \\ 
+R13 & The system must allow organizers who are creating a KB to upload its automation scripts. \\ 
+R14 & The system must allow organizers who are creating a KB to set the minimum and maximum number of students per team for that KB. \\ 
+R15 & The system must allow organizers who are creating a KB to set its registration deadline. \\ 
+R16 & The system must allow organizers who are creating a KB to set its submission deadline. \\ 
+R17 & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required. \\ 
+R18 & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system. \\ 
+R20 & The system must allow students and educators to read the description of all the KB of every KT. \\ 
+R23 & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB. \\ 
+\hline
+\textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
+D01 & Educators and students have an internet connection. \\ 
+D02 & Educators and students have a browser application installed on their device.  \\ 
+D05 & Educators create KT and KB properly.  \\ \hline
+\end{longtable}
+
+
+\subsubsection{G3 Allow educators to evaluate students automatically via the system and optionally via a manual scoring}
+In order to allow educators to evaluate students manually or automatically the system must :
+\begin{itemize}
+    \item allow the creation of KBs (G2),
+    \item allow students to join KTs and KBs and publish their solutions to the code katas,
+    \item automatically run tests and other evaluation methods over the students solutions,
+    \item allow the educators to see teams' solutions and evaluate them.
+\end{itemize}
+
+
+\begin{longtable}[h] {|p{10mm} p{130mm}|}
+\hline
+\textbf{Rx} & \textbf{Requirement Description} \\ \hline
+R1 & The system must allow educators and students to sign up. \\ 
+R2 & The system must allow educators and students to identify themselves via a sign-in procedure. \\ 
+R3 & The system must allow educators to start and end the KT creation procedure.\\
+R7 & The system must allow students to subscribe to a KT before its subscription deadline. \\ 
+R9 & The system must allow organizers of a specific KT to start and end the KB creation procedure for that KT\@. \\
+R10 & The system must allow organizers who are creating a KB to specify its description. \\ 
+R11 & The system must allow organizers who are creating a KB to upload its software project. \\ 
+R12 & The system must allow organizers who are creating a KB to upload its test cases. \\ 
+R13 & The system must allow organizers who are creating a KB to upload its automation scripts. \\ 
+R14 & The system must allow organizers who are creating a KB to set the minimum and maximum number of students per team for that KB. \\ 
+R15 & The system must allow organizers who are creating a KB to set its registration deadline. \\ 
+R16 & The system must allow organizers who are creating a KB to set its submission deadline. \\ 
+R17 & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required. \\ 
+R18 & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system. \\ 
+R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
+R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn’t exceed the maximum one defined by the organizer. \\ 
+R23 & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB. \\ 
+R25 & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository. \\ 
+R26 & The system must pull the new source code from the main branch of a certain team’s GitHub repository every time it is notified via its submission API. \\ 
+R27 & The system must automatically run static analysis tools over a team’s code each time it receives a new update. \\ 
+R28 & The system must automatically update a team’s score each time a static anal- ysis tool is executed over the team’s code. \\ 
+R29 & The system must automatically run test cases over a team’s executables each time it receives a new update. \\ 
+R30 & The system must automatically update a team’s score each time test cases are run over the team’s executables. \\ 
+R31 & The system must automatically assign an additional score to each team based on the timeliness of the team’s commits. \\ 
+R32 & The system must allow organizers and students involved in a specific KB to see the battle ranks of each team. \\ 
+R33 & The system must allow the organizer who created a specific KB to see the GitHub repositories of each team participating in that KB. \\ 
+R34 & The system must allow the organizer who created a specific KB to assign additional points to each team’s score during the consolidation stage. \\ 
+R35 & The system must allow the organizer who created a specific KB to end it’s the consolidation stage. \\ 
+R36 & The system must automatically end the consolidation stage of a KB if no manual evaluation is needed. \\ 
+R38 & The system must allow the organizer and students participating in a KB to see the final teams’ scores as soon as the consolidation stage ends. \\ 
+\hline
+\textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
+D01 & Educators and students have an internet connection. \\ 
+D02 & Educators and students have a browser application installed on their device. \\
+D03 & Students know how to use GitHub and fork other repositories. \\ 
+D04 & Students know how to program GitHub Actions to notify the CKB platform. \\
+D05 & Educators create KT and KB properly. \\ 
+D06 & Educators evaluate students during a consolidation stage in a reasonable time. \\ \hline
+\end{longtable}
+
+
+\subsubsection{G4 Allow students to subscribe to Kata Tournaments available on the CKB platform}
+In order to allow students to subscribe to KTs the system must let them sign-up, sign-in, and formally subscribe to KTs 
+before the subscription deadline. At the same time the system must give the possibility to educators to create KTs (G1).
+
+\begin{longtable}[h] {|p{10mm} p{130mm}|}
+\hline
+\textbf{Rx} & \textbf{Description} \\ \hline
+R1 & The system must allow educators and students to sign up. \\ 
+R2 & The system must allow educators and students to identify themselves via a sign-in procedure. \\ 
+R3 & The system must allow educators to start and end the KT creation procedure.\\
+R7 & The system must allow students to subscribe to a KT before its subscription deadline. \\ 
+R8 & The system must allow students and educators to read the descriptions of every KT. \\ 
+\hline
+\textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
+D01 & Educators and students have an internet connection. \\ 
+D02 & Educators and students have a browser application installed on their device.  \\ 
+D05 & Educators create KT and KB properly.  \\ \hline
+\end{longtable}
+
+
+\subsubsection{G5 Allow students to join Kata Battles of a certain Kata Tournament}
+In order to allow students to join KBs the system must : 
+\begin{itemize}
+    \item allow educators to create KTs and KBs
+    \item allow students to subscribe to KTs
+    \item allow students to form Teams and subscribe them to KBs
+\end{itemize}
+
+
+\begin{longtable}[h] {|p{10mm} p{130mm}|}
+\hline
+\textbf{Rx} & \textbf{Description} \\ \hline
+R1 & The system must allow educators and students to sign up. \\ 
+R2 & The system must allow educators and students to identify themselves via a sign-in procedure. \\ 
+R3 & The system must allow educators to start and end the KT creation procedure.\\
+R5 & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT. \\ 
+R7 & The system must allow students to subscribe to a KT before its subscription deadline. \\ 
+R9 & The system must allow organizers of a specific KT to start and end the KB creation procedure for that KT\@. \\
+R10 & The system must allow organizers who are creating a KB to specify its description. \\ 
+R11 & The system must allow organizers who are creating a KB to upload its software project. \\ 
+R12 & The system must allow organizers who are creating a KB to upload its test cases. \\ 
+R13 & The system must allow organizers who are creating a KB to upload its automation scripts. \\ 
+R14 & The system must allow organizers who are creating a KB to set the minimum and maximum number of students per team for that KB. \\ 
+R15 & The system must allow organizers who are creating a KB to set its registration deadline. \\ 
+R16 & The system must allow organizers who are creating a KB to set its submission deadline. \\ 
+R17 & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required. \\ 
+R18 & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system. \\ 
+R20 & The system must allow students and educators to read the description of all the KB of every KT. \\ 
+R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
+R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn’t exceed the maximum one defined by the organizer. \\ 
+\hline
+\textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
+D01 & Educators and students have an internet connection. \\ 
+D02 & Educators and students have a browser application installed on their device.  \\ 
+D05 & Educators create KT and KB properly.  \\ \hline
+\end{longtable}
+
+\subsubsection{G6 Allow students to compete in specific Kata Tournament}
+To allow students to compete with each other the system must :
+
+\begin{itemize}
+    \item allow educators to create KTs and KBs,
+    \item allow students to join KTs, create Teams and subscribe them to KBs,
+    \item automatically evaluate and assign points to students each time they update their solutions,
+    \item let the organizers manually evaluate students,
+    \item let the students see the tournament rankings on the CKB platform,
+    \item let owners to terminate KTs, to end the actual competition.
+\end{itemize}
+
+\begin{longtable}[h] {|p{10mm} p{130mm}|}
+\hline
+\textbf{ID} & \textbf{Description} \\ \hline
+R1 & The system must allow educators and students to sign up. \\ 
+R2 & The system must allow educators and students to identify themselves via a sign-in procedure. \\ 
+R3 & The system must allow educators to start and end the KT creation procedure.\\
+R5 & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT. \\ 
+R7 & The system must allow students to subscribe to a KT before its subscription deadline. \\ 
+R9 & The system must allow organizers of a specific KT to start and end the KB creation procedure for that KT\@. \\
+R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
+R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn’t exceed the maximum one defined by the organizer. \\ 
+R23 & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB. \\ 
+R25 & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository. \\ 
+R26 & The system must pull the new source code from the main branch of a certain team’s GitHub repository every time it is notified via its submission API. \\ 
+R27 & The system must automatically run static analysis tools over a team’s code each time it receives a new update. \\ 
+R28 & The system must automatically update a team’s score each time a static anal- ysis tool is executed over the team’s code. \\ 
+R29 & The system must automatically run test cases over a team’s executables each time it receives a new update. \\ 
+R30 & The system must automatically update a team’s score each time test cases are run over the team’s executables. \\ 
+R31 & The system must automatically assign an additional score to each team based on the timeliness of the team’s commits. \\ 
+R32 & The system must allow organizers and students involved in a specific KB to see the battle ranks of each team. \\ 
+R33 & The system must allow the organizer who created a specific KB to see the GitHub repositories of each team participating in that KB. \\ 
+R34 & The system must allow the organizer who created a specific KB to assign additional points to each team’s score during the consolidation stage. \\ 
+R35 & The system must allow the organizer who created a specific KB to end it’s the consolidation stage. \\ 
+R36 & The system must automatically end the consolidation stage of a KB if no manual evaluation is needed. \\ 
+R38 & The system must allow the organizer and students participating in a KB to see the final teams’ scores as soon as the consolidation stage ends. \\ 
+R39 & The system must add, at the end of each KB, the final team’s score to the tournament rank of each student of that specific team. \\ 
+R40 & The system must allow students and educators to see the tournament rankings of every KT. \\ 
+R41 & The system must allow educators who created a tournament to end that specific KT. \\ 
+\hline
+\textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
+D01 & Educators and students have an internet connection. \\ 
+D02 & Educators and students have a browser application installed on their device.  \\ 
+D03 & Students know how to use GitHub and fork other repositories.  \\ 
+D04 & Students know how to program GitHub Actions to notify the CKB platform.  \\ 
+D05 & Educators create KT and KB properly.  \\ 
+D06 & Educators evaluate students during a consolidation stage in a reasonable time.  \\ \hline
+\end{longtable}
+
+
+\subsubsection{G7  Provide notifications about major events}
+The system must provide all the necessary notifications to let students have a proper interaction with the 
+CKB platform. The events that are defined as ``major'' are defined in section (\ref{standard_compliance}).
+
+\begin{longtable}[h] {|p{10mm} p{130mm}|}
+\hline
+\textbf{ID} & \textbf{Description} \\ \hline
+R1 & The system must allow educators and students to sign up. \\ 
+R2 & The system must allow educators and students to identify themselves via a sign-in procedure. \\ 
+R6 & The system must notify all students about the creation of a new KT. \\ 
+R19 & The system must notify all students subscribed to a specific KT about the creation of a new KB in that tournament. \\ 
+R24 & The system must notify all the students about the start of a KB that they have previously joined, sending the link to the GitHub repository corresponding to that KB. \\ 
+R37 & The system must notify all students participating in a KB about the end of the KB. \\ 
+R42 & The system must notify every student that was involved in a specific KT about the end of that KT. \\ 
+\hline
+\textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
+D01 & Educators and students have an internet connection. \\ 
+D02 & Educators and students have a browser application installed on their device.  \\ \hline
+\end{longtable}
+
 \newpage
 \subsection{Use case diagrams} 
 In this subsection we define, by employing Use Case UML diagrams, every type of interaction that Educators (figure~\ref{fig:educator_usecase}) and Students (figure~\ref{fig:student_usecase}) must have with the system.
@@ -955,7 +1216,7 @@ The use cases will be categorized into three sections:
     \\
     \hline
     \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
-    The Educator has been granted the permits to organize a specific KT by its owner or is the Owner himself.
+    The Educator has been granted the permits to organize a specific KT by its owner or is the owner himself.
     \\
     \hline
     \textbf{Flow of events}  & 
@@ -980,7 +1241,7 @@ The use cases will be categorized into three sections:
     \hline
     \textbf{Exceptions}  & 
     \begin{itemize}
-        \item The Educator sets and invalid number of minimum and maximum team size, or the registration an submission deadline are not a valid couple of dates(i.e.\ submission date before or equal to the registration date).
+        \item The Educator sets and invalid number of minimum and maximum team size, or the registration and submission deadline are not a valid couple of dates(i.e.\ submission date before or equal to the registration date).
         The KB creation fails and the Educator is notified about it.
         \item The software project, test cases and build automation scripts are not valid for the automatic evaluation system.
         The Educator is notified about it and asked to re-upload the part of the uploads that was not valid.
@@ -1011,7 +1272,7 @@ The use cases will be categorized into three sections:
     \\
     \hline
     \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
-    The KT owner has authorized the Educator to organize that KT or is the Owner himself\@.
+    The KT owner has authorized the Educator to organize that KT or is the owner himself\@.
     The educator has previously created a KB for that specific KT\@.
     \\
     \hline
@@ -1049,7 +1310,7 @@ The use cases will be categorized into three sections:
     \\
     \hline
     \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
-    The Educator has been granted the permits to organize a specific KT by its Owner or is the Owner himself.
+    The Educator has been granted the permits to organize a specific KT by its owner or is the owner himself.
     The Educator has selected the need for a manual evaluation during the creation of that KB\@.
     \\
     \hline
@@ -1106,9 +1367,9 @@ The use cases will be categorized into three sections:
     \begin{enumerate}
         \item The Educator goes to the Kata Tournament Page of the KT that he owns.
         \item The Educator clicks on the ``Add Organizer\("\) button.
-        \item The Educator inserts an username or a mail of an Educator and clicks the ``Send Organization Invite\("\) button.
+        \item The Educator inserts an username or an mail of an Educator and clicks the ``Send Organization Invite\("\) button.
         \item The System sends an e-mail and a website notification about the invitation to the Educator specified by the owner.
-        \item The Educator clicks on the link received by e-mail or clicks on the website notification and is redirected to the KB page.
+        \item The Educator clicks on the link received by e-mail or clicks on the website notification and is redirected to the KB Page.
         \item The Educator clicks on the ``Accept Organization Invite\("\) button.
     \end{enumerate}
     \\
@@ -1148,7 +1409,6 @@ The use cases will be categorized into three sections:
     \hline
     \textbf{Entry condition} & The Educator has registered to the CKB platform and he is logged in.
     The Educator is an owner of a specific KT\@.
-    All the KB of that tournament are finished.
     \\
     \hline
     \textbf{Flow of events}  &
@@ -1209,7 +1469,7 @@ The use cases will be categorized into three sections:
     \end{enumerate}
     \\
     \hline
-    \textbf{Exit condition} & The Student subscribed correctly to the KT and is able to join the KBs of that tournament.
+    \textbf{Exit condition} & The Student subscribes correctly to the KT and is able to join the KBs of that tournament.
     The System adds the student to the current tournament rankings.
     \\
     \hline
@@ -1247,7 +1507,7 @@ The use cases will be categorized into three sections:
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Student goes to a Kata Battle page of a KB of a KT he is subscribed to.
+        \item The Student goes to a Kata Battle Page of a KB of a KT he is subscribed to.
         \item The Student clicks on the ``Create Team\("\) button.
         \item The Student inserts the username or e-mail of zero\footnotemark[1] or more students to invite to his team.
         \item The System sends a website notification and an e-mail about the invitation to all the invited students.
@@ -1341,7 +1601,7 @@ The use cases will be categorized into three sections:
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Student goes to the Kata Battle page of the KB he has previously created a team for.
+        \item The Student goes to the Kata Battle Page of the KB he has previously created a team for.
         \item The Student clicks on the ``Subscribe Team\("\) button.
         \item The Student is prompted to confirm his decision.
         \item The Student clicks on the ``Yes\("\) button.
@@ -1355,7 +1615,7 @@ The use cases will be categorized into three sections:
     \begin{itemize}
         \item The KB subscription deadline has expired.
         The team is no longer able to subscribe to the KB\@.
-        All the Students of that Team are notified via e-mail and website notification about it.
+        All the Students of that Team are notified about it both via e-mail and website notification.
     \end{itemize}
     \\
     \hline
@@ -1441,7 +1701,7 @@ We'll say ``Educator / Student\("\) to refer either to an Educator or a Student.
     \hline
     \textbf{Flow of events}  & 
     \begin{enumerate}
-        \item The Educator / Student goes to the Login Page 
+        \item The Educator / Student goes to the Login Page.
         \item The Educator / Student inserts his username and password or his e-mail and password.
         \item The Educator / Student clicks on the ``Login\("\) button.
         \item The System checks the validity of the credentials inserted by the user.
@@ -1503,6 +1763,35 @@ We'll say ``Educator / Student\("\) to refer either to an Educator or a Student.
     \caption{Visualize Rankings Sequence Diagram}
 \end{figure}
 
+\cleardoublepage
+
+\subsection{Mapping on requirements}
+In this section we will summarize the relationships between \emph{use cases} and \emph{requirements}.
+This overview aims to verify and demonstrate how the system will execute these requirements.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|p{100mm}|}
+\hline\rowcolor{gray!20} 
+Use Case ID & Requirement IDs \\
+\hline
+ UC1 & R3, R4, R6, R8 \\ \hline
+ UC2 & R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20 \\\hline
+ UC3 & R33 \\\hline
+ UC4 & R33, R34, R35, R36, R37, R38\\\hline
+ UC5& R5 \\\hline
+ UC6& R41, R42 \\\hline
+ UC7& R7 \\\hline
+ UC8& R21, R22 \\\hline
+ UC9& R21, R22 \\\hline
+ UC10& R21, R22 \\\hline
+ UC11& R1 \\\hline
+ UC12& R2 \\\hline
+\end{tabular}
+\caption{Use Case mapping over Requirements}
+\end{table}
+
+
 \newpage
 \section{Performance requirements}
 The system will prioritize its ability to be scalable, adapting to a continuous expansion of his services.
@@ -1521,6 +1810,17 @@ Furthermore, its submission API will be designed using standard protocols to ens
 This will allow users to use the submission API as they prefer,
 even by developing GitHub extensions that automatically set up the GitHub Action workflow.
 
+In addition to GDPR compliance and ensuring compatibility through standard protocols, 
+we the software will implement a notification system that will notify students about what we call \emph{major events}.
+Here's a full list of major events for a specific student :
+\begin{itemize}
+    \item creation of a KT on the CKB platform,
+    \item creation of a KB of a KT the student is subscribed to,
+    \item the start of a KB the student has joined as a team,
+    \item the end of a KB the student has joined as a team,
+    \item the end of a KT the student has subscribed to.
+\end{itemize}
+
 \subsection{Hardware Constraints}
 The system does not impose any particular hardware constraints as it does not require bespoke hardware development.
 However, users are expected to have a device capable of connecting to the internet and a standard web browser software to seamlessly access the CKB platform.
@@ -1537,7 +1837,7 @@ This will be achieved through redundant server configurations, load balancing an
 
 \subsection{Security}
 Ensuring data privacy and system integrity, as stated in section (\ref{standard_compliance}), will have primary importance.
-The system will employ strong encryption methods and authentication mechanisms to safeguard user data.
+The system will employ encryption methods and proper authentication mechanisms to safeguard user data.
 
 \subsection{Maintainability}
 The system will put a strong emphasis on ensuring ease of maintenance as one of its primary goals.
