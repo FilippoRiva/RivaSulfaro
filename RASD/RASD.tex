@@ -172,7 +172,7 @@
             This goal ensures that users stay informed about key activities and developments
             such as the beginning or end of the Kata Battles they are subscribed to 
             enhancing their engagement and overall experience
-           (for the full list of what we call ``major events'' see section~\ref{standard_compliance}).
+           (for the full list of what we call ``major events'' see section~\ref{definitions}).
     \end{description}
 
     \newpage
@@ -184,7 +184,7 @@
     In order to provide a detailed explanation of how the system and users should interact with each other we describe in the following sections
     the most important phenomena accordingly to the World and the Machine paradigm.
 
-    An important clarification to address before proceeding is the utilization of the GitHub platform as an external support platform, as specified in the (\ref{dependencies}) section.
+    An important clarification to address before proceeding is the utilization of the GitHub platform as an external support platform, as specified in section (\ref{dependencies}).
     The CKB platform will in fact create official GitHub repositories for each code kata and students will be required to submit their solutions by creating forks of these repositories.
 
     \subsubsection*{- World Phenomena}
@@ -248,13 +248,13 @@
     \hline
     \rowcolor{gray!20} % Background color for the header row
     \textbf{ID} & \textbf{Description} \\ \hline
-    \textbf{M01} & The system notifies users about the beginning of a new tournament. \\
+    \textbf{M01} & The system notifies students about the beginning of a new tournament. \\
     \hline
-    \textbf{M02} & The system notifies users about the start of a kata battle. \\
+    \textbf{M02} & The system notifies students about the start of a kata battle. \\
     \hline
-    \textbf{M03} & The system notifies users about the final ranks of a kata battle. \\
+    \textbf{M03} & The system notifies students about the final ranks of a kata battle. \\
     \hline
-    \textbf{M04} & The system notifies users about their subscription to a kata battle. \\
+    \textbf{M04} & The system notifies students about their subscription to a kata battle. \\
     \hline
     \textbf{M05} & The system pulls new code from GitHub forks and updates the scores accordingly. \\
     \hline
@@ -339,6 +339,7 @@
         0.9 & 21/14/2023 & Requirement Mappings and Use Case Mappings. \\
         \hline
         1.0 & 21/14/2023 & Alloy. \\
+        \hline
     \end{tabular}
     \end{center}
 
@@ -395,7 +396,7 @@ In this section we'll define a UML class diagram for the application along with 
 
 \subsection{Domain Level Class diagram}
 In order to enhance the understanding and to enable a more effective communication of the system requirements among stakeholders, we include a class diagram representing
-a domain level model of its entities (figure (\ref{fig:domain_level_class_diagram})).
+a domain level model of its entities (figure \ref{fig:domain_level_class_diagram}).
 
 The system model revolves around two user types: 
 
@@ -440,12 +441,12 @@ Each KT is composed by 0 or more KBs and each KB has exactly one CodeKata, which
 \subsubsection{S4 - Educator manually evaluates the teams' solutions to a KB}
     Sarah, an educator, is the creator of a KB within a tournament.
     As the expiration deadline approaches, the system automatically finalizes the battle.
-    This battle has a manual evaluation required so, as the expiration deadline approaches, the consolidation stage start.
+    This battle has a manual evaluation required so the consolidation stage starts.
     During the consolidation stage, Sarah reviews teams' solutions manually by going onto their GitHub repos and reading their solutions.
     She thoughtfully assigns team scores based on her evaluation, contributing to the determination of the final results.
     Once Sarah completes the manual evaluations and is satisfied with the scores, she stops the consolidation stage, concluding the KB\@.
     The system updates the scores for the KB, and correspondingly, the scores for the entire KT are also updated.
-    Students and educators involved in the tournament are notified, and the finalized results become available on the platform.
+    Students and educators involved in the tournament are notified, and the end results become available on the platform.
 \subsubsection{S5 - Student signs up}
     Sophie, an aspiring programmer, hears about the CKB platform and is keen on improving her coding skills.
     Visiting the sign-up page, Sophie selects her user type and enters her name, email, and a secure password.
@@ -803,7 +804,7 @@ In this section we'll list a series of requirements which are essential for our 
     \\ \hline
     \rc & The system must allow students and educators to read the description of all the KB of every KT\@.
     \\ \hline
-    \rc & The system must allow students subscribed to a specific KT to join the KT's KBs.
+    \rc & The system must allow students subscribed to a specific KT to join the KT's KBs before their start.
     \\ \hline
     \rc & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer.
     \\ \hline
@@ -922,7 +923,7 @@ To create a KT the system must allow educators to sign-up, sign-in, start the KT
 In order to allow educators to create KBs the system must :
 \begin{itemize}
     \item allow the creation of Kata Tournaments (G1),
-    \item allow the owners of KTs to grand organizers permits,
+    \item allow the owners of KTs to grant organizers permits,
     \item allow the organizers to start the KBs creation process and let them insert all the necessary information's,
     \item correctly create GitHub repositories and make the KBs public and readable on the platform and on GitHub.
 \end{itemize}
@@ -982,7 +983,7 @@ R15 & The system must allow organizers who are creating a KB to set its registra
 R16 & The system must allow organizers who are creating a KB to set its submission deadline. \\ 
 R17 & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required. \\ 
 R18 & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system. \\ 
-R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
+R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs before their start. \\ 
 R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer. \\
 R23 & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB. \\ 
 R25 & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository. \\ 
@@ -1057,7 +1058,7 @@ R16 & The system must allow organizers who are creating a KB to set its submissi
 R17 & The system must allow organizers who are creating a KB to set if a manual evaluation of the KB results is needed, therefore if a consolidation stage is required. \\ 
 R18 & The system must allow organizers who are creating a KB to set which quality level aspects are to be automatically evaluated by the system. \\ 
 R20 & The system must allow students and educators to read the description of all the KB of every KT. \\ 
-R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
+R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs before their start. \\ 
 R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer. \\
 \hline
 \textbf{Dx} & \textbf{Domain Assumption Description} \\ \hline
@@ -1087,7 +1088,7 @@ R3 & The system must allow educators to start and end the KT creation procedure.
 R5 & The system must allow educators who created a KT to grant the permission to other educators to become organizers of that KT. \\ 
 R7 & The system must allow students to subscribe to a KT before its subscription deadline. \\ 
 R9 & The system must allow organizers of a specific KT to start and end the KB creation procedure for that KT\@. \\
-R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs. \\ 
+R21 & The system must allow students subscribed to a specific KT to join the KT’s KBs before their start. \\ 
 R22 & The system must allow students, before the start of a KB, to invite other students to join their team if the team size doesn't exceed the maximum one defined by the organizer. \\
 R23 & The system, when the registration deadline of a KB expires, must create a new GitHub repository containing description, test cases and build automations scripts of the corresponding KB. \\ 
 R25 & The system must provide a submission API to be notified as soon as students push a new commit into the main branch of their repository. \\ 
@@ -1857,7 +1858,7 @@ It will be developed using platform-independent technologies to ensure compatibi
 
 \section{Alloy Code}
 This section provides all the alloy code used to prove the correctness of the project.
-For a better reading, the code is subdivided into the different blocks it's composed.
+For a better readability, the code is subdivided into different sections.
 
 \subsection{Signatures}
 \lstinputlisting[language=alloy]{alloy/sig.als}
@@ -1878,13 +1879,13 @@ Predicates are utils boolean functions
 \lstinputlisting[language=alloy]{alloy/pred.als}
 
 \subsection{Functions}
-Functions return a set of a specif Signature.
-They are useful to make more readable the code and to avoid inverse associations
+Functions return a set of a specific Signature.
+They are useful to write more readable code and to avoid inverse associations.
 
 \lstinputlisting[language=alloy]{alloy/fun.als}
 
 \subsection{Facts}
-Constraints to adapt the model to the world
+Constraints to adapt the model to the world.
 
 \lstinputlisting[language=alloy]{alloy/fact.als}
 
