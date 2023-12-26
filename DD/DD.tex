@@ -89,18 +89,56 @@
 \pagenumbering{arabic}
 
 \chapter{Introduction}
+    In the realm of IT, programming stands as a significant challenge, making challenges an invaluable tool for students to gain the drive and opportunity to delve into, comprehend, and enjoy various topics.
+    The CodeKataBattle platform embodies this reality by transforming learning into a real challenge.
 
-\section{Purpose}
-    %TODO
+    \section{Purpose} \label{purpose}
+    Derived from the karate practice of 'kata', the CodeKataBattle project mirrors the concept of iterative improvement through repetition.
+    In the context of competitive programming, it leverages this idea by offering a multitude of problems (referred to as 'code katas') for students to solve.
+    The core principle lies in fostering learning through repeated attempts and learning from mistakes, thus emphasizing the trial-and-error approach.
+
+    The platform serves two main user groups.
+    On one hand, individuals seeking to enhance their programming skills and engage in competition with friends or colleagues.
+    On the other hand, educators, either from the CKB owner company or enthusiastic public users with a passion for
+    teaching informatics.
 
 \section{Scope}
-    %TODO
+    CodeKataBattle's domain is centered on providing an exclusive platform where students can actively participate in programming challenges. Simultaneously, educators are empowered to curate and share various kata problems aligned with their educational goals.
+
+    Let's now shortly introduce the main goals of the CKB project.
+    \begin{description}
+        \item[G1] \textbf{Allow educators to create Kata Tournaments}
+            \\ 
+            Educators should be able to define the details of the tournament, such as its name and description.
+        \item[G2] \textbf{Allow educators to create Kata Battles for a specific Kata Tournament}
+            \\
+            Educators should be able to upload code katas, set the minimum and maximum number of students per group,
+            define registration and submission deadlines, and configure scoring aspects for each battle.
+        \item[G3] \textbf{Allow educators to evaluate students automatically via the system and optionally via a manual scoring}
+            \\
+            The system should automatically evaluate functional aspects, timeliness, and source code quality of the students' solutions.
+            Additionally, there should be an option for educators to perform manual evaluations and assign personal scores based
+            on their assessment.
+        \item[G4] \textbf{Allow students to subscribe to Kata Tournaments available on the CKB platform}
+            \\
+            Students should have the ability to see Kata Tournaments infos and subscribe.
+        \item[G5] \textbf{Allow students to join Kata Battles of a certain Kata Tournament}
+            \\
+            Students should be able to form teams or join battles individually, respecting the minimum and maximum number
+            of students per group set by educators.
+        \item[G6] \textbf{Allow students to compete in specific Kata Tournament}
+            \\
+            It encompasses the entire process, from coding to submitting solution and ultimately competing for scores and rankings.
+        \item[G7] \textbf{Provide notifications about major events}
+            \\
+            This goal ensures that users stay informed about key activities and developments.
+    \end{description}
 
 \section{Definitions, Acronyms, Abbreviations}
 
 Here's a list of useful definitions necessary to a comprehensive understanding of the CodeKataBattle RASD document
 
-\subsection{Definitions}
+\subsection{Definitions}\label{definitions}
 
 \begin{description}
     \item[Kata Tournament :] A competition organized by educators on the CKB platform, where students
@@ -120,7 +158,7 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
     \item[Battle Rank :] The position of a team in a battle in comparison to others based on their score.
     \item[Score :] The numerical representation, between 0 and 100, of the students' performance in a battle,
         calculated taking into consideration every evaluation factor in a proper way.
-    \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students (full list in section \ref{standard_compliance}).
+    \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students.
 \end{description}
 
 \subsection{Acronyms}
@@ -153,6 +191,8 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
     \hline
     0.1 & 12/21/2023 & Document Structure\\
     \hline
+    0.2 & 12/21/2023 & Introduction\\
+    \hline
 \end{tabular}
 \end{center}
 
@@ -167,17 +207,21 @@ Hans Van Vilet - Software Engineering: Principles and Practice
 We offer a concise overview of the document structure: 
 \begin{itemize}
     \item \textbf{Chapter 1: Introduction}\\
-        %TODO
+        This chapter offers a broad introduction to the project, outlining its primary objectives and goals.
+        It defines the project's scope, presents various definitions, acronyms, and abbreviations used throughout the document, and catalogs all the references utilized in its creation.
     \item \textbf{Chapter 2: Architectural Design}\\
-        %TODO
+        The second chapter delves into the project's real architecture.
+        It provides a comprehensive overview of the systems involved, followed by detailed descriptions of each designed component and their interactions, and the description of their interfaces.
     \item \textbf{Chapter 3: User Interface Design}\\
-        %TODO
+        This third segment showcases mockups of the user interface designs for the systems and their interconnections.
     \item \textbf{Chapter 4: Requirements Traceability}\\
-        %TODO
+        This part concentrates on the project's requirements and their actual implementation within the system.
+        It identifies the components responsible for fulfilling each requirement.
     \item \textbf{Chapter 5: Implementation, Integration and Test Plan}\\
-        %TODO
+        This fifth section gives an overview of how the various components of the two systems will be implemented.
+        It also outlines a plan for integrating these components and testing their functionality.
     \item \textbf{Chapter 6: Effort Spent}\\
-        %TODO
+        Provides a summary of the effort expended during the project in terms of time spent.
 \end{itemize}
 
 %  2  --------------------------------------------------------------------------------------------%
@@ -189,7 +233,7 @@ We offer a concise overview of the document structure:
 \section{Component view}
 \begin{figure}[H]
 \centering
-\includegraphics*[width=0.9\textwidth]{ComponentView}
+\includegraphics*[width=\textwidth]{ComponentView}
 \caption{Component View of the CKB system}
 \centering
 \label{fig:component_view}
@@ -223,8 +267,8 @@ We offer a concise overview of the document structure:
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Student}       & \textbf{Effort} \\ \hline
-Filippo Riva           & 0h              \\ \hline
-Antonio Sulfaro        & 0h              \\ \hline
+Filippo Riva           & 4h              \\ \hline
+Antonio Sulfaro        & 4h              \\ \hline
 \end{tabular}
 \end{table}
 
