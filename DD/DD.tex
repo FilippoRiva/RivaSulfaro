@@ -93,8 +93,8 @@
     The CodeKataBattle platform embodies this reality by transforming learning into a real challenge.
 
     \section{Purpose} \label{purpose}
-    Derived from the karate practice of 'kata', the CodeKataBattle project mirrors the concept of iterative improvement through repetition.
-    In the context of competitive programming, it leverages this idea by offering a multitude of problems (referred to as 'code katas') for students to solve.
+    Derived from the karate practice of ``kata'', the CodeKataBattle project mirrors the concept of iterative improvement through repetition.
+    In the context of competitive programming, it leverages this idea by offering a multitude of problems (referred to as ``code katas``) for students to solve.
     The core principle lies in fostering learning through repeated attempts and learning from mistakes, thus emphasizing the trial-and-error approach.
 
     The platform serves two main user groups.
@@ -103,7 +103,8 @@
     teaching informatics.
 
 \section{Scope}
-    CodeKataBattle's domain is centered on providing an exclusive platform where students can actively participate in programming challenges. Simultaneously, educators are empowered to curate and share various kata problems aligned with their educational goals.
+    CodeKataBattle's domain is centered on providing an exclusive platform where students can actively participate in programming challenges.
+    Simultaneously, educators are empowered to curate and share various kata problems aligned with their educational goals.
 
     Let's now shortly introduce the main goals of the CKB project.
     \begin{description}
@@ -228,9 +229,22 @@ We offer a concise overview of the document structure:
 
 \chapter{Architectural Design}
 
+The subsequent section delineates the architecture of the CKB system, progressing from a high-level overview to a more detailed perspective.
+Our emphasis will primarily be on outlining the system's roles, specifying how components acquire application functionalities,
+and detailing their deployment and runtime usage.
+Additionally, this section provides a clear definition of the architectural patterns employed for deploying all identified
+components, along with other design decisions made during the architectural design process.
 
 \section{Overview}
+
+The CKB system engages with external actors crucial for its operation:
+
+GitHub (Git): Through GitHub Actions, CKB is required to identify any new team pushes and pull them to allow evaluation.
+
 \section{Component view}
+This part focuses on the inner architecture of each system, pointing out the connections between all the inner
+components and the ones with any external component which has to interact with this system.
+
 \begin{figure}[H]
 \centering
 \includegraphics*[width=\textwidth]{ComponentView}
