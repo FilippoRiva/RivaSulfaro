@@ -174,6 +174,8 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
     \item[Dx :] x-th Domain Assumption.
     \item[Sx :] x-th Scenario.
     \item[UCx :] x-th Use Case.
+    \item[VM :] Virtual machine.
+    \item[DBMS :] Database Management System.
 \end{description}
 
 \subsection{Abbreviations}
@@ -193,6 +195,8 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
     0.1 & 12/21/2023 & Document Structure\\
     \hline
     0.2 & 12/21/2023 & Introduction\\
+    \hline
+    0.3 & 12/30/2023 & Architectural Design\\
     \hline
 \end{tabular}
 \end{center}
@@ -243,6 +247,15 @@ components, along with other design decisions made during the architectural desi
 
 
 CKB has been designed as a 4-tier service-oriented architecture, focusing on a list of discrete services instead of a monolithic design.
+
+\begin{figure}[H]
+\centering
+\includegraphics*[width=\textwidth]{High-Level-Overview}
+\caption{Informal High Level Overview of the CKB System}
+\centering
+\label{fig:high_level_overview}
+\end{figure}
+
 The 4-tier subdivision is composed as follows :
 \begin{itemize}
     \item[1°] \emph{The Client Presentation tier} : intended as a thin client. It will handle as little presentation logic as possible.
@@ -266,18 +279,23 @@ Furthermore, the CKB system engages with external actors crucial for its operati
     \item \emph{GitHub} : CKB is required pull the updated code and send it to the automatic evaluation process.
     \item \emph{Email Provider} : CKB will need to send confirmation emails to new users, and a stream of notification emails.
 \end{itemize}
-\begin{figure}[H]
-\centering
-\includegraphics*[width=\textwidth]{High-Level-Overview}
-\caption{Informal High Level Overview of the CKB System}
-\centering
-\label{fig:high_level_overview}
-\end{figure}
 
+
+\cleardoublepage
 \section{Component view}
+
 This part focuses on the inner architecture of each subsystem, pointing out the connections between all the inner
 components and the ones with any external component which has to interact with this system.
 
+\begin{figure}[H]
+\centering
+\includegraphics*[width=\textwidth]{ComponentView}
+\caption{Component View of the CKB system}
+\centering
+\label{fig:deployment_view}
+\end{figure}
+
+Detailed descriptions:
 \begin{description}
     \item[Web Server - ] The server component that connect the website interface to our application server.
     It handles user requests and interfaces with other backend services.
@@ -309,18 +327,40 @@ components and the ones with any external component which has to interact with t
     It ensures data integrity, accessibility, and scalability, supporting efficient retrieval and storage of information for all platform components.
 \end{description}
 
+\cleardoublepage
+\section{Deployment view}
+
+This section illustrates the deployment diagram for the system, outlining the intended environments, tools, and communication protocols essential for constructing the system.
+
+Before delving into the deployment view, it's important to remember that the system has been designed with a service-oriented architecture.
+For this reason the Web, Application, and Database Servers will be represented by a single instance but may potentially represent a greater number of instances, as the service-oriented architecture allows us to deploy each service on one or more servers in parallel.
+As of now we can only estimate the system's size and, for this reason, the decision on the actual dimensions of the system, that is to say the actual number of servers and VMs needed, will be taken during development. 
+
 \begin{figure}[H]
 \centering
-\includegraphics*[width=\textwidth]{ComponentView}
+\includegraphics*[width=0.7\textwidth]{Deployment}
 \caption{Component View of the CKB system}
 \centering
 \label{fig:component_view}
 \end{figure}
-\section{Deployment view}
+
+\begin{itemize}
+    \item \textbf{Client}: a generic Client device, that is to say a computer or a mobile phone.
+    Runs a web browser software that renders the web pages received by the Web Server.
+    \item \textbf{Web Server}: are generic Server computer that host a Web Server execution environment (Tomcat) and receive Client requests.
+    If the Client request needs it, the Web Servers will forward the request to an Application Server.
+    \item \textbf{Application Servers}: are generic Server computers that host linux virtual machines.
+    Each virtual machine will contain an execution environment capable of hosting Spring Applications (explained in detail in section \ref{design_decisions}).
+    \item \textbf{Database Servers}: are generic Server computers that host linux virtual machines.
+    Each virtual machine will contain a DBMS, allowing Application Servers to retrieve the needed data via TCP/IP.
+    \item \textbf{Load Balancer}: are servers that handle incoming HTTPS requests and balance the workload among the Web Servers, consiquently balancing the Application Servers.
+   \item \textbf{Firewall}: are devices that monitor the incoming HTTPS requests, trying to spot if those requests are potentially dangerous to the system and eventually ignoring them.
+\end{itemize}
+
 \section{Runtime view}
 \section{Component interfaces}
 \section{Selected architectural styles and patterns}
-\section{Other design decisions}
+\section{Other design decisions} \label{design_decisions}
 
 %  3  --------------------------------------------------------------------------------------------%
 
