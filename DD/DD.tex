@@ -243,7 +243,7 @@ components, along with other design decisions made during the architectural desi
 
 
 CKB has been designed as a 4-tier service-oriented architecture, focusing on a list of discrete services instead of a monolithic design.
-The 4-tier subdivision is composed as follow :
+The 4-tier subdivision is composed as follows :
 \begin{itemize}
     \item[1°] \emph{The Client Presentation tier} : intended as a thin client. It will handle as little presentation logic as possible.
     \item[2°] \emph{The Server Presentation tier} : It will handle the majority of the presentation logic, including website templating and data retrieval from the Business tier. Besides that the Web Server will act as a channel between the Client's Browser Applications and the Services in the Business tier.
@@ -252,12 +252,12 @@ The 4-tier subdivision is composed as follow :
 \end{itemize}
 
 
-The subdivision of the Presentation logic between Client and Server has been concieved to lighten as much as possible the client computational load.
+The subdivision of the Presentation logic between Client and Server has been conceived to lighten as much as possible the client computational load.
 
 The Business tier has been organized into services, each one offering different functionalities.
-This approach has been chosen to supply an architecture that allows an easier further expansion of the system's functions while allowing independant development workflows for each service and in general a higher system scalability.
+This approach has been chosen to supply an architecture that allows an easier further expansion of the system's functions while allowing independent development workflows for each service and in general a higher system scalability.
 
-The Data tier is accessible by every service in the Business tier to provide a higher level of independency between services and an easier development workflow.
+The Data tier is accessible by every service in the Business tier to provide a higher level of independence between services and an easier development workflow.
 
 Furthermore, the CKB system engages with external actors crucial for its operation:
 
