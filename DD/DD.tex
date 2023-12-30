@@ -254,7 +254,7 @@ CKB has been designed as a 4-tier service-oriented architecture, and follow the 
 \label{fig:high_level_overview}
 \end{figure}
 
-The 4-tier subdivision is composed as follows:
+The 4-tier subdivision is composed as follows (for a detailed explanation see section ~\ref{architectural_styles}):
 \begin{itemize}
     \item[1°] \emph{The Client Presentation tier} : User interface components for a responsive and interactive experience.
     \item[2°] \emph{The Server Presentation tier} : Manages user requests, processes data, and orchestrates information flow.
@@ -262,7 +262,6 @@ The 4-tier subdivision is composed as follows:
     \item[4°] \emph{The Data tier} : Manages data storage and retrieval through a DBMS\@.
 \end{itemize}
 
-For a better explanation see section ~\ref{architectural_styles}
 
 Furthermore, the CKB system engages with external actors crucial for its operation:
 
@@ -276,8 +275,8 @@ Furthermore, the CKB system engages with external actors crucial for its operati
 \cleardoublepage
 \section{Component view}
 
-This part focuses on the inner architecture of each subsystem, pointing out the connections between all the inner
-components and the ones with any external component which has to interact with this system.
+This part focuses on the inner architecture of each subsystem, pointing out the connections between all the inner components.
+This section only describes the \emph{internal components} of the system, meaning that external components such as a web browsers components, GitHub or Email Providers won't be displayed.
 
 \begin{figure}[H]
 \centering
@@ -289,8 +288,10 @@ components and the ones with any external component which has to interact with t
 
 Detailed descriptions:
 \begin{description}
-    \item[Web Server - ] The server component that connect the website interface to our application server.
-    It handles user requests and interfaces with other backend services.
+    \item[Client Application - ] The Web Application that renders the received data from the Web Server and allows the user to have 
+    dynamic interactions with the website pages.
+    \item[Web Server - ] The server component that connects the Client Application to our application server.
+    It mostly handles presentation logic but also forwards user requests to the interfaces of backend services.
     \item[AuthenticationService - ] Responsible for user authentication,  ensures secure access to the platform.
     It verifies user credentials and issues authentication tokens for authorized access to other services.
     \item[EducatorService - ] Offer functionalities to create and manage KTs and KBs.
@@ -338,8 +339,8 @@ As of now we can only estimate the system's size and, for this reason, the decis
 
 \begin{itemize}
     \item \textbf{Client}: a generic Client device, that is to say a computer or a mobile phone.
-    Runs a web browser software that renders the web pages received by the Web Server.
-    \item \textbf{Web Server}: are generic Server computer that host a Web Server execution environment (Tomcat) and receive Client requests.
+    Runs a web browser software that handles the Client Application web app.
+    \item \textbf{Web Server}: are generic Server computer that host a Web Server execution environment (Tomcat) and receive Client Applications' requests.
     If the Client request needs it, the Web Servers will forward the request to an Application Server.
     \item \textbf{Application Servers}: are generic Server computers that host linux virtual machines.
     Each virtual machine will contain an execution environment capable of hosting Spring Applications (explained in detail in section \ref{design_decisions}).
@@ -375,7 +376,7 @@ As of now we can only estimate the system's size and, for this reason, the decis
     Each major functionality, such as authentication, educator management, and student interaction, is encapsulated within independent services.
     This allows for distributed development, making it easier to scale and update specific components without affecting the entire system, while allowing independent development workflows for each service.
 \end{description}
-\section{Other design decisions}
+\section{Other design decisions} \label{design_decisions}
 
 %  3  --------------------------------------------------------------------------------------------%
 
@@ -392,13 +393,16 @@ As of now we can only estimate the system's size and, for this reason, the decis
 \chapter{Implementation, Integration and Test Plan}
 After having described all the components of the system and their interconnections, this chapter describes how
 these should be implemented, integrated, and tested in order to have a working system.
-In general, the method followed for building up the system is to first start with a bottom-up approach
-to create the component that directly interacts with the database, to have a fully working data retrieval
-and management.
-Then a team approach is used to develop all the other components in parallel, dividing the work by functionality.
-This approach is possible due to the modular architecture, and is recommended to ensure interoperability and modularity.
 
-\subsection{Implementation}
+The main idea is to first start with a \emph{bottom-up} approach to create the 
+component that directly interact with the database, in order to have a fully 
+working data retrieval and management layer.
+Then a \emph{thread strategy} approach will be used to develop all the other
+components in parallel, dividing the work by functionality.
+
+This approach is possible due to the service oriented architecture, and ensures efficiency and maximum interoperability betweeen development teams.
+
+\section{Implementation}
 \begin{itemize}
     \item[Data Tier] Implement the DBMS and associated structures to store and manage data effectively.
     \item[Business Tier] Develop core business logic and services concurrently to allow multiple teams to work on distinct services.
@@ -409,7 +413,7 @@ This approach is possible due to the modular architecture, and is recommended to
     Collaborate with the server-side team for early integration points.
 \end{itemize}
 
-\subsection{Integration}
+\section{Integration}
 \begin{itemize}
     \item[Client - Server] Integrate the user interface with server-side components.
     Establish communication protocols for efficient data exchange.
@@ -420,7 +424,7 @@ This approach is possible due to the modular architecture, and is recommended to
     \item[External Actor] Confirm proper engagement with external actors, including GitHub for pull operations.
 \end{itemize}
 
-\subsection{Testing}
+\section{Testing}
 \begin{itemize}
     \item[Unit] Implement unit tests for services, components, and database operations  to verify their correctness independently.
     \item[Integration] Conduct integration tests to verify seamless interaction between different tiers.
