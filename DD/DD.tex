@@ -352,8 +352,42 @@ components and the ones with any external component which has to interact with t
 %  5  --------------------------------------------------------------------------------------------%
 
 \chapter{Implementation, Integration and Test Plan}
+After having described all the components of the system and their interconnections, this chapter describes how
+these should be implemented, integrated, and tested in order to have a working system.
+In general, the method followed for building up the system is to first start with a bottom-up approach
+to create the component that directly interacts with the database, to have a fully working data retrieval
+and management.
+Then a team approach is used to develop all the other components in parallel, dividing the work by functionality.
+This approach is possible due to the modular architecture, and is recommended to ensure interoperability and modularity.
 
+\subsection{Implementation}
+\begin{itemize}
+    \item[Data Tier] Implement the DBMS and associated structures to store and manage data effectively.
+    \item[Business Tier] Develop core business logic and services concurrently to allow multiple teams to work on distinct services.
+    Emphasize a modular approach for independent development and testing.
+    \item[Server Presentation Tier] Develop server-side components for handling user requests.
+    Ensure early communication protocols are in place for integration testing.
+    \item[Client Presentation Tier] Develop user interface components concurrently.
+    Collaborate with the server-side team for early integration points.
+\end{itemize}
 
+\subsection{Integration}
+\begin{itemize}
+    \item[Client - Server] Integrate the user interface with server-side components.
+    Establish communication protocols for efficient data exchange.
+    \item[Server - Business] Integrate server-side components with the business logic.
+    Perform early integration tests to identify and address potential issues.
+    \item[Business - Data] Integrate business logic with the data tier.
+    Verify the consistency of data flow and handling across different components.
+    \item[External Actor] Confirm proper engagement with external actors, including GitHub for pull operations.
+\end{itemize}
+
+\subsection{Testing}
+\begin{itemize}
+    \item[Unit] Implement unit tests for services, components, and database operations  to verify their correctness independently.
+    \item[Integration] Conduct integration tests to verify seamless interaction between different tiers.
+    \item[System-Level] Perform system-level tests to evaluate overall system performance, user interactions, and data flow.
+\end{itemize}
 
 %  6  --------------------------------------------------------------------------------------------%
 \chapter{Effort Spent}
