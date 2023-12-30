@@ -242,8 +242,39 @@ The CKB system engages with external actors crucial for its operation:
 GitHub (Git): Through GitHub Actions, CKB is required to identify any new team pushes and pull them to allow evaluation.
 
 \section{Component view}
-This part focuses on the inner architecture of each system, pointing out the connections between all the inner
+This part focuses on the inner architecture of each subsystem, pointing out the connections between all the inner
 components and the ones with any external component which has to interact with this system.
+
+\begin{description}
+    \item[Web Server - ] The server component that connect the website interface to our application server.
+    It handles user requests and interfaces with other backend services.
+    \item[AuthenticationService - ] Responsible for user authentication,  ensures secure access to the platform.
+    It verifies user credentials and issues authentication tokens for authorized access to other services.
+    \item[EducatorService - ] Offer functionalities to create and manage KTs and KBs.
+    Educators can define problem statements, set deadlines, and evaluate student submissions.
+    \begin{description}
+        \item[KTManagerService - ]  Focuses on the management of Kata Tournaments.
+        It facilitates tournament creation, organization, and coordination, ensuring smooth collaboration between educators and organizers.
+        \item[KBManagerService - ] Handles the administration of Kata Battles.
+        Educators utilize this service to set up coding challenges, define battle rules, and manage teams' participation.
+    \end{description}
+    \item[StudentService - ] Enables students to form teams for KataBattles and participate in KataTournament.
+    \item[InfoService - ] Acts as a centralized hub for platform information.
+    It provides relevant data to users, including tournament and battle details, user profiles, and general platform statistics.
+    \item[SubmissionService - ] Responsible for handling code submissions, ensures the secure and efficient processing of student submissions during Kata Battles.
+    Provides an external API to submit new code solutions, and it interfaces with the AutomaticEvaluation component.
+    \item[AutomaticEvaluation - ] Automate the evaluation of code submissions.
+    Static analyzer give to educators the possibility to check code quality, while dynamic evaluation executes code against test cases to determine correctness and efficiency.
+    Requires an external API to GitHub to allow pull actions.
+    \item[NotificationController - ] Manages the delivery of notifications to users.
+    It handles event-driven communication, informing users about important updates, upcoming deadlines, or results.
+    Requires an external API to send e-mail.
+    \item[Model - ] Represents the data model of the platform.
+    It defines the structure of entities such as users, teams, tournaments, and submissions, facilitating data storage and retrieval.
+    It's connected externally with the DBMS\@.
+    \item[DBMS - ] Responsible for storing and managing the platform's data.
+    It ensures data integrity, accessibility, and scalability, supporting efficient retrieval and storage of information for all platform components.
+\end{description}
 
 \begin{figure}[H]
 \centering
