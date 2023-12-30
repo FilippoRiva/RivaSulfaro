@@ -240,24 +240,17 @@ Additionally, this section provides a clear definition of the architectural patt
 components, along with other design decisions made during the architectural design process.
 
 \section{Overview}
+CKB has been designed as a 4-tier service-oriented architecture, and follow the SOA style instead of a monolithic design.
 
-
-CKB has been designed as a 4-tier service-oriented architecture, focusing on a list of discrete services instead of a monolithic design.
-The 4-tier subdivision is composed as follows :
+The 4-tier subdivision is composed as follows:
 \begin{itemize}
-    \item[1°] \emph{The Client Presentation tier} : intended as a thin client. It will handle as little presentation logic as possible.
-    \item[2°] \emph{The Server Presentation tier} : It will handle the majority of the presentation logic, including website templating and data retrieval from the Business tier. Besides that the Web Server will act as a channel between the Client's Browser Applications and the Services in the Business tier.
-    \item[3°] \emph{The Business tier} : It will process the business logic, that is the creation of Kata Tournaments and Kata Battles, student's subscriptions to tournaments, team creation and so on.
-    \item[4°] \emph{The Data tier} : Will physically store all the necessary data for the application to properly work.
+    \item[1°] \emph{The Client Presentation tier} : User interface components for a responsive and interactive experience.
+    \item[2°] \emph{The Server Presentation tier} : Manages user requests, processes data, and orchestrates information flow.
+    \item[3°] \emph{The Business tier} : Contains core logic and functionality, including independent services.
+    \item[4°] \emph{The Data tier} : Manages data storage and retrieval through a DBMS\@.
 \end{itemize}
 
-
-The subdivision of the Presentation logic between Client and Server has been conceived to lighten as much as possible the client computational load.
-
-The Business tier has been organized into services, each one offering different functionalities.
-This approach has been chosen to supply an architecture that allows an easier further expansion of the system's functions while allowing independent development workflows for each service and in general a higher system scalability.
-
-The Data tier is accessible by every service in the Business tier to provide a higher level of independence between services and an easier development workflow.
+For a better explanation see section ~\ref{architectural_styles}
 
 Furthermore, the CKB system engages with external actors crucial for its operation:
 
@@ -319,7 +312,31 @@ components and the ones with any external component which has to interact with t
 \section{Deployment view}
 \section{Runtime view}
 \section{Component interfaces}
-\section{Selected architectural styles and patterns}
+
+\section{Selected architectural styles and patterns} \label{architectural_styles}
+\begin{description}
+    \item[4-tier architecture]
+    The CKB platform adopts a 4-tier architectural structure to enhance modularity, scalability, and maintainability.
+    This structure is composed of the following tiers:
+    \begin{itemize}
+        \item[1°] \emph{Client Presentation Tier} encompasses the user interface components, providing a responsive and interactive experience for users.
+        Is intended as a thin client, so it will handle as little presentation logic as possible.
+        \item[2°] \emph{Server Presentation Tier} manages the interaction between the client and the business logic.
+        It handles user requests, processes data, and orchestrates the flow of information.
+        \item[3°] \emph{Business Tier} contains the core logic and functionality of the platform.
+        It encapsulates services such as EducatorService and StudentService.
+        By organizing functionality into a dedicated business tier, the platform achieves a modular and maintainable design.
+        \item[4°] \emph{Data Tier} focus on data storage and retrieval.
+        The Database Management System manages the persistence of data, supporting the overall reliability and efficiency of the platform.
+        This tier ensures the integrity and availability of essential information, and is accessible by every service in the Business tier
+    \end{itemize}
+    The subdivision of the Presentation logic between Client and Server has been conceived to lighten as much as possible the client computational load.
+
+    \item[Service-Oriented Architecture (SOA)]
+    The CKB platform adopts a Service-Oriented Architecture to foster flexibility, scalability, interoperability and seamless integration of services.
+    Each major functionality, such as authentication, educator management, and student interaction, is encapsulated within independent services.
+    This allows for distributed development, making it easier to scale and update specific components without affecting the entire system, while allowing independent development workflows for each service.
+\end{description}
 \section{Other design decisions}
 
 %  3  --------------------------------------------------------------------------------------------%
