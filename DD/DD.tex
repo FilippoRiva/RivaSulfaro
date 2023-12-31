@@ -182,6 +182,7 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
 
 \begin{description}
     \item[repo :] GitHub repository.
+    \item[pwd :] Password.
 \end{description}
 
 \section{Revision History}
@@ -332,7 +333,7 @@ As of now we can only estimate the system's size and, for this reason, the decis
 \begin{figure}[H]
 \centering
 \includegraphics*[width=0.7\textwidth]{Deployment}
-\caption{Component View of the CKB system}
+\caption{Deployment View of the CKB system}
 \centering
 \label{fig:component_view}
 \end{figure}
@@ -350,8 +351,139 @@ As of now we can only estimate the system's size and, for this reason, the decis
    \item \textbf{Firewall}: are devices that monitor the incoming HTTPS requests, trying to spot if those requests are potentially dangerous to the system and eventually ignoring them.
 \end{itemize}
 
-\section{Runtime view}
+\section{Runtime View}
+This section will describe how the interactions between component develop over time, for each main CKB functionality.
+Each subsection will include a sequence UML diagram describing the flow of the interchanged messages.
+\subsection{Student Runtime Views}
+
+
+\subsection{Educator Runtime Views}
+
+\subsection{Educator / Student Runtime Views}
+
+\subsubsection{Registration}
+This Runtime View describes the registration process of both Educators and Students. 
+An important clarification to make is that if a Student or an Educator register but does not confirm his registration using his email, the CKB system will remove the unconfirmed account from his database (not represented in the UML sequence).
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{Registration}}
+\caption{Registration Runtime View}
+\centering
+\label{fig:Registration_runtime}
+\end{figure}
+Another imporant note: every possible alternative flow, for example if the credentials or if some DBMS update queries fail, the registration fails immediately, every function is returned false and the user sees the failed registration attemp, not being redirected to the homePage.
+
+\subsubsection{Login}
+This Runtime View describes the login process of both Educators and Students. 
+The login process is used to obtain a verification token in form of a cookie by the Client Application. 
+This token will be requested for every other functionality of the system besides registration.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{Login}}
+\caption{Login Runtime View}
+\centering
+\label{fig:Login_runtime}
+\end{figure}
+
+\subsubsection{Visualize Rankings}
+This Runtime View illustrate how each user will be able to see the current rankings of each Kata Tournament on the platform.
+An important thing to notice is the fact that the Kata Tournament information is queried only one time from the DBMS. 
+In fact the Client-Side presentation logic will handle the presentation of the rankings list. 
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{VisualizeRankings}}
+\caption{Visualize Rankings Runtime View}
+\centering
+\label{fig:Visualize_Rankings_runtime}
+\end{figure}
+
+In case the number of Students subscribed to the tournament is in the order of thousands, the visualize rankings may be handled in an asynchronous way, in order not to uselessly send a considerable amout of data from the server each time a user request a KT page.
+
+
 \section{Component interfaces}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{WebsiteInt} \\ \hline
+loginPageRequest() : LoginPage \\
+registrationPageRequest() : RegistrationPage \\
+confirmationPageRequest() : ConfirmationPage \\
+KTPageRequest(KTid) : KataTournamentPage \\
+login(username, password) : HomePage \\
+login(email, password) : HomePage \\
+register(username, password, email) : boolean \\
+confirmRegistration(username) : HomePage \\
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{RegistrationInt} \\ \hline
+register(username, password, email) : boolean \\
+confirmRegistration(username) : boolean \\
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{LoginInt} \\ \hline
+verify(username, password) : VerificationToken \\
+verify(email, password) : VerificationToken \\
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{EducatorInt} \\ \hline
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{StudentInt} \\ \hline
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{InfoInt} \\ \hline
+getKTInfos(KTid) : KataTournament \\
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{SubmissionAPI} \\ \hline
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{ModelInt} \\ \hline
+checkCredentials(username, password) : boolean \\
+checkCredentials(email, password) : boolean \\
+register(username, password, email) : boolean \\
+confirmRegistration(username) : boolean \\
+getKT(KTid) : KataTournament \\
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{NotificationInt} \\ \hline
+sendEmail(address, text) : boolean \\
+\hline
+\end{longtable}
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{AEInterface} \\ \hline
+\hline
+\end{longtable}
+
 \section{Selected architectural styles and patterns} \label{architectural_styles}
 \begin{description}
     \item[4-tier architecture]
