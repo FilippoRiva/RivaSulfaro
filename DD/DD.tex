@@ -17,7 +17,6 @@
 
 % hyperlinks and hyper references -- %
 \usepackage{hyperref}
-\usepackage{colortbl}
 
 \usepackage{array}
 \usepackage{float}
@@ -25,6 +24,7 @@
 % tables -- % 
 \usepackage{tabularx}
 \usepackage{longtable} % splits a table when it takes more then one page
+\usepackage{colortbl} % add color to LaTeX tables
 
 % including pictures in the title -- %
 \usepackage{titlepic}
@@ -321,6 +321,10 @@ Detailed descriptions:
     It ensures data integrity, accessibility, and scalability, supporting efficient retrieval and storage of information for all platform components.
 \end{description}
 
+An additional clarification is that the Web Server has the capability to verify authentication tokens returned by the AuthenticationService,
+distinguishing wheter if the user is an Educator or a Student.
+This means that it won't be necessary for the Web Server to interact with the AuthenticationService to accept only the valid requests.
+
 \cleardoublepage
 \section{Deployment view}
 
@@ -351,15 +355,137 @@ As of now we can only estimate the system's size and, for this reason, the decis
    \item \textbf{Firewall}: are devices that monitor the incoming HTTPS requests, trying to spot if those requests are potentially dangerous to the system and eventually ignoring them.
 \end{itemize}
 
+\cleardoublepage
 \section{Runtime View}
 This section will describe how the interactions between component develop over time, for each main CKB functionality.
 Each subsection will include a sequence UML diagram describing the flow of the interchanged messages.
-\subsection{Student Runtime Views}
 
+\emph{Note} : for the sake of comprehensibility, the failed interactions between user and system will not be represented if not strictly necessary.
+In general, a failed interaction will make the function calls fail immediately and return an error to the user. 
 
 \subsection{Educator Runtime Views}
 
+\subsubsection{Create Kata Tournament}
+This Runtime View describes the creation of a Kata Tournament. 
+The Client application will send all the necessary information to the WebServer, along with the Educator verification token.
+The Web Server will then (if the verification token is valid) ask an EducatorService to create a KT.
+At the end a successful interaction the user will be redirected to the Kata Tournament Page.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{CreateKataTournament}}
+\caption{Create Kata Tournament Runtime View}
+\centering
+\label{fig:CreateKT_runtime}
+\end{figure}
+
+\cleardoublepage
+\subsubsection{Create Kata Battle}
+This Runtime View describes the creation of a Kata Battle. 
+The Client application will send all the necessary information to the WebServer, along with the Educator verification token.
+The Web Server will then (if the verification token is valid) ask an EducatorService to create a KT.
+At the end a successful interaction the user will be redirected to the Kata Tournament Page.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{CreateKataBattle}}
+\caption{Visualize Rankings Runtime View}
+\centering
+\label{fig:CreateKB_runtime}
+\end{figure}
+Note : the getKTpage interaction is an interaction between the Educator / Student and the system. Please refer to figure \ref{fig:getKTPage_runtime}.
+
+\cleardoublepage
+\subsubsection{View Solutions}
+This Runtime View depicts how the Educator will be able to obtain all the solution links to each team's repo. 
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{ViewSolutions}}
+\caption{View Solutions Runtime View}
+\centering
+\label{fig:viewSolutions_runtime}
+\end{figure}
+Note : the getKBpage interaction is an interaction between the Educator / Student and the system. Please refer to figure \ref{fig:getKBPage_runtime}.
+
+\cleardoublepage
+\subsubsection{Evaluate Solutions}
+This Runtime View shows how the Educator will be able to evaluate each student.
+The EducatorService will need to query the entire list of users that belong to a Kata Battle, that is both students from each team and the educator that is organizing the KB.
+For each user it will send a specific email and in app notification notifying the end results for that KB.
+
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{EvaluateSolutions}}
+\caption{Evaluate Solutions Runtime View}
+\centering
+\label{fig:evaluateSolutions_runtime}
+\end{figure}
+Note : for the getKBpage interaction refer to figure \ref{fig:getKBPage_runtime}.
+
+\cleardoublepage
+\subsubsection{Invite Organizer}
+This Runtime View shows how the Educator will be able to invite organizers to a KT that he owns.
+The EducatorService will need to query the list of emails that have not been provided by the user. 
+For each Educator found in the database corresponding to that username the system will send an invitation email.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{InviteOrganizer}}
+\caption{Invite Organizer Runtime View}
+\centering
+\label{fig:inviteOrganizer_runtime}
+\end{figure}
+
+Note : for the getKTpage interaction refer to figure \ref{fig:getKTPage_runtime}.
+
+\cleardoublepage
+\subsubsection{Close Tournament}
+This Runtime View shows how the Educator will be able to close a KT that he owns.
+The Model will need to check whether if all the KTBs are ended in that specific KT.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{CloseTournament}}
+\caption{Close Tournament Runtime View}
+\centering
+\label{fig:closeTournament_runtime}
+\end{figure}
+
+Note : for the getKTpage interaction refer to figure \ref{fig:getKTPage_runtime}.
+
+
+\cleardoublepage
+\subsection{Student Runtime Views}
+\subsubsection{Subscribe to a KT}
+\subsubsection{Create a Team}
+\subsubsection{Accept a Team Invitation}
+\subsubsection{Subscribe a Team to a KB}
+
 \subsection{Educator / Student Runtime Views}
+
+\subsubsection{Get Kata Tournament Page}
+This Runtime View describes how an user will obtain the Kata Tournament Page from the WebServer component.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{getKTPage}}
+\caption{Get Kata Tournament Page Runtime View}
+\centering
+\label{fig:getKTPage_runtime}
+\end{figure}
+
+\subsubsection{Get Kata Battle Page}
+This Runtime View describes how an user will obtain the Kata Battle Page from the WebServer component.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{getKBPage}}
+\caption{Get Kata Battle Page Runtime View}
+\centering
+\label{fig:getKBPage_runtime}
+\end{figure}
 
 \subsubsection{Registration}
 This Runtime View describes the registration process of both Educators and Students. 
@@ -372,7 +498,6 @@ An important clarification to make is that if a Student or an Educator register 
 \centering
 \label{fig:Registration_runtime}
 \end{figure}
-Another imporant note: every possible alternative flow, for example if the credentials or if some DBMS update queries fail, the registration fails immediately, every function is returned false and the user sees the failed registration attemp, not being redirected to the homePage.
 
 \subsubsection{Login}
 This Runtime View describes the login process of both Educators and Students. 
@@ -389,18 +514,19 @@ This token will be requested for every other functionality of the system besides
 
 \subsubsection{Visualize Rankings}
 This Runtime View illustrate how each user will be able to see the current rankings of each Kata Tournament on the platform.
-An important thing to notice is the fact that the Kata Tournament information is queried only one time from the DBMS. 
+An important thing to notice is the fact that the Kata Tournament information is queried only one time from the DBMS during the getKTPage interaction. 
 In fact the Client-Side presentation logic will handle the presentation of the rankings list. 
 
 \begin{figure}[H]
 \centering
-\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{VisualizeRankings}}
+\makebox[\textwidth][c]{\includegraphics*[width=0.5\textwidth]{VisualizeRankings}}
 \caption{Visualize Rankings Runtime View}
 \centering
 \label{fig:Visualize_Rankings_runtime}
 \end{figure}
 
 In case the number of Students subscribed to the tournament is in the order of thousands, the visualize rankings may be handled in an asynchronous way, in order not to uselessly send a considerable amout of data from the server each time a user request a KT page.
+However, we assume that that won't be the case and the entity of the subscribed students will be in the order of hundreds for each KT.
 
 
 \section{Component interfaces}
@@ -411,11 +537,19 @@ In case the number of Students subscribed to the tournament is in the order of t
 loginPageRequest() : LoginPage \\
 registrationPageRequest() : RegistrationPage \\
 confirmationPageRequest() : ConfirmationPage \\
-KTPageRequest(KTid) : KataTournamentPage \\
+KTPageRequest(KTid, verificationToken) : KataTournamentPage \\
+KBPageRequest(KBid, verificationToken) : KataBattlePage \\
+homePageRequest(verificationToken) : homePage\\
 login(username, password) : HomePage \\
 login(email, password) : HomePage \\
 register(username, password, email) : boolean \\
 confirmRegistration(username) : HomePage \\
+createKT(verificationToken,name,descr.) \\
+createKB(description, settings, project, testCases): KataBattlePage \\
+getSolutionsLinks(KBid, verificationToken) : solutionList \\
+evaluate(verificationToken, KBid, evaluation) : boolean \\
+addOrganizers(verificationToken, organizersList) : boolean \\
+closeTournament(verificationToken, KTid) : boolean \\
 \hline
 \end{longtable}
 
@@ -438,6 +572,11 @@ verify(email, password) : VerificationToken \\
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{EducatorInt} \\ \hline
+createKT(name,description) : KTid \\
+createKB(description, settings, project, testCases) : KBid \\
+evaluate(KBid, evaluation,educatorID) : boolean \\
+addOrganizers(organizersList) : boolean \\
+closeTournament(KTid) : boolean \\
 \hline
 \end{longtable}
 
@@ -451,6 +590,8 @@ verify(email, password) : VerificationToken \\
 \hline
 \textbf{InfoInt} \\ \hline
 getKTInfos(KTid) : KataTournament \\
+getSolutionsLinks(KBid) : solutionList \\
+getNotifications(verificationToken) : notifications\\
 \hline
 \end{longtable}
 
@@ -468,6 +609,13 @@ checkCredentials(email, password) : boolean \\
 register(username, password, email) : boolean \\
 confirmRegistration(username) : boolean \\
 getKT(KTid) : KataTournament \\
+createKT(name,description) : KTid \\
+createKB(description, settings, project, testCases) : KBid \\
+getSolutions(KBid) : solutionList \\
+evaluate(KBid, evaluation,educatorID) : boolean \\
+getEmails(userList) : emailList \\
+closeTournament(KTid) : boolean \\
+getKTusers(KTid) : userList \\
 \hline
 \end{longtable}
 
@@ -475,6 +623,8 @@ getKT(KTid) : KataTournament \\
 \hline
 \textbf{NotificationInt} \\ \hline
 sendEmail(address, text) : boolean \\
+sendNotification(userID, text) : boolean \\
+getNotifications(verificationToken) : notificationList\\
 \hline
 \end{longtable}
 
