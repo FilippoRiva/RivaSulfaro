@@ -344,10 +344,10 @@ As of now we can only estimate the system's size and, for this reason, the decis
     \item \textbf{Web Server}: are generic Server computer that host a Web Server execution environment (Tomcat) and receive Client Applications' requests.
     If the Client request needs it, the Web Servers will forward the request to an Application Server.
     \item \textbf{Application Servers}: are generic Server computers that host linux virtual machines.
-    Each virtual machine will contain an execution environment capable of hosting Spring Applications (explained in detail in section \ref{design_decisions}).
+    Each virtual machine will contain an execution environment capable of hosting Spring Applications (explained in detail in section~\ref{design_decisions}).
     \item \textbf{Database Servers}: are generic Server computers that host linux virtual machines.
-    Each virtual machine will contain a DBMS, allowing Application Servers to retrieve the needed data via TCP/IP.
-    \item \textbf{Load Balancer}: are servers that handle incoming HTTPS requests and balance the workload among the Web Servers, consiquently balancing the Application Servers.
+    Each virtual machine will contain a DBMS, allowing Application Servers to retrieve the needed data via TCP/IP\@.
+    \item \textbf{Load Balancer}: are servers that handle incoming HTTPS requests and balance the workload among the Web Servers, consequently balancing the Application Servers.
    \item \textbf{Firewall}: are devices that monitor the incoming HTTPS requests, trying to spot if those requests are potentially dangerous to the system and eventually ignoring them.
 \end{itemize}
 
@@ -372,7 +372,7 @@ An important clarification to make is that if a Student or an Educator register 
 \centering
 \label{fig:Registration_runtime}
 \end{figure}
-Another imporant note: every possible alternative flow, for example if the credentials or if some DBMS update queries fail, the registration fails immediately, every function is returned false and the user sees the failed registration attemp, not being redirected to the homePage.
+Another important note: every possible alternative flow, for example if the credentials or if some DBMS update queries fail, the registration fails immediately, every function is returned false and the user sees the failed registration attempt, not being redirected to the homePage.
 
 \subsubsection{Login}
 This Runtime View describes the login process of both Educators and Students. 
@@ -389,7 +389,7 @@ This token will be requested for every other functionality of the system besides
 
 \subsubsection{Visualize Rankings}
 This Runtime View illustrate how each user will be able to see the current rankings of each Kata Tournament on the platform.
-An important thing to notice is the fact that the Kata Tournament information is queried only one time from the DBMS. 
+An important thing to notice is the fact that the Kata Tournament information is queried only one time from the DBMS\@.
 In fact the Client-Side presentation logic will handle the presentation of the rankings list. 
 
 \begin{figure}[H]
@@ -400,7 +400,7 @@ In fact the Client-Side presentation logic will handle the presentation of the r
 \label{fig:Visualize_Rankings_runtime}
 \end{figure}
 
-In case the number of Students subscribed to the tournament is in the order of thousands, the visualize rankings may be handled in an asynchronous way, in order not to uselessly send a considerable amout of data from the server each time a user request a KT page.
+In case the number of Students subscribed to the tournament is in the order of thousands, the visualize rankings may be handled in an asynchronous way, in order not to uselessly send a considerable amount of data from the server each time a user request a KT page.
 
 
 \section{Component interfaces}
@@ -532,36 +532,51 @@ working data retrieval and management layer.
 Then a \emph{thread strategy} approach will be used to develop all the other
 components in parallel, dividing the work by functionality.
 
-This approach is possible due to the service oriented architecture, and ensures efficiency and maximum interoperability betweeen development teams.
+This approach is possible due to the service oriented architecture, and ensures efficiency and maximum interoperability between development teams.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[width=\textwidth]{development_time}
+    \caption{Thread strategy approach for implementation, integration and testing}
+    \centering
+    \label{fig:development_time}
+\end{figure}
 
 \section{Implementation}
-\begin{itemize}
-    \item[Data Tier] Implement the DBMS and associated structures to store and manage data effectively.
+\begin{description}
+    \item[Data Tier] Implement the DBMS and associated structures to store and manage data effectively, and so the Model
     \item[Business Tier] Develop core business logic and services concurrently to allow multiple teams to work on distinct services.
-    Emphasize a modular approach for independent development and testing.
+    At this stage it is possible to make extensive use of a modular approach for independent development:
+    During the development of the Data Tier the NotificationController can be developed.
+    These components play pivotal roles by providing essential interfaces for the subsequent deployment of the remaining Business Tier.
+    Notably, the Submission Service should be implemented post the completion of the Automatic Evaluation component.
     \item[Server Presentation Tier] Develop server-side components for handling user requests.
     Ensure early communication protocols are in place for integration testing.
     \item[Client Presentation Tier] Develop user interface components concurrently.
     Collaborate with the server-side team for early integration points.
-\end{itemize}
+\end{description}
 
 \section{Integration}
-\begin{itemize}
-    \item[Client - Server] Integrate the user interface with server-side components.
-    Establish communication protocols for efficient data exchange.
-    \item[Server - Business] Integrate server-side components with the business logic.
-    Perform early integration tests to identify and address potential issues.
-    \item[Business - Data] Integrate business logic with the data tier.
+\begin{description}
+    \item[Data - Business] Integrate the business logic with the data tier.
     Verify the consistency of data flow and handling across different components.
-    \item[External Actor] Confirm proper engagement with external actors, including GitHub for pull operations.
-\end{itemize}
+    The sequence in which we integrate components will follow the implementation order of the business tier.
+    \item[External Actor] Confirm proper engagement with external actors, like GitHub for pull operations and email for notifications.
+    \item[Business - Server] Integrate server-side components with the business logic.
+    Perform early integration tests to identify and address potential issues.
+    \item[Server - Client] Integrate the user interface with server-side components.
+    Establish communication protocols for efficient data exchange.
+\end{description}
 
 \section{Testing}
-\begin{itemize}
-    \item[Unit] Implement unit tests for services, components, and database operations  to verify their correctness independently.
+\begin{description}
+    \item[Unit] Implement unit tests for services, components, and database operations to verify their correctness independently.
     \item[Integration] Conduct integration tests to verify seamless interaction between different tiers.
+    The sequence in which we integrate components will follow the implementation order of the business tier.
     \item[System-Level] Perform system-level tests to evaluate overall system performance, user interactions, and data flow.
-\end{itemize}
+\end{description}
+
+
 
 %  6  --------------------------------------------------------------------------------------------%
 \chapter{Effort Spent}
