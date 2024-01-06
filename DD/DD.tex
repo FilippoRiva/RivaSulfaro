@@ -687,6 +687,10 @@ components in parallel, dividing the work by functionality.
 
 This approach is possible due to the service oriented architecture, and ensures efficiency and maximum interoperability between development teams.
 
+To facilitate a clear understanding of the implementation strategy, we have outlined a visual representation in a diagram.
+This diagram succinctly illustrates the sequential steps and dependencies involved in building the various components of the CKB system.
+Following this order will streamline the development process and ensure a systematic and efficient integration of each subcomponent.
+
 \begin{figure}[H]
     \centering
     \includegraphics*[width=\textwidth]{development_time}
@@ -697,11 +701,11 @@ This approach is possible due to the service oriented architecture, and ensures 
 
 \section{Implementation}
 \begin{description}
-    \item[Data Tier] Implement the DBMS and associated structures to store and manage data effectively, and so the Model
+    \item[Data Tier] Implement the DBMS and associated structures to store and manage data effectively, and so the Model.
+    During this step a team can also work on the NotificationController, given that it is independent from the model
     \item[Business Tier] Develop core business logic and services concurrently to allow multiple teams to work on distinct services.
     At this stage it is possible to make extensive use of a modular approach for independent development:
-    During the development of the Data Tier the NotificationController can be developed.
-    These components play pivotal roles by providing essential interfaces for the subsequent deployment of the remaining Business Tier.
+    The first phase play pivotal roles by providing essential interfaces for the subsequent deployment of the remaining Business Tier.
     Notably, the Submission Service should be implemented post the completion of the Automatic Evaluation component.
     \item[Server Presentation Tier] Develop server-side components for handling user requests.
     Ensure early communication protocols are in place for integration testing.
@@ -713,7 +717,7 @@ This approach is possible due to the service oriented architecture, and ensures 
 \begin{description}
     \item[Data - Business] Integrate the business logic with the data tier.
     Verify the consistency of data flow and handling across different components.
-    The sequence in which we integrate components will follow the implementation order of the business tier.
+    The sequence in which we integrate components will follow the implementation order of the business tier, so is possible to integrate different services at the same time
     \item[External Actor] Confirm proper engagement with external actors, like GitHub for pull operations and email for notifications.
     \item[Business - Server] Integrate server-side components with the business logic.
     Perform early integration tests to identify and address potential issues.
@@ -725,11 +729,11 @@ This approach is possible due to the service oriented architecture, and ensures 
 \begin{description}
     \item[Unit] Implement unit tests for services, components, and database operations to verify their correctness independently.
     \item[Integration] Conduct integration tests to verify seamless interaction between different tiers.
-    The sequence in which we integrate components will follow the implementation order of the business tier.
     \item[System-Level] Perform system-level tests to evaluate overall system performance, user interactions, and data flow.
 \end{description}
 
-
+In the CKB project, we adopt an iterative and parallelized approach to the testing phase, seamlessly integrating it with the implementation and integration stages.
+This methodology is designed to optimize efficiency, facilitate more frequent releases, and enhance collaboration among team members.
 
 %  6  --------------------------------------------------------------------------------------------%
 \chapter{Effort Spent}
