@@ -924,7 +924,7 @@ Following this order will streamline the development process and ensure a system
     \item[Business Tier] Develop core business logic and services concurrently to allow multiple teams to work on distinct services.
     At this stage it is possible to make extensive use of a modular approach for independent development:
     The first phase play pivotal roles by providing essential interfaces for the subsequent deployment of the remaining Business Tier.
-    Notably, the Submission Service should be implemented post the completion of the Automatic Evaluation component.
+    Notably, the Submission Service should be implemented after the completion of the Automatic Evaluation component.
     \item[Server Presentation Tier] Develop server-side components for handling user requests.
     Ensure early communication protocols are in place for integration testing.
     \item[Client Presentation Tier] Develop user interface components concurrently.
@@ -935,7 +935,7 @@ Following this order will streamline the development process and ensure a system
 \begin{description}
     \item[Data - Business] Integrate the business logic with the data tier.
     Verify the consistency of data flow and handling across different components.
-    The sequence in which we integrate components will follow the implementation order of the business tier, so is possible to integrate different services at the same time
+    The sequence in which we integrate components will follow the implementation order of the business tier, enabling a parallel integration of different services at the same time
     \item[External Actor] Confirm proper engagement with external actors, like GitHub for pull operations and email for notifications.
     \item[Business - Server] Integrate server-side components with the business logic.
     Perform early integration tests to identify and address potential issues.
