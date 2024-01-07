@@ -623,6 +623,12 @@ Here's a list of the minor interactions that the system will have to offer but w
 Since those are minor interactions we'll leave the control flow to the implementation team that will implement the specified services, suggesting to follow the general structure of the control flows previously described.
 All of the necessary functions needed for those interactions are listed in the interfaces in section~\ref{sec:component_interfaces}.
 
+\subsubsection{AuthenticationService minor interactions}
+Those functionalities will be offered by the AuthenticationService:
+\begin{enumerate}
+    \item \textbf{Logout :} Students and Educators will have the possibility to log out from the system.
+\end{enumerate}
+
 \subsubsection{StudentService minor interactions}
 Those functionalities will be offered by the StudentService:
 \begin{enumerate}
@@ -655,9 +661,10 @@ We outline the key parameters utilized within the interfaces :
 \begin{itemize}
     \item The \textbf{authToken} is a token provided via the Authentication Service, stored client-side and needed for client-server authentication.
     \item The \textbf{confirmationToken} is a token provided via the confirmation email, needed to authenticate the confirmation.
-    \item The \textbf{teamAuthToken} is a token provided via Student Service, needed to authenticate new code commits notified to the Submission API. The users will insert those tokens into their GitHub Action workflow, or into other Third-Party Applications that will notify new commits through the API\@.
+    \item The \textbf{teamAuthToken} is a token provided via Student Service, needed to authenticate new code commits notified to the Submission API. The users will insert those tokens into their GitHub Action workflow, or into other Third-Party Applications that will notify new commits through the API.
     \item \textbf{EDid}, \textbf{STid}, \textbf{TeamID},\textbf{KTid} and \textbf{KBid} are respectively IDs for Educator users, Student users, Teams, Kata Tournaments and Kata Battles.
     They will be unique identifiers for those entities shared between the Services and the DBMS\@.
+    \item \textbf{userID} is whether an EDid or a STid.
     \item \textbf{project} is a JSON that represent folder structures and content of a software project.
     \item \textbf{testCases} is a JSON that represent the testCases for a specific project.
     \item \textbf{settings} is a JSON that represent the settings, that is what parameters of the static evaluation will be taken into consideration and if a manual evaluation is needed, for a specific KB\@.
@@ -775,7 +782,7 @@ It will be implemented via the InfoService and will comply the RESTful API stand
 getKTInfos(KTid) : KataTournament \\
 getKBInfos(KBid) : KataBattle \\
 getSolutionsLinks(KBid, EDid) : solutionList \\
-getNotifications(authToken) : notifications\\
+getNotifications(userID) : notifications\\
 searchKB(searchQuery) : KBList \\
 searchKT(searchQuery) : KBList \\
 \hline
@@ -894,10 +901,209 @@ The Notification Service, beside providing an easy access to a third party email
 This Notification system will be mimicking a \emph{producer to consumer event-driven-architecture} since it will be the Client Application responsibility to retrieve those notifications.
 
 %  3  --------------------------------------------------------------------------------------------%
+\graphicspath{ {./images/UI/} }
+\def\UIwidth{1}
 
 \chapter{User Interface Design}
+In this section will be presented an overview of the user's interface of the CKB system.
+Since the UI will present itself as a website to its end users we will provide a composition of interconnected website pages, designed with the main focus on user experience.
+\section{Website Pages}
+In the following subsections we'll introduce each defined website pages, expanding the RASD documentation of the CKB project.
+\subsection{Registration Page}
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Student - Registration Page}}
+\caption{Student Registration Form}
+\centering
+\label{fig:registration_page}
+\end{figure}
+Here unregistered users will register themselves to the CKB platform, choosing whether if they are Students or Educators.
+
+Furthermore, users will have the possibility to be redirected to the login form if they are already registered to the platform.
+\subsection{Login Page}
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Educator - Student - Login Page}}
+\caption{Shared Login Page}
+\centering
+\label{fig:login_page}
+\end{figure}
+Educators and Students will see a shared login form that will allow them to login into the system.
+The Log in button will redirect the user to the correct home page depending on their role.
+
+\subsection{Home Page}
+The elements in the Home Page change dynamically according to the specific role of the user requesting the page.
+\subsubsection{Student Home Page}
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Student - Home Page}}
+\caption{Student Home Page}
+\centering
+\label{fig:student_home_page}
+\end{figure}
+Students will see a list of the Kata Battles they have joined, showing when the submission deadline will expire and the obtained points, while also having the possibility to be directly redirected to those Kata Battles Pages.
+
+At the same time they will see a list of all the Kata Tournaments they are subscribed to, having the possibility to sort them by preference, rank, alphabetically or by creation date.
+
+The search button will lead the users to the Search Page (ref. \ref{search_page}), while the exit button will log them out, being redirected to the Login Page.
+
+\subsubsection{Educator Home Page}
+Educators will see a list of the Kata Battles that they personally created showing the deadlines approaching.
+At the same time they will see another list with the Kata Tournaments they own or organize and a button to create new KTs.
+As for the Student Home Page the search button will redirect to the Search Page, while the exit button will log them out.
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Educator - Home Page}}
+\caption{Educator Home Page}
+\centering
+\label{fig:educator_home_page}
+\end{figure}
+
+When clicking on the "New Kata Tournament" button a form will appear and the user will be requested to insert a name for the Kata Tournament and a description for it (as depicted in figure \ref{fig:educator_home_page_new_tournament}).
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Educator - Home Page - New Kata Tournament}}
+\caption{Educator Home Page - New Kata Tournament Form}
+\centering
+\label{fig:educator_home_page_new_tournament}
+\end{figure}
+
+\subsection{Search Page}\label{search_page}
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Student - Educator - Search results}}
+\caption{Search Page after a "DevQuest Championship" Search}
+\centering
+\label{fig:search_page}
+\end{figure}
+
+Offering the possibility to search for KTs and KBs the Search Page will provide a list of the found results retrieved from the DBMS.
+
+\subsection{Kata Tournament Page}
+As for the Home Page, the Kata Tournament Page will be dynamically built based on the user's role.
+
+Both types of user will see the tournament detailed description, the current tournament rankings in the top right corner.
+Furthermore they will see a list of all the KBs of that tournament.
 
 
+\subsubsection{Student Kata Tournament Page}
+The Students will have the possibility to Subscribe to the Kata Tournament.
+This functionality will be provided using a Subscribe Button (the "Already Subscribed" button in picture \ref{fig:student_kt_page}).
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Student - Kata Tournament Page}}
+\caption{Student Kata Tournament Page}
+\centering
+\label{fig:student_kt_page}
+\end{figure}
+
+
+\subsubsection{Educator Kata Tournament Page}
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Educator - Kata Tournament Page}}
+\caption{Educator Kata Tournament Page}
+\centering
+\label{fig:educator_kt_page}
+\end{figure}
+
+The Educators will have three main additional functionalities added to their KT Pages:
+\begin{itemize}
+    \item Create new KBs : provided via the "New Kata Battle" button and form asking for a KB name, a description, a toggle for manual evaluation and the upload project button. (figure \ref{fig:educator_kt_page_newKB})
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Educator - Kata Tournament Page - New Kata Battle}}
+\caption{Educator Kata Tournament Page - New Kata Battle functionality}
+\centering
+\label{fig:educator_kt_page_newKB}
+\end{figure}
+
+    \item Add Organizers to the Kata Tournament : provided via the "Add Organizer" button and the dynamic form asking for an username or an email (figure \ref{fig:educator_kt_page_add_organizer})
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Educator - Kata Tournament Page - Add Organizer}}
+\caption{Educator Kata Tournament Page - Add Organizer functionality}
+\centering
+\label{fig:educator_kt_page_add_organizer}
+\end{figure}
+
+    \item End the KT : provided via the "End Kata Tournament" button and popup window (figure \ref{fig:educator_kt_page_deletion})
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Educator - Kata Tournament Page - Deletion}}
+\caption{Educator Kata Tournament Page - Kata Tournament End functionality}
+\centering
+\label{fig:educator_kt_page_deletion}
+\end{figure}
+
+\end{itemize}
+
+
+
+
+\subsection{Kata Battle Page}
+Both users will see the information about that kata battle, that is : the code kata description, the link to the KB's Official GitHub repo, the minimum and maximum size of the Teams, the registration/submission deadlines and if a manual evaluation is needed.
+
+\subsubsection{Student Kata Battle Page}
+Students won't be able to see the Kata Battle description up until the end of the Registration Phase.
+They will only have the possibility to create Teams (figure \ref{fig:student_kb_page_subscription}) and wait for each invited Student to accept the invitation (figure \ref{fig:student_kb_page_wait}).
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Student - Kata Battle Page - Subscription Phase}}
+\caption{Student Kata Battle Page - Subscription Phase}
+\centering
+\label{fig:student_kb_page_subscription}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Student - Kata Battle Page - Subscription Phase_wait}}
+\caption{Student Kata Battle Page - Waiting for the battle}
+\centering
+\label{fig:student_kb_page_wait}
+\end{figure}
+
+During the Kata Battle the Students participating will have the possibility to read the KB description and to see the competition live, begin able to see Team rankings and scores while the submission deadline is approaching.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Student - Kata Battle Page - Ongoing}}
+\caption{Student Kata Battle Page - Ongoing Kata Battle}
+\centering
+\label{fig:student_kb_page_ongoing}
+\end{figure}
+
+\subsubsection{Educator Kata Battle Page}
+Once the KB ends, organizers will be able to evaluate team solutions by assigning a personal score to each team, provided they opted for manual evaluation during the KB creation process.
+Educators will be linked directly to the GitHub repos of the Teams by clicking on the GitHub icon beside the Teams' names.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=\UIwidth\textwidth]{Educator - Kata Battle Page - Evaluation}}
+\caption{Educator Kata Battle Page - Consolidation Stage}
+\centering
+\label{fig:educator_kb_page_consolidation}
+\end{figure}
+
+\emph{Note} : The Educator Kata Battle Page during an Ongoing KB will be exactly the same as the Student Kata Battle Page, with the exception that the Organizer will already see the links to the Teams' GitHub repos.
+
+\subsection{Navigation Summary}
+Educators and Students will have the possibility to navigate between those pages following this internal logic:
+
+\begin{figure}[H]
+\centering
+\includegraphics*[width=0.9\textwidth]{UIflow}
+\caption{Website Navigation}
+\centering
+\label{fig:UIFlow}
+\end{figure}
+
+\graphicspath{ {./images/} }
 %  4  --------------------------------------------------------------------------------------------%
 
 \chapter{Requirements Traceability}
@@ -1182,8 +1388,8 @@ In software testing, three key levels play distinct roles in ensuring the robust
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Student}       & \textbf{Effort} \\ \hline
-Filippo Riva           & 4h              \\ \hline
-Antonio Sulfaro        & 4h              \\ \hline
+Filippo Riva           & 32h              \\ \hline
+Antonio Sulfaro        & 25h              \\ \hline
 \end{tabular}
 \end{table}
 
