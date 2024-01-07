@@ -92,7 +92,7 @@
     In the realm of IT, programming stands as a significant challenge, making challenges an invaluable tool for students to gain the drive and opportunity to delve into, comprehend, and enjoy various topics.
     The CodeKataBattle platform embodies this reality by transforming learning into a real challenge.
 
-    \section{Purpose} \label{purpose}
+    \section{Purpose} \label{sec:purpose}
     Derived from the karate practice of ``kata'', the CodeKataBattle project mirrors the concept of iterative improvement through repetition.
     In the context of competitive programming, it leverages this idea by offering a multitude of problems (referred to as ``code katas``) for students to solve.
     The core principle lies in fostering learning through repeated attempts and learning from mistakes, thus emphasizing the trial-and-error approach.
@@ -139,7 +139,7 @@
 
 Here's a list of useful definitions necessary to a comprehensive understanding of the CodeKataBattle RASD document
 
-\subsection{Definitions}\label{definitions}
+\subsection{Definitions}\label{sec:definitions}
 
 \begin{description}
     \item[Kata Tournament :] A competition organized by educators on the CKB platform, where students
@@ -160,6 +160,8 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
     \item[Score :] The numerical representation, between 0 and 100, of the students' performance in a battle,
         calculated taking into consideration every evaluation factor in a proper way.
     \item[Major Event :] Events that take place in the CKB platform and need to be notified to the specific students.
+    \item[Authentication Token :] A Token provided via the CKB Login procedure.
+        The CKB platform will have the capability to recognize if the token is owned by a valid user, if the user is an Educator or a Student, and obtain its userID.
 \end{description}
 
 \subsection{Acronyms}
@@ -183,6 +185,7 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
 \begin{description}
     \item[repo :] GitHub repository.
     \item[pwd :] Password.
+    \item[auth :] Authentication.
 \end{description}
 
 \section{Revision History}
@@ -255,7 +258,7 @@ CKB has been designed as a 4-tier service-oriented architecture, and follow the 
 \label{fig:high_level_overview}
 \end{figure}
 
-The 4-tier subdivision is composed as follows (for a detailed explanation see section ~\ref{architectural_styles}):
+The 4-tier subdivision is composed as follows (for a detailed explanation see section ~\ref{sec:architectural_styles}):
 \begin{itemize}
     \item[1°] \emph{The Client Presentation tier} : User interface components for a responsive and interactive experience.
     \item[2°] \emph{The Server Presentation tier} : Manages user requests, processes data, and orchestrates information flow.
@@ -348,7 +351,7 @@ As of now we can only estimate the system's size and, for this reason, the decis
     \item \textbf{Web Server}: are generic Server computer that host a Web Server execution environment (Tomcat) and receive Client Applications' requests.
     If the Client request needs it, the Web Servers will forward the request to an Application Server.
     \item \textbf{Application Servers}: are generic Server computers that host linux virtual machines.
-    Each virtual machine will contain an execution environment capable of hosting Spring Applications (explained in detail in section~\ref{design_decisions}).
+    Each virtual machine will contain an execution environment capable of hosting Spring Applications (explained in detail in section \ref{sec:design_decisions}).
     \item \textbf{Database Servers}: are generic Server computers that host linux virtual machines.
     Each virtual machine will contain a DBMS, allowing Application Servers to retrieve the needed data via TCP/IP\@.
     \item \textbf{Load Balancer}: are servers that handle incoming HTTPS requests and balance the workload among the Web Servers, consequently balancing the Application Servers.
@@ -361,14 +364,14 @@ This section will describe how the interactions between component develop over t
 Each subsection will include a sequence UML diagram describing the flow of the interchanged messages.
 
 \emph{Note} : for the sake of comprehensibility, the failed interactions between user and system will not be represented if not strictly necessary.
-In general, a failed interaction will make the function calls fail immediately and return an error to the user.
+In general, a failed interaction will make the function calls fail immediately and return an error or a notification to the user.
 
 \subsection{Educator Runtime Views}
 
 \subsubsection{Create Kata Tournament}
 This Runtime View describes the creation of a Kata Tournament.
-The Client application will send all the necessary information to the WebServer, along with the Educator verification token.
-The Web Server will then (if the verification token is valid) ask an EducatorService to create a KT\@.
+The Client application will send all the necessary information to the WebServer, along with the Educator auth. token (obtained via the login procedure, figure \ref{fig:Login_runtime}).
+The Web Server will then (if the auth. token is valid) ask an EducatorService to create a KT\@.
 At the end a successful interaction the user will be redirected to the Kata Tournament Page.
 
 \begin{figure}[H]
@@ -393,8 +396,9 @@ At the end a successful interaction the user will be redirected to the Kata Tour
 \centering
 \label{fig:CreateKB_runtime}
 \end{figure}
-Note : the getKTpage interaction is an interaction between the Educator / Student and the system.
-Please refer to figure~\ref{fig:getKTPage_runtime}.
+
+Note : the getKTPage interaction is an interaction between the Educator / Student and the system.
+Please refer to figure \ref{fig:getKTPage_runtime}.
 
 \cleardoublepage
 \subsubsection{View Solutions}
@@ -407,8 +411,8 @@ This Runtime View depicts how the Educator will be able to obtain all the soluti
 \centering
 \label{fig:viewSolutions_runtime}
 \end{figure}
-Note : the getKBpage interaction is an interaction between the Educator / Student and the system.
-Please refer to figure~\ref{fig:getKBPage_runtime}.
+Note : the getKBPage interaction is an interaction between the Educator / Student and the system.
+Please refer to figure \ref{fig:getKBPage_runtime}.
 
 \cleardoublepage
 \subsubsection{Evaluate Solutions}
@@ -424,7 +428,7 @@ For each user it will send a specific email and in app notification notifying th
 \centering
 \label{fig:evaluateSolutions_runtime}
 \end{figure}
-Note : for the getKBpage interaction refer to figure~\ref{fig:getKBPage_runtime}.
+Note : for the getKBPage interaction refer to figure \ref{fig:getKBPage_runtime}.
 
 \cleardoublepage
 \subsubsection{Invite Organizer}
@@ -440,7 +444,7 @@ For each Educator found in the database corresponding to that username the syste
 \label{fig:inviteOrganizer_runtime}
 \end{figure}
 
-Note : for the getKTpage interaction refer to figure~\ref{fig:getKTPage_runtime}.
+Note : for the getKTPage interaction refer to figure \ref{fig:getKTPage_runtime}.
 
 \cleardoublepage
 \subsubsection{Close Tournament}
@@ -455,16 +459,73 @@ The Model will need to check whether if all the KTBs are ended in that specific 
 \label{fig:closeTournament_runtime}
 \end{figure}
 
-Note : for the getKTpage interaction refer to figure~\ref{fig:getKTPage_runtime}.
+Note : for the getKTPage interaction refer to figure \ref{fig:getKTPage_runtime}.
 
 
 \cleardoublepage
 \subsection{Student Runtime Views}
 \subsubsection{Subscribe to a KT}
-\subsubsection{Create a Team}
-\subsubsection{Accept a Team Invitation}
-\subsubsection{Subscribe a Team to a KB}
+This Runtime View shows how a Student might subscribe to a specific KT.
+As usual the request is sent to the WebServer which translate the authToken to the STid of that Student and forwards the request to the StudentService.
+The model will update the DBMS and the Student will be correctly subscribed to that KT.
 
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{SubscribeToKT}}
+\caption{Subscribe to a KT Runtime View}
+\centering
+\label{fig:subscribeToKT_runtime}
+\end{figure}
+Note : for the getKTPage interaction refer to figure \ref{fig:getKTPage_runtime}.
+
+\cleardoublepage
+\subsubsection{Create a Team}
+This Runtime View shows how a Student might create a Team before joining a KB.
+The Student will fill a form containing with username or email of Students that he wants to invite to the KB.
+The WebServer will then check the authToken and forward the request to the Student service with the correct STid.
+The StudentService will ask the model all the available emails linked to the usernames inserted by the user, it will create a team and will send an email and a notification to each invited student.
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{CreateATeam}}
+\caption{Create a Team Runtime View}
+\centering
+\label{fig:CreateTeam_runtime}
+\end{figure}
+Note : for the getKBPage interaction refer to figure \ref{fig:getKBPage_runtime}.
+
+\cleardoublepage
+\subsubsection{Accept a Team Invitation}
+This Runtime View describes what components will interact when a Student will accept a team invitation.
+The Student might accept the invite after clicking on the Accept Invite button on the KB page.
+Furthermore, if the Student is not subscribed to the KT he won't be able to accept the invitation and will be redirected to the
+KT page, asking for a subscription (not represented in the sequence diagram since the user has already subscribed to that KT).
+
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{AcceptATeamInvitation}}
+\caption{Accept a Team Invitation Runtime View}
+\centering
+\label{fig:AcceptInvite_runtime}
+\end{figure}
+Note : for the getKBPage interaction refer to figure \ref{fig:getKBPage_runtime} while for the SubscribeToKT interaction refer to figure \ref{fig:subscribeToKT_runtime}.
+
+\cleardoublepage
+\subsubsection{Subscribe a Team to a KB}
+This Runtime View describes what components will interact when a Student will subscribe its team to the KB he created the team for.
+After having retrieved the KB page the user will click onto the Subscribe Team button.
+If the team won't have enough participants for the KB, the model will return false, propagating the failed subscription to the Client Application and showing to the user a specific notification.
+
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{SubscribeATeamToAKB}}
+\caption{Subscrite a Team to a KB Runtime View}
+\centering
+\label{fig:SubscribeTeam_runtime}
+\end{figure}
+Note : for the getKBPage interaction refer to figure \ref{fig:getKBPage_runtime}.
+
+\cleardoublepage
 \subsection{Educator / Student Runtime Views}
 
 \subsubsection{Get Kata Tournament Page}
@@ -491,7 +552,8 @@ This Runtime View describes how an user will obtain the Kata Battle Page from th
 
 \subsubsection{Registration}
 This Runtime View describes the registration process of both Educators and Students. 
-An important clarification to make is that if a Student or an Educator register but does not confirm his registration using his email, the CKB system will remove the unconfirmed account from his database (not represented in the UML sequence).
+An important clarification to make is that if a Student or an Educator register but does not confirm his registration using his email, the CKB system will periodically remove the unconfirmed account from his database (not represented in the UML sequence).
+The confirmationToken needed for the registration confirmation function is a token provided via the confirmation email, needed for authentication.
 
 \begin{figure}[H]
 \centering
@@ -502,6 +564,7 @@ An important clarification to make is that if a Student or an Educator register 
 \end{figure}
 Another important note: every possible alternative flow, for example if the credentials or if some DBMS update queries fail, the registration fails immediately, every function is returned false and the user sees the failed registration attempt, not being redirected to the homePage.
 
+\cleardoublepage
 \subsubsection{Login}
 This Runtime View describes the login process of both Educators and Students. 
 The login process is used to obtain a verification token in form of a cookie by the Client Application. 
@@ -515,6 +578,7 @@ This token will be requested for every other functionality of the system besides
 \label{fig:Login_runtime}
 \end{figure}
 
+\cleardoublepage
 \subsubsection{Visualize Rankings}
 This Runtime View illustrate how each user will be able to see the current rankings of each Kata Tournament on the platform.
 An important thing to notice is the fact that the Kata Tournament information is queried only one time from the DBMS during the getKTPage interaction\@.
@@ -531,113 +595,259 @@ In fact the Client-Side presentation logic will handle the presentation of the r
 In case the number of Students subscribed to the tournament is in the order of thousands, the visualize rankings may be handled in an asynchronous way, in order not to uselessly send a considerable amount of data from the server each time a user request a KT page.
 However, we assume that that won't be the case and the entity of the subscribed students will be in the order of hundreds for each KT\@.
 
+\cleardoublepage
+\subsection{GitHub Actions / Third-Party Application Runtime Views}
+\subsubsection{New Submission Notification}
+This Runtime View illustrate GitHub Actions or any other application will notify the CKB platform about a new teams commit.
 
-\section{Component interfaces}\label{component-interfaces}
+\begin{figure}[H]
+\centering
+\makebox[\textwidth][c]{\includegraphics*[width=1.2\textwidth]{SubmitNewSolution}}
+\caption{New Submission Notification Runtime View}
+\centering
+\label{fig:new_submission_runtime}
+\end{figure}
 
-\begin{longtable}[h] {|p{130mm}|}
+
+\cleardoublepage
+\subsection{Minor Interactions}
+Here's a list of the minor interactions that the system will have to offer but won't be depicted or described as the previous interactions.
+Since those are minor interactions we'll leave the control flow to the implementation team that will implement the specified services, suggesting to follow the general structure of the control flows previously described.
+All of the necessary functions needed for those interactions are listed in the interfaces in section \ref{sec:component_interfaces}.
+
+\subsubsection{StudentService minor interactions}
+Those functionalities will be offered by the StudentService:
+\begin{enumerate}
+    \item \textbf{Additional Team Invites :} The Team's Students will have the capability to invite students even after the creation of a Team. Meaning that we'll need specific functions to invite and add one or more user to a Team.
+    \item \textbf{Team Authentification Tokens :} The system will need to provide a \textbf{TeamAuthToken} to the Team, needed as an authentication token for the automatic evaluation of Team's commits.
+\end{enumerate}
+
+\subsubsection{EducatorService minor interactions}
+Those functionalities will be offered by the StudentService:
+\begin{enumerate}
+    \item \textbf{Accept Organization Invites} The Educators will need a way to accept their invitations by clicking on the link provided via email.
+\end{enumerate}
+
+\subsubsection{InfoService minor interactions}
+Those functionalities will be offered by the InfoService:
+\begin{enumerate}
+    \item \textbf{Search KTs :} Educator and Students will need to search KTs.
+    \item \textbf{Search KBs :} Educator and Students will need to search KBs.
+\end{enumerate}
+
+\cleardoublepage
+
+\section{Component interfaces} \label{sec:component_interfaces}
+This section, after a short description of the most important parameters used by the interfaces, will contain a list of all the required functions that each interface will need to provide.
+For each interface there will be a short description of what that interface will be used for.
+
+\subsubsection{Parameters spefication}
+We outline the key parameters utilized within the interfaces :
+\begin{itemize}
+    \item The \textbf{authToken} is a token provided via the Authentication Service, stored client-side and needed for client-server authentication.
+    \item The \textbf{confirmationToken} is a token provided via the confirmation email, needed to authenticate the confirmation.
+    \item The \textbf{teamAuthToken} is a token provided via Student Service, needed to authenticate new code commits notified to the Submission API. The users will insert those tokens into their GitHub Action workflow, or into other Third-Party Applications that will notify new commits through the API.
+    \item \textbf{EDid}, \textbf{STid}, \textbf{TeamID},\textbf{KTid} and \textbf{KBid} are respecitively IDs for Educator users, Student users, Teams, Kata Tournaments and Kata Battles. They will be unique identifiers for those entities shared between the Services and the DBMS.
+    \item \textbf{project} is a JSON that represent folder structures and content of a software project.
+    \item \textbf{testCases} is a JSON that represent the testCases for a specific project.
+    \item \textbf{settings} is a JSON that represent the settings, that is what parameters of the static evaluation will be taken into consideration and if a manual evaluation is needed, for a specific KB.
+    \item \textbf{evaluation} is a JSON that contains TeamID to score tuples, representing a manual evaluation.
+    \item \textbf{organizersList} and \textbf{studentList} are JSON lists of \emph{EDid}s and \emph{STid}s.
+    \item \textbf{searchQuery} is a search term used for KTs and KBs search in the DBMS.
+\end{itemize}
+
+
+\subsubsection {Website Interface }
+The Website Interface will technically be implemented in a web server providing those functionalities via the HTTP protocol.
+Meaning that each one of those functions will have a corresponding URL and a specific format. The implementation team will have
+the responsibility to choose the proper techniques to implement the authToken authentication functionality (e.g. cookies or else)
+and how the data will be encoded for POST requests such as createKB().
+\begin{longtable}[h] {|p{135mm}|}
 \hline
 \textbf{WebsiteInt} \\ \hline
-loginPageRequest() : LoginPage \\
+loginPageRequest() : LoginPage\\
 registrationPageRequest() : RegistrationPage \\
 confirmationPageRequest() : ConfirmationPage \\
-KTPageRequest(KTid, verificationToken) : KataTournamentPage \\
-KBPageRequest(KBid, verificationToken) : KataBattlePage \\
-homePageRequest(verificationToken) : homePage\\
-login(username, password) : HomePage \\
-login(email, password) : HomePage \\
+KTPageRequest(authToken, KTid) : KataTournamentPage \\
+KBPageRequest(authToken, KBid) : KataBattlePage \\
+homePageRequest(authToken) : HomePage\\
+login(username, password) : HomePage, AuthToken\\
+login(email, password) : HomePage, AuthToken\\
 register(username, password, email) : boolean \\
-confirmRegistration(username) : HomePage \\
-createKT(verificationToken,name,descr.) \\
-createKB(description, settings, project, testCases): KataBattlePage \\
-getSolutionsLinks(KBid, verificationToken) : solutionList \\
-evaluate(verificationToken, KBid, evaluation) : boolean \\
-addOrganizers(verificationToken, organizersList) : boolean \\
-closeTournament(verificationToken, KTid) : boolean \\
+confirmRegistration(username, confirmationToken) : HomePage, AuthToken \\
+createKT(authToken, name, descr.) : KataTournamentPage \\
+createKB(authToken, description, settings, project, testCases): KataBattlePage \\
+getSolutionsLinks(authToken, KBid) : SolutionList \\
+evaluate(authToken, KBid, evaluation) : boolean \\
+addOrganizers(authToken, organizersList, KTid) : boolean \\
+addInvite(authToken, student, TeamID) : boolean\\
+closeTournament(authToken, KTid) : boolean \\
+subscribe(authToken, KTid) : boolean \\
+createTeam(authToken, KBid, teamName, studentList) : boolean\\
+acceptTeamInvite(authToken, TeamID) : boolean \\
+subscribeTeam(authToken, TeamID) : boolean \\
+getTeamAuthToken(authToken, TeamID) : TeamAuthToken \\
+searchKB(searchQuery) : KBList \\
+searchKT(searchQuery) : KBList \\
+getNotification(authToken) : NotificationList \\
 \hline
 \end{longtable}
+
+\cleardoublepage
+\subsubsection{Registration Interface}
+
+The Registration Interface will be used to register a new user to the CKB platform.
+This Interface will be implemented through the AuthenticationService and will follow the RESTful API standard.
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{RegistrationInt} \\ \hline
 register(username, password, email) : boolean \\
-confirmRegistration(username) : boolean \\
+confirmRegistration(username, confirmationToken) : AuthToken \\
 \hline
 \end{longtable}
+
+\subsubsection{Login Interface}
+The Registration Interface will be used to login a registered user to the CKB platform.
+This Interface will be implemented through the AuthenticationService and will be the main
+source of AuthTokens. It will follow the RESTful API standard.
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{LoginInt} \\ \hline
-verify(username, password) : VerificationToken \\
-verify(email, password) : VerificationToken \\
+verify(username, password) : AuthToken \\
+verify(email, password) : AuthToken \\
 \hline
 \end{longtable}
+
+\subsubsection{Educator Interface}
+The Educator Interface will provide all the needed functionalities for Educators.
+It will be implemented via the EducatorService and will comply the RESTful API standard, meaning that
+project, testCases and evaluation parameters will need to be of JSON format.
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{EducatorInt} \\ \hline
-createKT(name,description) : KTid \\
-createKB(description, settings, project, testCases) : KBid \\
-evaluate(KBid, evaluation,educatorID) : boolean \\
-addOrganizers(organizersList) : boolean \\
-closeTournament(KTid) : boolean \\
+createKT(EDid, name, description) : KTid \\
+createKB(EDid, description, settings, project, testCases) : KBid \\
+evaluate(EDid, KBid, evaluation) : boolean \\
+addOrganizers(EDid, organizersList, KTid) : boolean \\
+closeTournament(EDid, KTid) : boolean \\
 \hline
 \end{longtable}
+
+\cleardoublepage
+\subsubsection{Student Interface}
+The Student Interface will provide all the needed functionalities for Students.
+It will be implemented via the StudentService and will comply the RESTful API standard.
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{StudentInt} \\ \hline
+subscribe(STid, KTid) : boolean \\
+createTeam(STid, KBid, teamName, studentList) : boolean \\
+addInvite(STid, KBid, student) : boolean\\
+acceptTeamInvite(STid, TeamID) : boolean \\
+subscribeTeam(STid, TeamID) : boolean \\
+getTeamAuthToken(STid, TeamID) : TeamAuthToken \\
 \hline
 \end{longtable}
+
+\subsubsection{Info Interface}
+The Info Interface will provide generic information services. This interface is designed to be used as a direct access to the DBMS information from the WebServer.
+It will be implemented via the InfoService and will comply the RESTful API standard.
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{InfoInt} \\ \hline
 getKTInfos(KTid) : KataTournament \\
-getSolutionsLinks(KBid) : solutionList \\
-getNotifications(verificationToken) : notifications\\
+getKBInfos(KBid) : KataBattle \\
+getSolutionsLinks(KBid, EDid) : solutionList \\
+getNotifications(authToken) : notifications\\
+searchKB(searchQuery) : KBList \\
+searchKT(searchQuery) : KBList \\
 \hline
 \end{longtable}
 
-\begin{longtable}[h] {|p{130mm}|}
-\hline
-\textbf{SubmissionAPI} \\ \hline
-\hline
-\end{longtable}
+\subsubsection{Model Interface}
+The Model Interface is designed as a simplified access method to the DBMS.
+It provides a series of functions completely independent from each other that will
+query the database in standard and secure way, returning JSON objects to the services requiring those queries.
 
+\cleardoublepage
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{ModelInt} \\ \hline
 checkCredentials(username, password) : boolean \\
 checkCredentials(email, password) : boolean \\
 register(username, password, email) : boolean \\
-confirmRegistration(username) : boolean \\
+confirmRegistration(username, confirmationToken) : boolean \\
 getKT(KTid) : KataTournament \\
-createKT(name,description) : KTid \\
-createKB(description, settings, project, testCases) : KBid \\
-getSolutions(KBid) : solutionList \\
-evaluate(KBid, evaluation,educatorID) : boolean \\
+getKB(KBid) : KataBattle \\
+createKT(EDid, name, description) : KTid \\
+addOrganizer(EDid, organizer, KTid) : boolean\\
+saveOrganizationInvite(EDid, KTid) : boolean\\
+createKB(EDid, description, settings, project, testCases) : KBid \\
+getSolutions(EDid,KBid) : solutionList \\
+evaluate(EDid, KBid, evaluation, EDid) : boolean \\
+closeTournament(EDid, KTid) : boolean \\
+subscribe(STid, KTid) : boolean\\
+createTeam(STid, teamName) : boolean \\
+addTeamInvite(STid, TeamID, student) \\
+acceptTeamInvite(STid, TeamID) : boolean \\
+subscribeTeam(STid, TeamID) : boolean \\
+checkTeamAuth(teamAuthToken) : KBid \\
+getTestCases(KBid) : testCases \\
+getTeamAuthToken(STid, TeamID) : TeamAuthToken \\
+updateScore(TeamID, score) : boolean \\
 getEmails(userList) : emailList \\
-closeTournament(KTid) : boolean \\
 getKTusers(KTid) : userList \\
+searchKB(searchQuery) : KBList \\
+searchKT(searchQuery) : KBList \\
 \hline
 \end{longtable}
+
+\cleardoublepage
+\subsubsection{Notification Interface}
+The Notification Interface will act as a bridge between a third party email provider and the internal services of our system.
+Furthermore it will provide a way for services to \emph{produce} notification for specific users (for a more detailed explanaition refer to section \ref{sec:the_notificationservice_eventdrivennotifications}).
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{NotificationInt} \\ \hline
 sendEmail(address, text) : boolean \\
-sendNotification(userID, text) : boolean \\
-getNotifications(verificationToken) : notificationList\\
+sendNotification(UserID, text) : boolean \\
+getNotifications(UserID) : notificationList\\
 \hline
 \end{longtable}
+
+\subsubsection{Submission API}
+
+The submission API will be the only interface that allows external systems to directly connect to the application servers.
+It will provide only the submit functionality as a RESTful API.
+The goal of this API is to notify the CKB platform of a commit, meaning that we'll just need two parameters,
+the teamAuthToken for authentication, provided by the StudentInt when a KB starts, and the link to the GitHub repo of that Team, needed to pull the new commits.
+
+\begin{longtable}[h] {|p{130mm}|}
+\hline
+\textbf{SubmissionAPI} \\ \hline
+submit(teamAuthToken, repo) : boolean \\
+\hline
+\end{longtable}
+
+\subsubsection{Automatic Evaluation Interface} \label{sec:automatic_evaluation_int}
+
+The Automatic Evaluation Interface is needed to evaluate a specific commit after the SubmissionService has recieved a valid submission.
+The three parameters needed are the repo link to pull the new commit from GitHub, the KBid to retrieve the test cases from the DBMS and the TeamID to add the obtained points to the correct team.
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
 \textbf{AEInterface} \\ \hline
+analyze(repo, KBid, TeamID) : boolean \\
 \hline
 \end{longtable}
 
-\section{Selected architectural styles and patterns} \label{architectural_styles}
+\section{Selected architectural styles and patterns} \label{sec:architectural_styles}
 \begin{description}
     \item[4-tier architecture]
     The CKB platform adopts a 4-tier architectural structure to enhance modularity, scalability, and maintainability.
@@ -661,7 +871,15 @@ getNotifications(verificationToken) : notificationList\\
     Each major functionality, such as authentication, educator management, and student interaction, is encapsulated within independent services.
     This allows for distributed development, making it easier to scale and update specific components without affecting the entire system, while allowing independent development workflows for each service.
 \end{description}
-\section{Other design decisions} \label{design_decisions}
+\section{Other design decisions} \label{sec:design_decisions}
+
+\subsection{The Info Service - Architectural Consistency}
+The InfoService may seem a useless and trivial Service since it could be completely avoided by providing a direct connection from the WebServer to the DBMS or the Model component.
+Nevertheless, we decided to leave the responsibility of retrievieng the data to a third RESTful component for architectural consistency and to let the WebServer interact with every needed external interfaces in the same way.
+
+\subsection{The Notification Service - Event Driven Notifications} \label{sec:the_notificationservice_eventdrivennotifications}
+The Notification Service, beside providing an easy access to a third party email provider, will provide a notification system which will temporarely store notifications sent by the system's events.
+This Notification system will be mimicking a \emph{producer to consumer event-driven-architecture} since it will be the Client Application responbility to retrieve those notifications.
 
 %  3  --------------------------------------------------------------------------------------------%
 
@@ -722,7 +940,7 @@ The primary objective of integration is to validate that each unit, when combine
 \begin{description}
     \item[Data - Business] Integrate the business logic with the data tier.
     Verify the consistency of data flow and handling across different components.
-    The sequence in which we integrate components will follow the implementation order of the business tier, so is possible to integrate different services at the same time
+    The sequence in which we integrate components will follow the implementation order of the business tier, enabling a parallel integration of different services at the same time
     \item[External Actor] Confirm proper engagement with external actors, like GitHub for pull operations and email for notifications.
     \item[Business - Server] Integrate server-side components with the business logic.
     Perform early integration tests to identify and address potential issues.
