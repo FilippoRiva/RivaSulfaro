@@ -532,7 +532,7 @@ In case the number of Students subscribed to the tournament is in the order of t
 However, we assume that that won't be the case and the entity of the subscribed students will be in the order of hundreds for each KT\@.
 
 
-\section{Component interfaces}
+\section{Component interfaces}\label{component-interfaces}
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
@@ -682,11 +682,14 @@ these should be implemented, integrated, and tested in order to have a working s
 The main idea is to first start with a \emph{bottom-up} approach to create the 
 component that directly interact with the database, in order to have a fully 
 working data retrieval and management layer.
-Then a \emph{thread strategy} approach will be used to develop all the other
-components in parallel, dividing the work by functionality.
+Then a \emph{thread strategy} approach will be employed for the concurrent development of all services.
+Work will be divided based on functionality, allowing for parallel progress and efficient utilization of resources.
+The later stages, involving the development of the server and client components, revert to a \emph{bottom-up} approach,
+given the consequential nature of this work.
 
 This approach is possible due to the service oriented architecture, and ensures efficiency and maximum interoperability between development teams.
 
+\section{Implementation}
 To facilitate a clear understanding of the implementation strategy, we have outlined a visual representation in a diagram.
 This diagram succinctly illustrates the sequential steps and dependencies involved in building the various components of the CKB system.
 Following this order will streamline the development process and ensure a systematic and efficient integration of each subcomponent.
@@ -694,12 +697,11 @@ Following this order will streamline the development process and ensure a system
 \begin{figure}[H]
     \centering
     \includegraphics*[width=\textwidth]{development_time}
-    \caption{Thread strategy approach for implementation, integration and testing}
+    \caption{Implementation Approach}
     \centering
     \label{fig:development_time}
 \end{figure}
 
-\section{Implementation}
 \begin{description}
     \item[Data Tier] Implement the DBMS and associated structures to store and manage data effectively, and so the Model.
     During this step a team can also work on the NotificationController, given that it is independent from the model
@@ -707,13 +709,16 @@ Following this order will streamline the development process and ensure a system
     At this stage it is possible to make extensive use of a modular approach for independent development:
     The first phase play pivotal roles by providing essential interfaces for the subsequent deployment of the remaining Business Tier.
     Notably, the Submission Service should be implemented post the completion of the Automatic Evaluation component.
-    \item[Server Presentation Tier] Develop server-side components for handling user requests.
-    Ensure early communication protocols are in place for integration testing.
-    \item[Client Presentation Tier] Develop user interface components concurrently.
-    Collaborate with the server-side team for early integration points.
+    \item[Server Presentation Tier] In this phase the teams will have to focus on the development of server-side components for handling user requests
+    and ensure that all the necessary interfaces are correctly exposed following the interfaces guidelines described in section~\ref{component-interfaces},
+    since those interfaces will be necessary for the integration testing process.
+    \item[Client Presentation Tier] Teams develop user interface components concurrently, keeping active a
+    collaborations with the server-side team for early integration points, and with design group if present to ensure that the user interface aligns with the intended visual and user experience guidelines..
 \end{description}
 
 \section{Integration}
+Integration is a critical phase in the development lifecycle of the CKB project, where individual components and modules come together to form a cohesive and functioning system.
+The primary objective of integration is to validate that each unit, when combined, behaves as intended and meets the specified requirements.
 \begin{description}
     \item[Data - Business] Integrate the business logic with the data tier.
     Verify the consistency of data flow and handling across different components.
@@ -726,14 +731,16 @@ Following this order will streamline the development process and ensure a system
 \end{description}
 
 \section{Testing}
+In the CKB project, we adopt an iterative and parallelized approach to the testing phase, seamlessly integrating it with the implementation and integration stages.
+This methodology is designed to optimize efficiency, facilitate more frequent releases, and enhance collaboration among team members.
+
+In software testing, three key levels play distinct roles in ensuring the robustness and reliability of a system:
 \begin{description}
     \item[Unit] Implement unit tests for services, components, and database operations to verify their correctness independently.
+    Unit tests provide a granular examination of the software's building blocks.
     \item[Integration] Conduct integration tests to verify seamless interaction between different tiers.
     \item[System-Level] Perform system-level tests to evaluate overall system performance, user interactions, and data flow.
 \end{description}
-
-In the CKB project, we adopt an iterative and parallelized approach to the testing phase, seamlessly integrating it with the implementation and integration stages.
-This methodology is designed to optimize efficiency, facilitate more frequent releases, and enhance collaboration among team members.
 
 %  6  --------------------------------------------------------------------------------------------%
 \chapter{Effort Spent}
