@@ -62,7 +62,7 @@
     pdftitle={Requirement Analysis and Specification Document},}
 
 % paths to the graphic folder relative to the tex file -- %
-\graphicspath{ {./images/} }
+\graphicspath{ {./images/}{./images/UI/} }
 
 
 % --------------------------------------------------------------------------------------------- %
@@ -112,7 +112,7 @@
 
 \section{Scope}
     CodeKataBattle's domain is centered on providing an exclusive platform where students can actively participate in programming challenges.
-    Simultaneously, educators are empowered to curate and share various kata problems aligned with their educational goals.
+    Simultaneously, educators have the possibility to curate and share various kata problems aligned with their educational goals.
 
     Let's now shortly introduce the main goals of the CKB project.
     \begin{description}
@@ -122,7 +122,7 @@
         \item[G2] \textbf{Allow educators to create Kata Battles for a specific Kata Tournament}
             \\
             Educators should be able to upload code katas, set the minimum and maximum number of students per group,
-            define registration and submission deadlines, and configure scoring aspects for each battle.
+            define registration and submission deadlines.
         \item[G3] \textbf{Allow educators to evaluate students automatically via the system and optionally via a manual scoring}
             \\
             The system should automatically evaluate functional aspects, timeliness, and source code quality of the students' solutions.
@@ -140,12 +140,12 @@
             It encompasses the entire process, from coding to submitting solution and ultimately competing for scores and rankings.
         \item[G7] \textbf{Provide notifications about major events}
             \\
-            This goal ensures that users stay informed about key activities and developments.
+            This goal ensures that users stay informed about key activities and developments of the CKB platform.
     \end{description}
 
 \section{Definitions, Acronyms, Abbreviations}
 
-Here's a list of useful definitions necessary to a comprehensive understanding of the CodeKataBattle RASD document
+Here's a list of useful definitions necessary to a comprehensive understanding of the CodeKataBattle DD document.
 
 \subsection{Definitions}\label{sec:definitions}
 
@@ -178,12 +178,7 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
     \item[CKB :] CodeKataBattle platform.
     \item[KB :] Kata Battle.
     \item[KT :] Kata Tournament.
-    \item[WPx :] x-th World Phenomena.
-    \item[SPx :] x-th Shared Phenomena.
     \item[Rx :] x-th Requirement.
-    \item[Dx :] x-th Domain Assumption.
-    \item[Sx :] x-th Scenario.
-    \item[UCx :] x-th Use Case.
     \item[VM :] Virtual machine.
     \item[DBMS :] Database Management System.
 \end{description}
@@ -228,6 +223,12 @@ Here's a list of useful definitions necessary to a comprehensive understanding o
 Reference Books : 
 
 Hans Van Vilet - Software Engineering: Principles and Practice
+\\
+
+\noindent
+RASD Document : 
+
+Filippo Riva, Antonio Sulfaro - CodeKataBattle: Requirement Analysis and Specification Document
 
 \section{Document Structure}
 
@@ -245,7 +246,7 @@ We offer a concise overview of the document structure:
         This part concentrates on the project's requirements and their actual implementation within the system.
         It identifies the components responsible for fulfilling each requirement.
     \item \textbf{Chapter 5: Implementation, Integration and Test Plan}\\
-        This fifth section gives an overview of how the various components of the two systems will be implemented.
+        This fifth section gives an overview of how the various components of the system that will be implemented.
         It also outlines a plan for integrating these components and testing their functionality.
     \item \textbf{Chapter 6: Effort Spent}\\
         Provides a summary of the effort expended during the project in terms of time spent.
@@ -266,7 +267,7 @@ Additionally, this section provides a clear definition of the architectural patt
 components, along with other design decisions made during the architectural design process.
 
 \section{Overview}
-CKB has been designed as a 4-tier service-oriented architecture, and follow the SOA style instead of a monolithic design.
+CKB has been designed as a 4-tier service-oriented architecture, instead of a monolithic design.
 
 \begin{figure}[H]
 \centering
@@ -289,7 +290,7 @@ Furthermore, the CKB system engages with external actors crucial for its operati
 
 \begin{itemize}
     \item \emph{GitHub Actions or Other Services} : The system will be notified of team's new commits onto their main branches.
-    \item \emph{GitHub} : CKB is required pull the updated code and send it to the automatic evaluation process.
+    \item \emph{GitHub} : CKB is required to pull the updated code and send it to the automatic evaluation process.
     \item \emph{Email Provider} : CKB will need to send confirmation emails to new users, and a stream of notification emails.
 \end{itemize}
 
@@ -308,7 +309,7 @@ This section only describes the \emph{internal components} of the system, meanin
 \label{fig:deployment_view}
 \end{figure}
 
-Detailed descriptions:
+Detailed descriptions of the components:
 \begin{description}
     \item[Client Application - ] The Web Application that renders the received data from the Web Server and allows the user to have 
     dynamic interactions with the website pages.
@@ -320,23 +321,23 @@ Detailed descriptions:
     Educators can define problem statements, set deadlines, and evaluate student submissions.
     \begin{description}
         \item[KTManagerService - ]  Focuses on the management of Kata Tournaments.
-        It facilitates tournament creation, organization, and coordination, ensuring smooth collaboration between educators and organizers.
+        It facilitates tournament creation, organization, and coordination, ensuring smooth collaboration between owner and organizers.
         \item[KBManagerService - ] Handles the administration of Kata Battles.
-        Educators utilize this service to set up coding challenges, define battle rules, and manage teams' participation.
+        Educators utilize this service to set up coding challenges and define battle settings.
     \end{description}
     \item[StudentService - ] Enables students to form teams for KataBattles and participate in KataTournament.
     \item[InfoService - ] Acts as a centralized hub for platform information.
-    It provides relevant data to users, including tournament and battle details, user profiles, and general platform statistics.
+    It provides relevant data to users, including tournament and battle details, user profiles, notifications, and general platform information.
     \item[SubmissionService - ] Responsible for handling code submissions, ensures the secure and efficient processing of student submissions during Kata Battles.
-    Provides an external API to submit new code solutions, and it interfaces with the AutomaticEvaluation component.
+    Provides an external API to submit new code solutions, and it utilizes with the AutomaticEvaluation component.
     \item[AutomaticEvaluation - ] Automate the evaluation of code submissions.
-    Static analyzer give to educators the possibility to check code quality, while dynamic evaluation executes code against test cases to determine correctness and efficiency.
-    Requires an external API to GitHub to allow pull actions.
+    The static analyzer gives to educators the possibility to check code quality, while the dynamic analyzer executes code against test cases to determine correctness and efficiency.
+    It requires an external API to GitHub to allow pull actions.
     \item[NotificationController - ] Manages the delivery of notifications to users.
     It handles event-driven communication, informing users about important updates, upcoming deadlines, or results.
-    Requires an external API to send e-mail.
+    It requires an external API to send e-mail.
     \item[Model - ] Represents the data model of the platform.
-    It defines the structure of entities such as users, teams, tournaments, and submissions, facilitating data storage and retrieval.
+    It defines the structure of entities such as users, teams, tournaments and battles, facilitating data storage and retrieval.
     It's connected externally with the DBMS\@.
     \item[DBMS - ] Responsible for storing and managing the platform's data.
     It ensures data integrity, accessibility, and scalability, supporting efficient retrieval and storage of information for all platform components.
@@ -377,19 +378,40 @@ As of now we can only estimate the system's size and, for this reason, the decis
 \end{itemize}
 
 \cleardoublepage
-\section{Runtime View}
+\section{Runtime View} \label{sec:runtime_view}
 This section will describe how the interactions between component develop over time, for each main CKB functionality.
 Each subsection will include a sequence UML diagram describing the flow of the interchanged messages.
 
 \emph{Note} : for the sake of comprehensibility, the failed interactions between user and system will not be represented if not strictly necessary.
 In general, a failed interaction will make the function calls fail immediately and return an error or a notification to the user.
 
+\subsubsection{Parameters specification} \label{sec:parameters_specification}
+We outline the key parameters utilized within the interfaces.:
+\begin{itemize}
+    \item The \textbf{authToken} is a token provided via the Authentication Service, stored client-side and needed for client-server authentication.
+    \item The \textbf{confirmationToken} is a token provided via the confirmation email, needed to authenticate the confirmation.
+    \item The \textbf{teamAuthToken} is a token provided via Student Service, needed to authenticate new code commits notified to the Submission API. The users will insert those tokens into their GitHub Action workflow, or into other Third-Party Applications that will notify new commits through the API.
+    \item \textbf{EDid}, \textbf{STid}, \textbf{TeamID}, \textbf{KTid} and \textbf{KBid} are respectively IDs for Educator users, Student users, Teams, Kata Tournaments and Kata Battles.
+    They will be unique identifiers for those entities shared between the Services and the DBMS\@.
+    \item \textbf{userID} is whether an EDid or a STid.
+    \item \textbf{project} is a JSON that represent folder structures and content of a software project.
+    \item \textbf{testCases} is a JSON that represent the testCases for a specific project.
+    \item \textbf{settings} is a JSON that represent the settings, that is what parameters of the static evaluation will be taken into consideration and if a manual evaluation is needed, for a specific KB\@.
+    \item \textbf{evaluation} is a JSON that contains TeamID to score tuples, representing a manual evaluation.
+    \item \textbf{organizersList} and \textbf{studentList} are JSON lists of \emph{EDid}s and \emph{STid}s.
+    \item \textbf{searchQuery} is a search term used for KTs and KBs search in the DBMS\@.
+\end{itemize} 
+
+Those parameters are necessary for a correct comprehension of the following sequence diagrams.
+
+
+
 \subsection{Educator Runtime Views}
 
 \subsubsection{Create Kata Tournament}
 This Runtime View describes the creation of a Kata Tournament.
-The Client application will send all the necessary information to the WebServer, along with the Educator auth. token (obtained via the login procedure, figure~\ref{fig:Login_runtime}).
-The Web Server will then (if the auth. token is valid) ask an EducatorService to create a KT\@.
+The Client application will send all the necessary information to the WebServer, along with the Educator authentication token (obtained via the login procedure, figure~\ref{fig:Login_runtime}).
+The Web Server will then (if the authentication token is valid) ask an EducatorService to create a KT\@.
 At the end a successful interaction the user will be redirected to the Kata Tournament Page.
 
 \begin{figure}[H]
@@ -403,9 +425,9 @@ At the end a successful interaction the user will be redirected to the Kata Tour
 \cleardoublepage
 \subsubsection{Create Kata Battle}
 This Runtime View describes the creation of a Kata Battle.
-The Client application will send all the necessary information to the WebServer, along with the Educator verification token.
-The Web Server will then (if the verification token is valid) ask an EducatorService to create a KT\@.
-At the end a successful interaction the user will be redirected to the Kata Tournament Page.
+The Client application will send all the necessary information to the WebServer, along with the Educator authentication token.
+The Web Server will then (if the authentication token is valid) asks an EducatorService to create a KB\@.
+At the end a successful interaction the user will be redirected to the Kata Battle Page.
 
 \begin{figure}[H]
 \centering
@@ -468,6 +490,7 @@ Note : for the getKTPage interaction refer to figure~\ref{fig:getKTPage_runtime}
 \subsubsection{Close Tournament}
 This Runtime View shows how the Educator will be able to close a KT that he owns.
 The Model will need to check whether if all the KTBs are ended in that specific KT\@.
+If the check is successful it will notify each user that took part in the KT.
 
 \begin{figure}[H]
 \centering
@@ -580,13 +603,12 @@ The confirmationToken needed for the registration confirmation function is a tok
 \centering
 \label{fig:Registration_runtime}
 \end{figure}
-Another important note: every possible alternative flow, for example if the credentials or if some DBMS update queries fail, the registration fails immediately, every function is returned false and the user sees the failed registration attempt, not being redirected to the homePage.
 
 \cleardoublepage
 \subsubsection{Login}
 This Runtime View describes the login process of both Educators and Students. 
-The login process is used to obtain a verification token in form of a cookie by the Client Application. 
-This token will be requested for every other functionality of the system besides registration.
+The login process is used to obtain a verification token in form of a cookie (or other authentication mechanisms) by the Client Application. 
+This token will be requested for every other functionality of the system besides authentication.
 
 \begin{figure}[H]
 \centering
@@ -663,26 +685,10 @@ Those functionalities will be offered by the InfoService:
 \cleardoublepage
 
 \section{Component interfaces} \label{sec:component_interfaces}
-This section, after a short description of the most important parameters used by the interfaces, will contain a list of all the required functions that each interface will need to provide.
+This section will contain a list of all the required functions that each interface will need to provide.
 For each interface there will be a short description of what that interface will be used for.
 
-\subsubsection{Parameters specification}
-We outline the key parameters utilized within the interfaces :
-\begin{itemize}
-    \item The \textbf{authToken} is a token provided via the Authentication Service, stored client-side and needed for client-server authentication.
-    \item The \textbf{confirmationToken} is a token provided via the confirmation email, needed to authenticate the confirmation.
-    \item The \textbf{teamAuthToken} is a token provided via Student Service, needed to authenticate new code commits notified to the Submission API. The users will insert those tokens into their GitHub Action workflow, or into other Third-Party Applications that will notify new commits through the API.
-    \item \textbf{EDid}, \textbf{STid}, \textbf{TeamID},\textbf{KTid} and \textbf{KBid} are respectively IDs for Educator users, Student users, Teams, Kata Tournaments and Kata Battles.
-    They will be unique identifiers for those entities shared between the Services and the DBMS\@.
-    \item \textbf{userID} is whether an EDid or a STid.
-    \item \textbf{project} is a JSON that represent folder structures and content of a software project.
-    \item \textbf{testCases} is a JSON that represent the testCases for a specific project.
-    \item \textbf{settings} is a JSON that represent the settings, that is what parameters of the static evaluation will be taken into consideration and if a manual evaluation is needed, for a specific KB\@.
-    \item \textbf{evaluation} is a JSON that contains TeamID to score tuples, representing a manual evaluation.
-    \item \textbf{organizersList} and \textbf{studentList} are JSON lists of \emph{EDid}s and \emph{STid}s.
-    \item \textbf{searchQuery} is a search term used for KTs and KBs search in the DBMS\@.
-\end{itemize}
-
+\emph{Note}: For any doubt in the parameters specified refer to section \ref{sec:runtime_view} - \nameref{sec:parameters_specification}.
 
 \subsubsection {Website Interface}
 The Website Interface will technically be implemented in a web server providing those functionalities via the HTTP protocol.
@@ -720,7 +726,6 @@ getNotification(authToken) : NotificationList \\
 \hline
 \end{longtable}
 
-\cleardoublepage
 \subsubsection{Registration Interface}
 
 The Registration Interface will be used to register a new user to the CKB platform.
@@ -750,8 +755,7 @@ verify(email, password) : AuthToken \\
 
 \subsubsection{Educator Interface}
 The Educator Interface will provide all the needed functionalities for Educators.
-It will be implemented via the EducatorService and will comply the RESTful API standard, meaning that
-project, testCases and evaluation parameters will need to be of JSON format.
+It will be implemented via the EducatorService and will comply the RESTful API standard.
 
 \begin{longtable}[h] {|p{130mm}|}
 \hline
@@ -897,28 +901,32 @@ analyze(repo, KBid, TeamID) : boolean \\
 
     \item[Service-Oriented Architecture (SOA)]
     The CKB platform adopts a Service-Oriented Architecture to foster flexibility, scalability, interoperability and seamless integration of services.
-    Each major functionality, such as authentication, educator management, and student interaction, is encapsulated within independent services.
+    Each major functionality, such as authentication or educator and student functions, is encapsulated within independent services.
     This allows for distributed development, making it easier to scale and update specific components without affecting the entire system, while allowing independent development workflows for each service.
 \end{description}
 \section{Other design decisions} \label{sec:design_decisions}
 
+\subsection{Spring Services} 
+The decision of using the Spring Framework has been made since Spring is one of the most popular and easiest Java-based framework for the development of
+distributed software systems, especially for the development of RESTful APIs.
+
 \subsection{The Info Service - Architectural Consistency}
 The InfoService may seem a useless and trivial Service since it could be completely avoided by providing a direct connection from the WebServer to the DBMS or the Model component.
-Nevertheless, we decided to leave the responsibility of retrieving the data to a third RESTful component for architectural consistency and to let the WebServer interact with every needed external interfaces in the same way.
+Nevertheless, we decided to leave the responsibility of retrieving the data to a third RESTful component for architectural consistency and to let the WebServer interact with every needed external interface in the same way.
 
 \subsection{The Notification Service - Event Driven Notifications} \label{sec:the_notificationservice_eventdrivennotifications}
-The Notification Service, beside providing an easy access to a third party email provider, will provide a notification system which will temporarily store notifications sent by the system's events.
+The Notification Service, beside providing an easy access to a third party email provider, will provide a notification system which will temporarily store notifications sent by the system's services.
 This Notification system will be mimicking a \emph{producer to consumer event-driven-architecture} since it will be the Client Application responsibility to retrieve those notifications.
 
 %  3  --------------------------------------------------------------------------------------------%
-\graphicspath{ {./images/UI/} }
 \def\UIwidth{1}
 
 \chapter{User Interface Design}
-In this section will be presented an overview of the user's interface of the CKB system.
+In this section will be presented an overview of the user's interface of the CKB platform.
 Since the UI will present itself as a website to its end users we will provide a composition of interconnected website pages, designed with the main focus on user experience.
+Those Interfaces are to be considered as \emph{mockups}.
 \section{Website Pages}
-In the following subsections we'll introduce each defined website pages, expanding the RASD documentation of the CKB project.
+In the following subsections we'll introduce each defined website pages, expanding the RASD documentation's definitions.
 \subsection{Registration Page}
 \begin{figure}[H]
 \centering
@@ -969,7 +977,7 @@ As for the Student Home Page the search button will redirect to the Search Page,
 \label{fig:educator_home_page}
 \end{figure}
 
-When clicking on the \("\)New Kata Tournament\("\) button a form will appear and the user will be requested to insert a name for the Kata Tournament and a description for it (as depicted in figure~\ref{fig:educator_home_page_new_tournament}).
+When clicking on the \("\)New Kata Tournament\("\) button a form will appear and the user will be requested to insert a name for the Kata Tournament and a description for it.
 
 \begin{figure}[H]
 \centering
@@ -1021,7 +1029,8 @@ This functionality will be provided using a Subscribe Button (the \("\)Already S
 
 The Educators will have three main additional functionalities added to their KT Pages:
 \begin{itemize}
-    \item Create new KBs : provided via the \("\)New Kata Battle\("\) button and form asking for a KB name, a description, a toggle for manual evaluation and the upload project button.
+    \item Create new KBs : provided via the \("\)New Kata Battle\("\) button and form asking for a KB name, a description, a toggle for manual evaluation, the minimum and maximum team size, and the upload project button.
+        The Automatic Evaluation settings will need to be set in this phase. Since those settings depend heavily on implementation details, we won't provide any mockups for them.
     (figure~\ref{fig:educator_kt_page_newKB})
 
 \begin{figure}[H]
@@ -1058,7 +1067,7 @@ The Educators will have three main additional functionalities added to their KT 
 
 
 \subsection{Kata Battle Page}
-Both users will see the information about that kata battle, that is : the code kata description, the link to the KB's Official GitHub repo, the minimum and maximum size of the Teams, the registration/submission deadlines and if a manual evaluation is needed.
+Both users will see the information about that kata battle, that is : the code kata description, the link to the KB's Official GitHub repo (which will be empty until the battle begins), the minimum and maximum team size, the registration/submission deadlines and if a manual evaluation is needed.
 
 \subsubsection{Student Kata Battle Page}
 Students won't be able to see the Kata Battle description up until the end of the Registration Phase.
@@ -1091,7 +1100,7 @@ During the Kata Battle the Students participating will have the possibility to r
 
 \subsubsection{Educator Kata Battle Page}
 Once the KB ends, organizers will be able to evaluate team solutions by assigning a personal score to each team, provided they opted for manual evaluation during the KB creation process.
-Educators will be linked directly to the GitHub repos of the Teams by clicking on the GitHub icon beside the Teams' names.
+Educators will be redirected directly to the GitHub repos of the Teams by clicking on the GitHub icon beside the Teams' names.
 
 \begin{figure}[H]
 \centering
@@ -1114,17 +1123,16 @@ Educators and Students will have the possibility to navigate between those pages
 \label{fig:UIFlow}
 \end{figure}
 
-\graphicspath{ {./images/} }
 %  4  --------------------------------------------------------------------------------------------%
 
 \chapter{Requirements Traceability}
 In this section we establish a link between the specified project requirements and the components delineated within this document,
 guaranteeing a thorough verification of alignment between the specified project needs and the architectural elements.
 
-\subsection{Requirements}
+\section{Requirements}
 For reference purposes, here are reported all the requirements for the systems.
 
-\subsubsection*{Registration and Identification}
+\subsection*{Registration and Identification}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
     \hline
@@ -1136,7 +1144,7 @@ For reference purposes, here are reported all the requirements for the systems.
     \\ \hline
 \end{longtable}
 
-\subsubsection*{Creation of Kata Tournaments}
+\subsection*{Creation of Kata Tournaments}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
     \hline
@@ -1156,7 +1164,7 @@ For reference purposes, here are reported all the requirements for the systems.
     \\ \hline
 \end{longtable}
 
-\subsubsection*{Creation of Kata Battles}
+\subsection*{Creation of Kata Battles}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
     \hline
@@ -1192,7 +1200,7 @@ For reference purposes, here are reported all the requirements for the systems.
     \\ \hline
 \end{longtable}
 
-\subsubsection*{Beginning of Kata Battles}
+\subsection*{Beginning of Kata Battles}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
     \hline
@@ -1204,7 +1212,7 @@ For reference purposes, here are reported all the requirements for the systems.
     \\ \hline
 \end{longtable}
 
-\subsubsection*{Scoring and Automatic Testing}
+\subsection*{Scoring and Automatic Testing}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
     \hline
@@ -1228,7 +1236,7 @@ For reference purposes, here are reported all the requirements for the systems.
     \\ \hline
 \end{longtable}
 
-\subsubsection*{Conclusion of a Kata Battle and Consolidation Stage}
+\subsection*{Conclusion of a Kata Battle and Consolidation Stage}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
     \hline
@@ -1248,7 +1256,7 @@ For reference purposes, here are reported all the requirements for the systems.
     \\ \hline
 \end{longtable}
 
-\subsubsection*{Personal Tournament Scores}
+\subsection*{Personal Tournament Scores}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
     \hline
@@ -1260,7 +1268,7 @@ For reference purposes, here are reported all the requirements for the systems.
     \\ \hline
 \end{longtable}
 
-\subsubsection*{Conclusion of a Kata Tournament}
+\subsection*{Conclusion of a Kata Tournament}
 
 \begin{longtable}[h] {|p{10mm}|p{130mm}|}
     \hline
@@ -1290,11 +1298,11 @@ Each requirement is ensured by at least one corresponding component.
     \\ \hline
     KTManagerService &
     R3 - R5, R41 &
-    Necessary to handle all the KT actions that an educator can perform.
+    Necessary to handle all the actions that an educator can perform over a KT.
     \\ \hline
     KBManagerService &
     R9 - R18, R34 - R36, R39 &
-    Necessary to handle all the KB actions that an educator can perform.
+    Necessary to handle all the actions that an educator can perform over a KB.
     \\ \hline
     StudentService &
     R7, R21 - R22 &
@@ -1302,23 +1310,23 @@ Each requirement is ensured by at least one corresponding component.
     \\ \hline
     InfoService &
     R6, R8, R19 - R20, R24, R32 - R33, R37 - R38, R40, R42 &
-    Necessary to give all infos to the users.
+    Necessary to give all the needed information to users.
     \\ \hline
     SubmissionService &
     R25 &
-    Necessary to give the students the possibility to push a solution.
+    Necessary to give students the possibility to submit a solution.
     \\ \hline
     NotificationController &
     R6, R19, R24, R37, R42 &
-    Necessary to notify users.
+    Necessary to notify users via email and website notifications.
     \\ \hline
     AutomaticEvaluation &
     R26 - R31 &
-    Necessary to perform all the analysis on the pushed code.
+    Necessary to perform all the analysis on the submitted solutions.
     \\ \hline
     Model, DBMS &
     R1 - R24, R28 - R42 &
-    Necessary in most of the actions since is always necessary read or write data.
+    Necessary in most of the requirements since it is always necessary to read or write data to the DBMS.
     \\ \hline
 \end{longtable}
 
@@ -1331,7 +1339,7 @@ these should be implemented, integrated, and tested in order to have a working s
 The main idea is to first start with a \emph{bottom-up} approach to create the 
 component that directly interact with the database, in order to have a fully 
 working data retrieval and management layer.
-Then a \emph{thread strategy} approach will be employed for the concurrent development of all services.
+Then a \emph{thread strategy} approach will be employed for the concurrent development of the services.
 Work will be divided based on functionality, allowing for parallel progress and efficient utilization of resources.
 The later stages, involving the development of the server and client components, revert to a \emph{bottom-up} approach,
 given the consequential nature of this work.
@@ -1351,44 +1359,49 @@ Following this order will streamline the development process and ensure a system
     \label{fig:development_time}
 \end{figure}
 
+\noindent
+We define four phases:
 \begin{description}
-    \item[Data Tier] Implement the DBMS and associated structures to store and manage data effectively, and so the Model.
-    During this step a team can also work on the NotificationController, given that it is independent from the model
-    \item[Business Tier] Develop core business logic and services concurrently to allow multiple teams to work on distinct services.
-    At this stage it is possible to make extensive use of a modular approach for independent development:
-    The first phase play pivotal roles by providing essential interfaces for the subsequent deployment of the remaining Business Tier.
+    \item[Data Tier Phase] Implement the DBMS and associated structures to store and manage data effectively, and so the Model.
+    During this step a team can also work on the NotificationController, given that it is independent from the model.
+    The first phase plays a pivotal role by providing essential interfaces for the subsequent deployment of the remaining Business Tier.
+    \item[Business Tier Phase] Develop core business logic and services concurrently to allow multiple teams to work on distinct services.
+    At this stage it is possible to make extensive use of a modular approach for independent development between teams.
     Notably, the Submission Service should be implemented post the completion of the Automatic Evaluation component.
-    \item[Server Presentation Tier] In this phase the teams will have to focus on the development of server-side components for handling user requests
+    \item[Server Presentation Tier Phase ] In this phase the teams will have to focus on the development of server-side components for handling user requests
     and ensure that all the necessary interfaces are correctly exposed following the interfaces guidelines described in section~\ref{sec:component_interfaces},
     since those interfaces will be necessary for the integration testing process.
-    \item[Client Presentation Tier] Teams develop user interface components concurrently, keeping active a
-    collaborations with the server-side team for early integration points, and with design group if present to ensure that the user interface aligns with the intended visual and user experience guidelines..
+    \item[Client Presentation Tier Phase] Teams will develop user interface components concurrently, keeping an active 
+    collaboration with the server-side teams, and with the design team to ensure that the user interface aligns with the intended visual and user experience guidelines.
 \end{description}
 
 \section{Integration}
 Integration is a critical phase in the development lifecycle of the CKB project, where individual components and modules come together to form a cohesive and functioning system.
 The primary objective of integration is to validate that each unit, when combined, behaves as intended and meets the specified requirements.
+\\
+
+\noindent
+We define four different integrations phases:
 \begin{description}
     \item[Data - Business] Integrate the business logic with the data tier.
     Verify the consistency of data flow and handling across different components.
-    The sequence in which we integrate components will follow the implementation order of the business tier, enabling a parallel integration of different services at the same time
-    \item[External Actor] Confirm proper engagement with external actors, like GitHub for pull operations and email for notifications.
-    \item[Business - Server] Integrate server-side components with the business logic.
-    Perform early integration tests to identify and address potential issues.
-    \item[Server - Client] Integrate the user interface with server-side components.
-    Establish communication protocols for efficient data exchange.
+    The sequence in which we integrate components will follow the implementation order of the business tier, enabling a parallel integration of different services at the same time.
+    \item[External Actors] Confirm proper engagement with external actors, like GitHub for push and pull operations and email providers for notifications.
+    \item[Business - Web Server] Integrate the Web Server component with the business logic and perform essential integration tests to identify and address potential issues.
+    \item[Web Server - Client] Integrate the user interface with server-side components establishing the necessary communication protocols for efficient data exchange.
 \end{description}
 
 \section{Testing}
 In the CKB project, we adopt an iterative and parallelized approach to the testing phase, seamlessly integrating it with the implementation and integration stages.
 This methodology is designed to optimize efficiency, facilitate more frequent releases, and enhance collaboration among team members.
 
-In software testing, three key levels play distinct roles in ensuring the robustness and reliability of a system:
+In the CKB software testing process, we'll ensure that the three key testing levels will be verified to ensure the robustness and reliability of the system. 
+In detail:
 \begin{description}
-    \item[Unit] Implement unit tests for services, components, and database operations to verify their correctness independently.
+    \item[Unit] Each service, component, and database operation will be unit tested to verify their correctness independently.
     Unit tests provide a granular examination of the software's building blocks.
-    \item[Integration] Conduct integration tests to verify seamless interaction between different tiers.
-    \item[System-Level] Perform system-level tests to evaluate overall system performance, user interactions, and data flow.
+    \item[Integration] At Each Integration Phase the developmente team will conduct integration tests to verify seamless interaction between different tiers.
+    \item[System-Level] Before deployment the entire system will be tested to evaluate overall system performance, user interactions, and data flow.
 \end{description}
 
 %  6  --------------------------------------------------------------------------------------------%
@@ -1398,9 +1411,19 @@ In software testing, three key levels play distinct roles in ensuring the robust
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Student}       & \textbf{Effort} \\ \hline
-Filippo Riva           & 32h              \\ \hline
-Antonio Sulfaro        & 25h              \\ \hline
+Filippo Riva           & 39h              \\ \hline
+Antonio Sulfaro        & 35h              \\ \hline
 \end{tabular}
 \end{table}
+
+\chapter{References}
+\section{Tools Used}
+
+\begin{itemize}[label={}]
+    \item VSCode and Intellij - \LaTeX \  Editor
+    \item draw.io - Generic Diagrams
+    \item StarUML - Sequence Diagrams and Component Diagrams
+    \item uizard.io - UI mockups
+\end{itemize}
 
 \end{document}
